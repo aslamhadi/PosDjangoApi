@@ -93,6 +93,7 @@ INSTALLED_APPS += (
     'corsheaders',
     'pos_app.api',
     'pos_app.category',
+    'pos_app.product',
 )
 
 REST_FRAMEWORK = {
