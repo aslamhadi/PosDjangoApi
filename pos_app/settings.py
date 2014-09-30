@@ -92,6 +92,7 @@ INSTALLED_APPS += (
     'rest_framework.authtoken',
     'corsheaders',
     'pos_app.api',
+    'pos_app.category',
 )
 
 REST_FRAMEWORK = {
