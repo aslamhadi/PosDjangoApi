@@ -1,0 +1,16 @@
+*.DS_Store
+*.db
+*.egg-info
+*.egg-info
+*.log
+*.log.*
+*.pot
+*.pyc
+*.pyc
+*.swp
+*.sqlite3
+.coverage
+.idea/
+.pip_cache
+.treerc
+local_settings.py
