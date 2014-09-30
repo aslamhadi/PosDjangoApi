@@ -1,5 +1,5 @@
 """
-Django settings for POSDjangoAngular project.
+Django settings for pos_app project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/1.7/topics/settings/
@@ -39,6 +39,7 @@ INSTALLED_APPS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -48,9 +49,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'POSDjangoAngular.urls'
+ROOT_URLCONF = 'pos_app.urls'
 
-WSGI_APPLICATION = 'POSDjangoAngular.wsgi.application'
+WSGI_APPLICATION = 'pos_app.wsgi.application'
 
 
 # Database
@@ -85,3 +86,18 @@ STATIC_URL = '/static/'
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR,  'templates'),
 )
+
+INSTALLED_APPS += (
+    'rest_framework',
+    'rest_framework.authtoken',
+    'corsheaders',
+    'pos_app.api',
+)
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
