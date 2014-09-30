@@ -1,0 +1,196 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<!--[if IE 9 ]><html class="ie9"><![endif]-->
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no">
+    <meta charset="UTF-8">
+
+    <meta name="description" content="Labster back office">
+    <meta name="keywords" content="Labster, office">
+
+    <title>Labster back office</title>
+
+    <!-- CSS -->
+    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'bootstrap/css/animate.min.css' %}" rel="stylesheet">
+    <link href="{% static 'bootstrap/css/font-awesome.min.css' %}" rel="stylesheet">
+    <link href="{% static 'bootstrap/css/form.css' %}" rel="stylesheet">
+    <link href="{% static 'bootstrap/css/calendar.css' %}" rel="stylesheet">
+    <link href="{% static 'bootstrap/css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'bootstrap/css/icons.css' %}" rel="stylesheet">
+    <link href="{% static 'bootstrap/css/generics.css' %}" rel="stylesheet">
+
+    {% block style_css %} {% endblock %}
+</head>
+<body id="skin-blur-blue">
+
+<header id="header" class="media">
+    <a href="" id="menu-toggle"></a>
+    <a class="logo pull-left" href="{% url 'account:index' %}">Labster Back Office</a>
+
+    <div class="media-body">
+        <div class="media" id="top-menu">
+
+            <div id="time" class="pull-right">
+                <span id="hours"></span>
+                :
+                <span id="min"></span>
+                :
+                <span id="sec"></span>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="clearfix"></div>
+
+<section id="main" class="p-relative" role="main">
+
+    <!-- Sidebar -->
+    <aside id="sidebar">
+
+        <!-- Sidebar Widgets -->
+        <div class="side-widgets overflow">
+            <!-- Profile Menu -->
+            {% if user.is_authenticated %}
+                <div class="text-center s-widget m-b-25 dropdown" id="profile-menu">
+                    <a href="" data-toggle="dropdown">
+                        <img class="profile-pic animated" src="{% static 'bootstrap/img/profile-pics/labster.png' %}"
+                             alt="">
+                    </a>
+                    <ul class="dropdown-menu profile-menu">
+                        <li><a href="{% url "account:logout" %}">Sign Out</a> <i class="icon left">&#61903;</i><i
+                                class="icon right">&#61815;</i></li>
+                    </ul>
+                    <h4 class="m-0">Welcome, {{ user.username }}</h4>
+                </div>
+            {% endif %}
+            <!-- Calendar -->
+            <div class="s-widget m-b-25">
+                <div id="sidebar-calendar"></div>
+            </div>
+        </div>
+
+        <!-- Side Menu -->
+        <ul class="list-unstyled side-menu">
+            <li class="active">
+                <a class="sa-side-home" href="{% url 'home' %}">
+                    <span class="menu-item">Home</span>
+                </a>
+            </li>
+            <li>
+                <a class="sa-side-key" href="{% url 'license:index' %}">
+                    <span class="menu-item">License</span>
+                </a>
+            </li>
+            <li>
+                <a class="sa-side-money-bag" href="{% url 'payment:index' %}">
+                    <span class="menu-item">Payment</span>
+                </a>
+            </li>
+            {% if user.is_superuser %}
+                <li>
+                    <a class="sa-side-user" href="{% url 'account:index' %}">
+                        <span class="menu-item">Account</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="sa-side-university" href="{% url 'education:index' %}">
+                        <span class="menu-item">Education</span>
+                    </a>
+                </li>
+            {% endif %}
+        </ul>
+
+    </aside>
+
+    <!-- Content -->
+    <section id="content" class="container">
+
+        <!-- Breadcrumb -->
+        {% block breadcrumb %}
+            <ol class="breadcrumb hidden-xs">
+                <li class="active"><a href="#">Home</a></li>
+            </ol>
+        {% endblock %}
+
+        <h4 class="page-title">
+            {% block page_title %}DASHBOARD{% endblock %}
+        </h4>
+
+        <hr class="whiter"/>
+
+        <!-- Main Widgets -->
+        {% block content %}{% endblock %}
+
+    </section>
+
+    <!-- Older IE Message -->
+    <!--[if lt IE 9]>
+                <div class="ie-block">
+                    <h1 class="Ops">Ooops!</h1>
+                    <p>You are using an outdated version of Internet Explorer, upgrade to any of the following web browser in order to access the maximum functionality of this website. </p>
+                    <ul class="browsers">
+                        <li>
+                            <a href="https://www.google.com/intl/en/chrome/browser/">
+                                <img src="img/browsers/chrome.png" alt="">
+                                <div>Google Chrome</div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://www.mozilla.org/en-US/firefox/new/">
+                                <img src="img/browsers/firefox.png" alt="">
+                                <div>Mozilla Firefox</div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://www.opera.com/computer/windows">
+                                <img src="img/browsers/opera.png" alt="">
+                                <div>Opera</div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://safari.en.softonic.com/">
+                                <img src="img/browsers/safari.png" alt="">
+                                <div>Safari</div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://windows.microsoft.com/en-us/internet-explorer/downloads/ie-10/worldwide-languages">
+                                <img src="img/browsers/ie.png" alt="">
+                                <div>Internet Explorer(New)</div>
+                            </a>
+                        </li>
+                    </ul>
+                    <p>Upgrade your browser for a Safer and Faster web experience. <br/>Thank you for your patience...</p>
+                </div>   
+            <![endif]-->
+</section>
+
+<!-- Javascript Libraries -->
+<!-- jQuery -->
+<script src="{% static 'bootstrap/js/jquery.min.js' %}"></script>
+<!-- jQuery Library -->
+<script src="{% static 'bootstrap/js/jquery-ui.min.js' %}"></script>
+<!-- jQuery UI -->
+
+<!-- Bootstrap -->
+<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+
+<!-- Other -->
+<script src="{% static 'bootstrap/js/calendar.min.js' %}"></script>
+<!-- Calendar -->
+
+<!-- UX -->
+<script src="{% static 'bootstrap/js/scroll.min.js' %}"></script>
+<!-- Custom Scrollbar, required for the calendar as well  -->
+
+<!-- All JS functions -->
+<script src="{% static 'bootstrap/js/functions.js' %}"></script>
+
+<!-- Custom script -->
+{% block script %}{% endblock %}
+</body>
+</html>

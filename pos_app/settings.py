@@ -95,6 +95,7 @@ INSTALLED_APPS += (
     'pos_app.category',
     'pos_app.product',
     'pos_app.payment',
+    'pos_app.front_end',
 )
 
 REST_FRAMEWORK = {
