@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% verbatim %}
+    <div class="block-area">
+        <h3 class="block-title">Add University</h3>
+    </div>
+    <div class="block-area">
+        <div class="tile p-15">
+            <form role="form" action="{{ action }}" method="post">{% csrf_token %}
+                {% for field in form %}
+                    <div class="form-group">
+                        <label> {{ field.label_tag }} </label>
+                        {{ field|add_css:'form-control' }}
+                    </div>
+                {% endfor %}
+                <button type="submit" class="btn btn-sm m-t-10">Submit</button>
+            </form>
+        </div>
+    </div>
+{% endverbatim %}
+{% endblock %}

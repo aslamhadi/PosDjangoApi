@@ -14,6 +14,10 @@ posAngular.config(['$routeProvider',
                 templateUrl: 'templates/index.html',
                 controller: 'HomeCtrl'
             }).
+            when('#/category/',{
+                templateUrl: 'templates/category/index',
+                controller: 'CategoryCtrl'
+            }).
             otherwise({
                redirectTo: '/'
             });

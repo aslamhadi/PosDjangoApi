@@ -7,10 +7,10 @@
     <meta name="format-detection" content="telephone=no">
     <meta charset="UTF-8">
 
-    <meta name="description" content="Labster back office">
-    <meta name="keywords" content="Labster, office">
+    <meta name="description" content="Aplikasi apotek">
+    <meta name="keywords" content="apotek">
 
-    <title>Labster back office</title>
+    <title>Apotek</title>
 
     <!-- CSS -->
     <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -76,9 +76,9 @@
         <!-- Side Menu -->
         <ul class="list-unstyled side-menu">
             <li class="active">
-{#                <a class="sa-side-home" href="{% url 'home' %}">#}
-{#                    <span class="menu-item">Home</span>#}
-{#                </a>#}
+                <a class="sa-side-home" href="#/category/">
+                    <span class="menu-item">Home</span>
+                </a>
             </li>
         </ul>
 
@@ -152,6 +152,7 @@
 <script src="{% static 'bower_components/angular-route/angular-route.js' %}"></script>
 <script src="{% static 'angularjs/app.js' %}"></script>
 <script src="{% static 'angularjs/controllers/home.js' %}"></script>
+<script src="{% static 'angularjs/controllers/category.js' %}"></script>
 
 <!-- jQuery -->
 <script src="{% static 'bootstrap/js/jquery.min.js' %}"></script>
