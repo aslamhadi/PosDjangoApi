@@ -11,11 +11,11 @@ posAngular.config(['$routeProvider',
     function($routeProvider) {
         $routeProvider.
             when('/', {
-                templateUrl: 'templates/index.html',
+                templateUrl: 'static/views/index.html',
                 controller: 'HomeCtrl'
             }).
-            when('#/category/',{
-                templateUrl: 'templates/category/index',
+            when('/category/',{
+                templateUrl: 'static/views/category/index.html',
                 controller: 'CategoryCtrl'
             }).
             otherwise({
