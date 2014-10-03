@@ -24,11 +24,11 @@
 
     {% block style_css %} {% endblock %}
 </head>
-<body id="skin-blur-blue">
+<body id="skin-blur-blue" ng-app="posAngular">
 
 <header id="header" class="media">
     <a href="" id="menu-toggle"></a>
-    <a class="logo pull-left" href="{% url 'account:index' %}">Labster Back Office</a>
+{#    <a class="logo pull-left" href="{% url 'account:index' %}">Labster Back Office</a>#}
 
     <div class="media-body">
         <div class="media" id="top-menu">
@@ -61,8 +61,8 @@
                              alt="">
                     </a>
                     <ul class="dropdown-menu profile-menu">
-                        <li><a href="{% url "account:logout" %}">Sign Out</a> <i class="icon left">&#61903;</i><i
-                                class="icon right">&#61815;</i></li>
+{#                        <li><a href="{% url "account:logout" %}">Sign Out</a> <i class="icon left">&#61903;</i><i#}
+{#                                class="icon right">&#61815;</i></li>#}
                     </ul>
                     <h4 class="m-0">Welcome, {{ user.username }}</h4>
                 </div>
@@ -76,39 +76,16 @@
         <!-- Side Menu -->
         <ul class="list-unstyled side-menu">
             <li class="active">
-                <a class="sa-side-home" href="{% url 'home' %}">
-                    <span class="menu-item">Home</span>
-                </a>
+{#                <a class="sa-side-home" href="{% url 'home' %}">#}
+{#                    <span class="menu-item">Home</span>#}
+{#                </a>#}
             </li>
-            <li>
-                <a class="sa-side-key" href="{% url 'license:index' %}">
-                    <span class="menu-item">License</span>
-                </a>
-            </li>
-            <li>
-                <a class="sa-side-money-bag" href="{% url 'payment:index' %}">
-                    <span class="menu-item">Payment</span>
-                </a>
-            </li>
-            {% if user.is_superuser %}
-                <li>
-                    <a class="sa-side-user" href="{% url 'account:index' %}">
-                        <span class="menu-item">Account</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="sa-side-university" href="{% url 'education:index' %}">
-                        <span class="menu-item">Education</span>
-                    </a>
-                </li>
-            {% endif %}
         </ul>
 
     </aside>
 
     <!-- Content -->
     <section id="content" class="container">
-
         <!-- Breadcrumb -->
         {% block breadcrumb %}
             <ol class="breadcrumb hidden-xs">
@@ -170,6 +147,12 @@
 </section>
 
 <!-- Javascript Libraries -->
+<!-- Angularjs -->
+<script src="{% static 'bower_components/angular/angular.js' %}"></script>
+<script src="{% static 'bower_components/angular-route/angular-route.js' %}"></script>
+<script src="{% static 'angularjs/app.js' %}"></script>
+<script src="{% static 'angularjs/controllers/home.js' %}"></script>
+
 <!-- jQuery -->
 <script src="{% static 'bootstrap/js/jquery.min.js' %}"></script>
 <!-- jQuery Library -->

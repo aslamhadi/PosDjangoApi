@@ -14,4 +14,4 @@
 .pip_cache
 .treerc
 local_settings.py
-pos_app/front_end/bower_components/*
+pos_app/front_end/static/bower_components/*

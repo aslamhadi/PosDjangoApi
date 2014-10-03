@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block page_title %}HOME{% endblock %}
+
+{% block breadcrumb %}
+    <ol class="breadcrumb hidden-xs">
+        <li class="active"><a href="#">Home</a></li>
+    </ol>
+{% endblock %}
+
+{% block content %}
+{% verbatim %}
+    <div ng-controller="HomeCtrl">
+        test content
+        {{ banana }}
+    </div>
+{% endverbatim %}
+{% endblock %}
