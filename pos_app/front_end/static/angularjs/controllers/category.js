@@ -25,5 +25,17 @@ posControllers.controller('CategoryCtrl', ['$scope', 'categoryService',
             // Reset the form once values have been consumed.
             $scope.form.name = "";
         };
+
+        $scope.deleteCategory = function (category) {
+            categoryService.deleteCategory(category.id)
+                .then(
+                function (response) {
+                    if (response.status == 204) {
+                        var index = $scope.categories.indexOf(category);
+                        $scope.categories.splice(index, 1)
+                    }
+                }
+            );
+        };
     }
 ]);
