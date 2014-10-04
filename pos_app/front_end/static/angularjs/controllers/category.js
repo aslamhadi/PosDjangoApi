@@ -44,8 +44,17 @@ posControllers.controller('CategoryCtrl', ['$scope', '$location', 'categoryServi
     }
 ]);
 
-posControllers.controller('CategoryUpdateCtrl', ['$scope', '$location',
-    function($scope, $location) {
+posControllers.controller('CategoryUpdateCtrl', ['$scope',  '$location', '$routeParams', 'categoryService',
+    function($scope, $location, $routeParams, categoryService) {
+        getCategory();
 
+        function getCategory() {
+            categoryService.getCategory($routeParams.id)
+                .then(
+                function (category) {
+                    $scope.category = category.data;
+                }
+            );
+        }
     }
 ]);

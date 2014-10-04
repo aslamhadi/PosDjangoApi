@@ -1,1 +1,12 @@
-lalalalalalalal
+<div class="block-area" id="inline">
+    <h3 class="block-title">Update kategori obat</h3>
+
+    <form class="form-inline" role="form" ng-submit="updateCategory()">
+        <div class="form-group">
+            <label class="sr-only" for="exampleInputEmail2">Email address</label>
+            <input type="hidden" ng-value="category.id">
+            <input type="text" class="form-control input-sm" ng-model="category.name" placeholder="Nama kategory">
+        </div>
+        <button type="submit" class="btn btn-sm">Submit</button>
+    </form>
+</div>
