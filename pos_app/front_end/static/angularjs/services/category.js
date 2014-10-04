@@ -6,7 +6,8 @@ posServices.factory('categoryService', ['$http', '$q',
             addCategory: addCategory,
             getCategories: getCategories,
             getCategory: getCategory,
-            deleteCategory: deleteCategory
+            deleteCategory: deleteCategory,
+            updateCategory: updateCategory
         });
 
         function addCategory(name) {
@@ -46,6 +47,16 @@ posServices.factory('categoryService', ['$http', '$q',
                 }).
                 error(function (data, status, headers, config) {
                     console.warn(status);
+                });
+        }
+
+        function updateCategory(id, name) {
+            return $http({method: 'PUT', url: '/api/categories/' + id + '/', data: {name: name}}).
+                success(function (data, status, headers, config){
+                    return data;
+                }).
+                error(function (data, status, headers, config){
+                   console.warn(status);
                 });
         }
 

@@ -44,21 +44,24 @@ posControllers.controller('CategoryCtrl', ['$scope', '$location', 'categoryServi
     }
 ]);
 
-posControllers.controller('CategoryUpdateCtrl', ['$scope',  '$location', '$routeParams', 'categoryService',
-    function($scope, $location, $routeParams, categoryService) {
+posControllers.controller('CategoryUpdateCtrl', ['$scope', '$routeParams', 'categoryService',
+    function($scope, $routeParams, categoryService) {
+        $scope.responseMessage = "";
         getCategory();
 
         function getCategory() {
             categoryService.getCategory($routeParams.id)
-                .then(
-                function (category) {
+                .then(function (category) {
                     $scope.category = category.data;
                 }
             );
         }
 
-        $scope.cancelUpdate = function() {
-            $location.path('/category/');
-        }
+        $scope.updateCategory = function () {
+            categoryService.updateCategory($scope.category.id, $scope.category.name)
+                .then(function(response){
+                    if (response.status == 200) $scope.responseMessage = "Berhasil merubah kategori";
+                });
+        };
     }
 ]);
