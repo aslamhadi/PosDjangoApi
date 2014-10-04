@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from rest_framework.generics import ListCreateAPIView
 from rest_framework import generics
-from pos_app.api.serializers import UserSerializer, CategorySerializer
+from pos_app.api.serializers import UserSerializer, CategorySerializer, SubCategorySerializer
 from pos_app.category.models import Category, SubCategory
 
 
@@ -22,9 +22,9 @@ class CategoryDetail(generics.RetrieveUpdateDestroyAPIView):
 
 class SubCategoryListCreate(ListCreateAPIView):
     queryset = SubCategory.objects.all()
-    serializer_class = CategorySerializer
+    serializer_class = SubCategorySerializer
 
 
 class SubCategoryDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = SubCategory.objects.all()
-    serializer_class = CategorySerializer
+    serializer_class = SubCategorySerializer
