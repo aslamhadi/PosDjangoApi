@@ -1,5 +1,5 @@
-posControllers.controller('CategoryCtrl', ['$scope', 'categoryService',
-    function ($scope, categoryService) {
+posControllers.controller('CategoryCtrl', ['$scope', '$location', 'categoryService',
+    function ($scope, $location, categoryService) {
         $scope.categories = [];
         $scope.addResponse = "";
 
@@ -37,5 +37,15 @@ posControllers.controller('CategoryCtrl', ['$scope', 'categoryService',
                 }
             );
         };
+
+        $scope.updateCategory = function (categoryId) {
+            $location.path('/category/update/' + categoryId);
+        };
+    }
+]);
+
+posControllers.controller('CategoryUpdateCtrl', ['$scope', '$location',
+    function($scope, $location) {
+
     }
 ]);

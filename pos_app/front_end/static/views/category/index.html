@@ -29,7 +29,10 @@
             <tr ng-repeat="category in categories">
                 <td>{{ category.id }}</td>
                 <td>{{ category.name }}</td>
-                <td><a ng-click="deleteCategory(category)" class="btn btn-danger">hapus</a> </td>
+                <td>
+                    <a ng-click="deleteCategory(category)" class="btn btn-alt m-r-5">Hapus</a>
+                    <a ng-click="updateCategory(category.id)" class="btn btn-alt m-r-5">Update</a>
+                </td>
             </tr>
             </tbody>
         </table>

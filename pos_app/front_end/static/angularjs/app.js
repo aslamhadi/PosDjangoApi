@@ -20,6 +20,10 @@ posAngular.config(['$routeProvider',
                 templateUrl: 'static/views/category/index.html',
                 controller: 'CategoryCtrl'
             }).
+            when('/category/update/:id',{
+                templateUrl: 'static/views/category/update.html',
+                controller: 'CategoryUpdateCtrl'
+            }).
             otherwise({
                redirectTo: '/'
             });
