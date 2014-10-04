@@ -56,5 +56,9 @@ posControllers.controller('CategoryUpdateCtrl', ['$scope',  '$location', '$route
                 }
             );
         }
+
+        $scope.cancelUpdate = function() {
+            $location.path('/category/');
+        }
     }
 ]);
