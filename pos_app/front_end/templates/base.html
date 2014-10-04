@@ -76,9 +76,12 @@
         <!-- Side Menu -->
         <ul class="list-unstyled side-menu">
             <li class="active">
-                <a class="sa-side-home" href="#/category/">
-                    <span class="menu-item">Home</span>
+                <a class="sa-side-folder" href="#/category/">
+                    <span class="menu-item">Kategori</span>
                 </a>
+                <ul class="list-unstyled menu-item">
+                    <li><a href="#/subcategory/">Subkategori</a></li>
+                </ul>
             </li>
         </ul>
 
@@ -151,10 +154,17 @@
 <script src="{% static 'bower_components/angular/angular.js' %}"></script>
 <script src="{% static 'bower_components/angular-route/angular-route.js' %}"></script>
 <script src="{% static 'bower_components/angular-cookies/angular-cookies.js' %}"></script>
+
 <script src="{% static 'angularjs/app.js' %}"></script>
+
+<!-- Controllers -->
 <script src="{% static 'angularjs/controllers/home.js' %}"></script>
 <script src="{% static 'angularjs/controllers/category.js' %}"></script>
+<script src="{% static 'angularjs/controllers/subcategory.js' %}"></script>
+
+<!-- Services -->
 <script src="{% static 'angularjs/services/category.js' %}"></script>
+<script src="{% static 'angularjs/services/subcategory.js' %}"></script>
 
 <!-- jQuery -->
 <script src="{% static 'bootstrap/js/jquery.min.js' %}"></script>
