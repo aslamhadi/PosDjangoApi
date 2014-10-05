@@ -1,19 +1,25 @@
 <div class="block-area" id="inline">
     <h3 class="block-title">Update kategori obat</h3>
-
-    <!-- TODO: find a way to hide a div in angularjs -->
     <div class="alert alert-success ">
         {{ responseMessage }}
     </div>
-
-    <form class="form-inline" role="form" ng-submit="updateCategory()">
+    <form class="form col-md-5" role="form" ng-submit="updateSubCategory()">
         <div class="form-group">
-            <label class="sr-only" for="exampleInputEmail2">Email address</label>
-            <input type="hidden" ng-value="category.id">
-            <input type="text" class="form-control input-sm" ng-model="category.name" placeholder="Nama kategory">
+            <label for="category_id">
+                Kategori
+            </label>
+            <input id="category_id" type="text" class="form-control input-sm" ng-model="subcategory.category_name" disabled>
         </div>
-        <button type="submit" class="btn btn-sm">Submit</button>
+        <div class="form-group">
+            <label for="category_id">
+                Subkategori
+            </label>
+            <input id="subcategory_id" type="text" class="form-control input-sm" ng-model="subcategory.name" placeholder="Nama">
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-sm">Submit</button>
+        </div>
     </form>
     <br/>
-    <a class="block-title" ng-href="#/category/">Kembali ke list kategori</a>
+    <a class="block-title" ng-href="#/subcategory/">Kembali ke list subkategori</a>
 </div>

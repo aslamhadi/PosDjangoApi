@@ -29,7 +29,7 @@ posAngular.config(['$routeProvider',
                 controller: 'SubCategoryCtrl'
             }).
             when('/subcategory/update/:id',{
-                templateUrl: 'static/views/category/update.html',
+                templateUrl: 'static/views/subcategory/update.html',
                 controller: 'SubCategoryUpdateCtrl'
             }).
             otherwise({
