@@ -1,7 +1,21 @@
-posControllers.controller('SubCategoryCtrl', ['$scope', '$location', 'subCategoryService',
-    function ($scope, $location, subCategoryService) {
+posControllers.controller('SubCategoryCtrl', ['$scope', '$location', 'categoryService', 'subCategoryService',
+    function ($scope, $location, categoryService, subCategoryService) {
         $scope.subcategories = [];
+        $scope.categories = [];
         $scope.addResponse = "";
+        $scope.subCategoryName = "";
+
+        getCategories();
+
+        function getCategories() {
+            categoryService.getCategories()
+                .then(
+                function (categories) {
+                    $scope.categories = categories.data;
+                    $scope.category = categories.data[0];
+                }
+            );
+        }
 
         getSubCategories();
 
@@ -15,7 +29,7 @@ posControllers.controller('SubCategoryCtrl', ['$scope', '$location', 'subCategor
         }
 
         $scope.addSubCategory = function () {
-            subCategoryService.addSubCategory($scope.form.name)
+            subCategoryService.addSubCategory($scope.subCategoryName, $scope.category.id)
                 .then(
                 function (subcategory) {
                     // The api return data so let's just push the data into subcategories array
@@ -23,7 +37,7 @@ posControllers.controller('SubCategoryCtrl', ['$scope', '$location', 'subCategor
                 }
             );
             // Reset the form once values have been consumed.
-            $scope.form.name = "";
+            $scope.subCategoryName = "";
         };
 
         $scope.deleteSubCategory = function (subcategory) {
@@ -63,5 +77,21 @@ posControllers.controller('SubCategoryUpdateCtrl', ['$scope', '$routeParams', 's
                     if (response.status == 200) $scope.responseMessage = "Berhasil merubah kategori";
                 });
         };
+    }
+]);
+
+posControllers.controller('SubCategoryCreateCtrl', ['$scope', '$location', 'categoryService', 'subcategoryService',
+    function($scope, $location, categoryService, subCategoryService) {
+        $scope.categories = [];
+        getCategories();
+
+        function getCategories() {
+            categoryService.getCategories()
+                .then(
+                function (categories) {
+                    $scope.categories = categories.data;
+                }
+            );
+        }
     }
 ]);

@@ -8,8 +8,8 @@ posServices.factory('subCategoryService', ['$http', '$q',
             updateSubCategory: updateSubCategory
         });
 
-        function addSubCategory(name) {
-            return $http({method: 'POST', url: '/api/subcategories/', data: { name: name }}).
+        function addSubCategory(name, category) {
+            return $http({method: 'POST', url: '/api/subcategories/', data: {category:category, name: name }}).
                 success(function (data, status, headers, config) {
                     return data;
                 }).
