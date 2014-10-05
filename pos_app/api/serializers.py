@@ -15,5 +15,11 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class SubCategorySerializer(serializers.ModelSerializer):
+    category_name = serializers.SerializerMethodField('get_category_name')
+
     class Meta:
         model = SubCategory
+        fields = ('name', 'category_name')
+
+    def get_category_name(self, obj):
+        return obj.category.name
