@@ -36,7 +36,7 @@ posAngular.config(['$routeProvider',
                 templateUrl: 'static/views/unit-type/index.html',
                 controller: 'UnitTypeCtrl'
             }).
-            when('/category/update/:id',{
+            when('/unit-type/update/:id',{
                 templateUrl: 'static/views/unit-type/update.html',
                 controller: 'UnitTypeUpdateCtrl'
             }).
