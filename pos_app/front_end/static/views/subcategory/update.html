@@ -8,7 +8,7 @@
             <label for="category_id">
                 Kategori
             </label>
-            <input id="category_id" type="text" class="form-control input-sm" ng-model="subcategory.category_name" disabled>
+            <select id="category_id" class="form-control input-sm " ng-model="category" ng-options="category.name for category in categories"></select>
         </div>
         <div class="form-group">
             <label for="category_id">
@@ -19,7 +19,7 @@
         <div class="form-group">
             <button type="submit" class="btn btn-sm">Submit</button>
         </div>
+        <br/>
+        <a class="block-title" ng-href="#/subcategory/">Kembali ke list subkategori</a>
     </form>
-    <br/>
-    <a class="block-title" ng-href="#/subcategory/">Kembali ke list subkategori</a>
 </div>

@@ -58,9 +58,22 @@ posControllers.controller('SubCategoryCtrl', ['$scope', '$location', 'categorySe
     }
 ]);
 
-posControllers.controller('SubCategoryUpdateCtrl', ['$scope', '$routeParams', 'subCategoryService',
-    function($scope, $routeParams, subCategoryService) {
+posControllers.controller('SubCategoryUpdateCtrl', ['$scope', '$routeParams', 'categoryService', 'subCategoryService',
+    function($scope, $routeParams, categoryService, subCategoryService) {
         $scope.responseMessage = "";
+
+        getCategories();
+
+        function getCategories() {
+            categoryService.getCategories()
+                .then(
+                function (categories) {
+                    $scope.categories = categories.data;
+                    $scope.category = categories.data[0];
+                }
+            );
+        }
+
         getSubCategory();
 
         function getSubCategory() {
@@ -72,26 +85,10 @@ posControllers.controller('SubCategoryUpdateCtrl', ['$scope', '$routeParams', 's
         }
 
         $scope.updateSubCategory = function () {
-            subCategoryService.updateSubCategory($scope.subcategory.id, $scope.subcategory.name)
+            subCategoryService.updateSubCategory($scope.subcategory.id, $scope.subcategory.name, $scope.category.id)
                 .then(function(response){
-                    if (response.status == 200) $scope.responseMessage = "Berhasil merubah kategori";
+                    if (response.status == 200) $scope.responseMessage = "Berhasil merubah subkategori";
                 });
         };
-    }
-]);
-
-posControllers.controller('SubCategoryCreateCtrl', ['$scope', '$location', 'categoryService', 'subcategoryService',
-    function($scope, $location, categoryService, subCategoryService) {
-        $scope.categories = [];
-        getCategories();
-
-        function getCategories() {
-            categoryService.getCategories()
-                .then(
-                function (categories) {
-                    $scope.categories = categories.data;
-                }
-            );
-        }
     }
 ]);
