@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 from pos_app.category.models import Category, SubCategory
+from pos_app.product.models import UnitType
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -23,3 +24,8 @@ class SubCategorySerializer(serializers.ModelSerializer):
 
     def get_category_name(self, obj):
         return obj.category.name
+
+
+class UnitTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UnitType
