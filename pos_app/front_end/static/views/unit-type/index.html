@@ -1,0 +1,40 @@
+<div class="block-area">
+    <h3>Tipe Unit</h3>
+</div>
+
+<div class="block-area" id="inline">
+    <h3 class="block-title">Tambah tipe unit</h3>
+
+    <form class="form-inline" role="form" ng-submit="addUnitType()">
+        <div class="form-group">
+            <label class="sr-only" for="exampleInputEmail2">Email address</label>
+            <input type="text" class="form-control input-sm" ng-model="form.name" placeholder="Nama tipe unit">
+        </div>
+        <button type="submit" class="btn btn-sm">Submit</button>
+    </form>
+</div>
+
+<div class="block-area" id="tableHover">
+    <h3 class="block-title">Tipe/Satuan Unit</h3>
+    <div class="table-responsive overflow" tabindex="5003" style="overflow: hidden; outline: none;">
+        <table class="table table-bordered table-hover tile">
+            <thead>
+            <tr>
+                <th>No.</th>
+                <th>Name</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="unitType in unitTypes">
+                <td>{{ unitType.id }}</td>
+                <td>{{ unitType.name }}</td>
+                <td>
+                    <a ng-click="deleteUnitType(unitType)" class="btn btn-alt m-r-5">Hapus</a>
+                    <a ng-click="updateUnitType(unitType.id)" class="btn btn-alt m-r-5">Update</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

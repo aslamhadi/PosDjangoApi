@@ -75,13 +75,18 @@
 
         <!-- Side Menu -->
         <ul class="list-unstyled side-menu">
-            <li class="active">
+            <li>
                 <a class="sa-side-folder" href="#/category/">
                     <span class="menu-item">Kategori</span>
                 </a>
                 <ul class="list-unstyled menu-item">
                     <li><a href="#/subcategory/">Subkategori</a></li>
                 </ul>
+            </li>
+            <li>
+                <a class="sa-side-folder" href="#/unit-type/">
+                    <span class="menu-item">Unit Type</span>
+                </a>
             </li>
         </ul>
 
@@ -161,10 +166,12 @@
 <script src="{% static 'angularjs/controllers/home.js' %}"></script>
 <script src="{% static 'angularjs/controllers/category.js' %}"></script>
 <script src="{% static 'angularjs/controllers/subcategory.js' %}"></script>
+<script src="{% static 'angularjs/controllers/unit-type.js' %}"></script>
 
 <!-- Services -->
 <script src="{% static 'angularjs/services/category.js' %}"></script>
 <script src="{% static 'angularjs/services/subcategory.js' %}"></script>
+<script src="{% static 'angularjs/services/unit-type.js' %}"></script>
 
 <!-- jQuery -->
 <script src="{% static 'bootstrap/js/jquery.min.js' %}"></script>
