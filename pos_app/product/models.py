@@ -8,12 +8,16 @@ class UnitType(models.Model):
     # Can be mg, ml, box, etc
     name = models.CharField(max_length=255)
 
+    def __unicode__(self):
+        return self.name
+
 
 class Product(models.Model):
     subcategory = models.ForeignKey(SubCategory)
-    unit_types = models.ManyToManyField(UnitType)
+    # unit_types = models.ManyToManyField(UnitType)
+    unit_type = models.ForeignKey(UnitType)
     name = models.CharField(max_length=255)
-    quantity = models.IntegerField(default=0)
+    # quantity = models.IntegerField(default=0)
     base_price = models.DecimalField(max_digits=10, decimal_places=2)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     tax = models.DecimalField(max_digits=4, decimal_places=2)
@@ -23,3 +27,6 @@ class Product(models.Model):
     def get_price(self):
         tax_product = self.tax/100 * self.base_price
         return self.base_price + tax_product
+
+    def __unicode__(self):
+        return self.name

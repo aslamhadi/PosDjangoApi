@@ -17,7 +17,6 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('name', models.CharField(max_length=255)),
-                ('quantity', models.IntegerField(default=0)),
                 ('base_price', models.DecimalField(max_digits=10, decimal_places=2)),
                 ('price', models.DecimalField(max_digits=10, decimal_places=2)),
                 ('tax', models.DecimalField(max_digits=4, decimal_places=2)),
@@ -41,8 +40,8 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='product',
-            name='unit_types',
-            field=models.ManyToManyField(to='product.UnitType'),
+            name='unit_type',
+            field=models.ForeignKey(to='product.UnitType'),
             preserve_default=True,
         ),
     ]
