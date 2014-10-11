@@ -87,7 +87,10 @@ posControllers.controller('SubCategoryUpdateCtrl', ['$scope', '$routeParams', 'c
         $scope.updateSubCategory = function () {
             subCategoryService.updateSubCategory($scope.subcategory.id, $scope.subcategory.name, $scope.category.id)
                 .then(function(response){
-                    if (response.status == 200) $scope.responseMessage = "Berhasil merubah subkategori";
+                    if (response.status == 200) {
+                        $scope.responseMessage = "Berhasil merubah subkategori";
+                        $scope.alert = "alert alert-success";
+                    }
                 });
         };
     }
