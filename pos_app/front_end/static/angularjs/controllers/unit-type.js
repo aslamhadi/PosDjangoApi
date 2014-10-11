@@ -60,7 +60,10 @@ posControllers.controller('UnitTypeUpdateCtrl', ['$scope', '$routeParams', 'unit
         $scope.updateUnitType = function () {
             unitTypeService.updateUnitType($scope.unitType.id, $scope.unitType.name)
                 .then(function(response){
-                    if (response.status == 200) $scope.responseMessage = "Berhasil merubah tipe unit";
+                    if (response.status == 200) {
+                        $scope.responseMessage = "Berhasil merubah tipe unit";
+                        $scope.alert = "alert alert-success";
+                    }
                 });
         };
     }

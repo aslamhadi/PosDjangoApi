@@ -1,19 +1,26 @@
-<div class="block-area" id="inline">
-    <h3 class="block-title">Update tipe unit obat</h3>
+<div class="row">
+    <div class="form-panel">
+        <a class="btn btn-default pull-right" ng-href="#/unit-type/">Kembali ke list satuan unit</a>
 
-    <!-- TODO: find a way to hide a div in angularjs -->
-    <div class="alert alert-success ">
-        {{ responseMessage }}
-    </div>
+        <h3 class="mb"><i class="fa fa-angle-right"></i> Update satuan unit</h3>
 
-    <form class="form-inline" role="form" ng-submit="updateUnitType()">
-        <div class="form-group">
-            <label class="sr-only" for="exampleInputEmail2">Email address</label>
-            <input type="hidden" ng-value="unitType.id">
-            <input type="text" class="form-control input-sm" ng-model="unitType.name" placeholder="Nama tipe unit">
+        <div ng-class="alert">
+            {{ responseMessage }}
         </div>
-        <button type="submit" class="btn btn-sm">Submit</button>
-    </form>
-    <br/>
-    <a class="block-title" ng-href="#/unit-type/">Kembali ke list tipe unit</a>
+        <form class="form-inline" role="form" ng-submit="updateUnitType()">
+            <div class="form-group">
+                <label class="col-sm-4 control-label" for="unit_type_field">Satuan Unit</label>
+            </div>
+            <div class="form-group">
+                <input type="hidden" ng-value="unitType.id">
+                <div class="col-md-8">
+                    <input type="text" id="unit_type_field" class="form-control" ng-model="unitType.name"
+                           placeholder="Nama tipe unit">
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-sm">Submit</button>
+            </div>
+        </form>
+    </div>
 </div>
