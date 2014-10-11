@@ -60,7 +60,10 @@ posControllers.controller('CategoryUpdateCtrl', ['$scope', '$routeParams', 'cate
         $scope.updateCategory = function () {
             categoryService.updateCategory($scope.category.id, $scope.category.name)
                 .then(function(response){
-                    if (response.status == 200) $scope.responseMessage = "Berhasil merubah kategori";
+                    if (response.status == 200){
+                        $scope.responseMessage = "Berhasil merubah kategori";
+                        $scope.alert = "alert alert-success"
+                    }
                 });
         };
     }

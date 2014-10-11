@@ -1,19 +1,21 @@
-<div class="block-area" id="inline">
-    <h3 class="block-title">Update kategori obat</h3>
+<div class="row">
+    <div class="form-panel">
+        <a class="btn btn-default pull-right" ng-href="#/category/">Kembali ke list kategori</a>
+        <h3 class="mb"><i class="fa fa-angle-right"></i> Update kategori obat</h3>
 
-    <!-- TODO: find a way to hide a div in angularjs -->
-    <div class="alert alert-success ">
-        {{ responseMessage }}
-    </div>
-
-    <form class="form-inline" role="form" ng-submit="updateCategory()">
-        <div class="form-group">
-            <label class="sr-only" for="exampleInputEmail2">Email address</label>
-            <input type="hidden" ng-value="category.id">
-            <input type="text" class="form-control input-sm" ng-model="category.name" placeholder="Nama kategory">
+        <!-- TODO: find a way to hide a div in angularjs -->
+        <div ng-class="alert">
+            {{ responseMessage }}
         </div>
-        <button type="submit" class="btn btn-sm">Submit</button>
-    </form>
-    <br/>
-    <a class="block-title" ng-href="#/category/">Kembali ke list kategori</a>
+
+        <form class="form-inline" role="form" ng-submit="updateCategory()">
+            <div class="form-group">
+                <label class="sr-only" for="category_field">Nama Kategori</label>
+                <input type="hidden" ng-value="category.id">
+                Nama Kategori <input type="text" id="category_field" class="form-control input-sm" ng-model="category.name" placeholder="Nama kategory">
+            </div>
+            <button type="submit" class="btn btn-sm">Submit</button>
+        </form>
+        <br/>
+    </div>
 </div>
