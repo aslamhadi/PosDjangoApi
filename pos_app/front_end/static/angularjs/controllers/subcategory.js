@@ -53,7 +53,7 @@ posControllers.controller('SubCategoryCtrl', ['$scope', '$location', 'categorySe
         };
 
         $scope.updateSubCategory = function (subcategoryId) {
-            $location.path('/subcategory/update/' + subcategoryId);
+            $location.path('/subcategory/update/' + subcategoryId + '/');
         };
     }
 ]);

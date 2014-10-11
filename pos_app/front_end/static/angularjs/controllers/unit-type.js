@@ -39,7 +39,7 @@ posControllers.controller('UnitTypeCtrl', ['$scope', '$location', 'unitTypeServi
         };
 
         $scope.updateUnitType = function (unitTypeId) {
-            $location.path('/unit-type/update/' + unitTypeId);
+            $location.path('/unit-type/update/' + unitTypeId + '/');
         };
     }
 ]);

@@ -39,7 +39,7 @@ posControllers.controller('CategoryCtrl', ['$scope', '$location', 'categoryServi
         };
 
         $scope.updateCategory = function (categoryId) {
-            $location.path('/category/update/' + categoryId);
+            $location.path('/category/update/' + categoryId + '/');
         };
     }
 ]);

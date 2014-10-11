@@ -13,32 +13,44 @@ posAngular.config(['$routeProvider',
     function($routeProvider) {
         $routeProvider.
             when('/', {
-                templateUrl: 'static/views/index.html',
+                templateUrl: 'static/angularjs/views/index.html',
                 controller: 'HomeCtrl'
             }).
             when('/category/',{
-                templateUrl: 'static/views/category/index.html',
+                templateUrl: 'static/angularjs/views/category/index.html',
                 controller: 'CategoryCtrl'
             }).
-            when('/category/update/:id',{
-                templateUrl: 'static/views/category/update.html',
+            when('/category/update/:id/',{
+                templateUrl: 'static/angularjs/views/category/update.html',
                 controller: 'CategoryUpdateCtrl'
             }).
             when('/subcategory/',{
-                templateUrl: 'static/views/subcategory/index.html',
+                templateUrl: 'static/angularjs/views/subcategory/index.html',
                 controller: 'SubCategoryCtrl'
             }).
-            when('/subcategory/update/:id',{
-                templateUrl: 'static/views/subcategory/update.html',
+            when('/subcategory/update/:id/',{
+                templateUrl: 'static/angularjs/views/subcategory/update.html',
                 controller: 'SubCategoryUpdateCtrl'
             }).
             when('/unit-type/',{
-                templateUrl: 'static/views/unit-type/index.html',
+                templateUrl: 'static/angularjs/views/unit-type/index.html',
                 controller: 'UnitTypeCtrl'
             }).
-            when('/unit-type/update/:id',{
-                templateUrl: 'static/views/unit-type/update.html',
+            when('/unit-type/update/:id/',{
+                templateUrl: 'static/angularjs/views/unit-type/update.html',
                 controller: 'UnitTypeUpdateCtrl'
+            }).
+            when('/product/', {
+                templateUrl: 'static/angularjs/views/product/index.html',
+                controller: 'ProductCtrl'
+            }).
+            when('/product/add/', {
+                templateUrl: 'static/angularjs/views/product/update.html',
+                controller: 'ProductAddCtrl'
+            }).
+            when('/product/update/:id/', {
+                templateUrl: 'static/angularjs/views/product/update.html',
+                controller: 'ProductUpdateCtrl'
             }).
             otherwise({
                redirectTo: '/'
