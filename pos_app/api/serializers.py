@@ -38,3 +38,4 @@ class ProductSerializer(serializers.ModelSerializer):
         fields = (
             'id', 'name', 'subcategory', 'unit_type', 'base_price', 'price', 'tax', 'created_at',
             'modified_at')
+        read_only_fields = ('created_at', 'modified_at')
