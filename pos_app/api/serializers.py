@@ -32,9 +32,22 @@ class UnitTypeSerializer(serializers.ModelSerializer):
 
 
 class ProductSerializer(serializers.ModelSerializer):
+    category_name = serializers.SerializerMethodField('get_category_name')
+    subcategory_name = serializers.SerializerMethodField('get_subcategory_name')
+    unit_type_name = serializers.SerializerMethodField('get_unit_type_name')
+
     class Meta:
         model = Product
         fields = (
-            'id', 'name', 'subcategory', 'unit_type', 'base_price', 'price', 'tax', 'created_at',
-            'modified_at')
+            'id', 'name', 'category_name', 'subcategory_name', 'unit_type_name', 'subcategory', 'unit_type',
+            'base_price', 'price', 'tax', 'created_at', 'modified_at')
         read_only_fields = ('created_at', 'modified_at')
+
+    def get_subcategory_name(self, obj):
+        return obj.subcategory.name
+
+    def get_category_name(self, obj):
+        return obj.subcategory.category.name
+
+    def get_unit_type_name(self, obj):
+        return obj.unit_type.name

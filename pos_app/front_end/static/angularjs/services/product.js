@@ -1,4 +1,4 @@
-posServices.factory('subCategoryService', ['$http', '$q',
+posServices.factory('productService', ['$http', '$q',
     function ($http, $q) {
         return({
             addProduct: addProduct,
