@@ -19,7 +19,7 @@ class Product(models.Model):
     name = models.CharField(max_length=255)
     # quantity = models.IntegerField(default=0)
     base_price = models.DecimalField(max_digits=10, decimal_places=2)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
+    sale_price = models.DecimalField(max_digits=10, decimal_places=2)
     tax = models.DecimalField(max_digits=4, decimal_places=2)
     created_at = models.DateTimeField(default=timezone.now)
     modified_at = models.DateTimeField(auto_now=True)
