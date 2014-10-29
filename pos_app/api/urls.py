@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, url
 from pos_app.api.views import UserListCreate, CategoryListCreate, CategoryDetail, SubCategoryListCreate, \
-    SubCategoryDetail, UnitTypeDetail, UnitTypeListCreate, ProductListCreate, ProductDetail
+    SubCategoryDetail, UnitTypeDetail, UnitTypeListCreate, ProductListCreate, ProductDetail, SubCategoryInCategory
 
 urlpatterns = patterns('',  # nopep8
     # Category
@@ -10,6 +10,7 @@ urlpatterns = patterns('',  # nopep8
     # Subcategory
     url(r'^subcategories/$', SubCategoryListCreate.as_view(), name='subcategory'),
     url(r'^subcategories/(?P<pk>[0-9]+)/$', SubCategoryDetail.as_view(), name='subcategory-detail'),
+    url(r'^subcategories/category/(?P<pk>[0-9]+)/$', SubCategoryInCategory.as_view(), name='subcategory-in-category'),
 
     # User
     url(r'^users/$', UserListCreate.as_view(), name='user'),

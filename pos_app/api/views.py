@@ -1,5 +1,8 @@
 from django.contrib.auth.models import User
-from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, ListAPIView
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
 from pos_app.api.serializers import UserSerializer, CategorySerializer, SubCategorySerializer, UnitTypeSerializer, \
     ProductSerializer
 from pos_app.category.models import Category, SubCategory
@@ -24,6 +27,15 @@ class CategoryDetail(RetrieveUpdateDestroyAPIView):
 class SubCategoryListCreate(ListCreateAPIView):
     queryset = SubCategory.objects.all()
     serializer_class = SubCategorySerializer
+
+
+class SubCategoryInCategory(ListAPIView):
+    permission_classes = (IsAuthenticated,)
+    serializer_class = SubCategorySerializer
+
+    def get_queryset(self):
+        category_id = self.kwargs['pk']
+        return SubCategory.objects.filter(category_id=category_id)
 
 
 class SubCategoryDetail(RetrieveUpdateDestroyAPIView):
