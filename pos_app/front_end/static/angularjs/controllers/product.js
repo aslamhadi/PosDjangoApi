@@ -44,18 +44,29 @@ posControllers.controller('ProductCtrl', ['$scope', '$location', 'productService
   }
 ]);
 
-posControllers.controller('ProductUpdateCtrl', ['$scope', '$routeParams', 'productService', 'categoryService', 'subCategoryService',
-  function ($scope, $routeParams, productService, categoryService, subCategoryService) {
+posControllers.controller('ProductUpdateCtrl', ['$scope', '$routeParams', 'productService', 'categoryService', 'subCategoryService', 'unitTypeService',
+  function ($scope, $routeParams, productService, categoryService, subCategoryService, unitTypeService) {
     $scope.responseMessage = "";
     getProduct();
     getCategories();
+    getUnitTypes();
 
-    function getProduct() {
-      productService.getProduct($routeParams.id)
-        .then(function (product) {
-          $scope.product = product.data;
+    function getUnitTypes() {
+      unitTypeService.getUnitTypes()
+        .then(function (unit_types) {
+          $scope.unit_types = unit_types.data;
         }
       );
+    }
+
+    function getProduct() {
+      if ($routeParams.id != undefined) {
+        productService.getProduct($routeParams.id)
+          .then(function (product) {
+            $scope.product = product.data;
+          }
+        );
+      }
     }
 
     function getCategories() {
@@ -66,22 +77,34 @@ posControllers.controller('ProductUpdateCtrl', ['$scope', '$routeParams', 'produ
       );
     }
 
-    $scope.getSubcategories = function(category) {
-      subCategoryService.getSubCategoriesInCategory(category)
-        .then(function (subcategories) {
-          $scope.subcategories = subcategories.data;
-        }
-      )
+    $scope.getSubcategories = function (category) {
+      if (category != null) {
+        subCategoryService.getSubCategoriesInCategory(category)
+          .then(function (subcategories) {
+            $scope.subcategories = subcategories.data;
+          }
+        )
+      }
     };
 
     $scope.updateProduct = function () {
-      productService.updateProduct($scope.product.id, $scope.product.name)
-        .then(function (response) {
-          if (response.status == 200) {
-            $scope.responseMessage = "Berhasil merubah produk";
-            $scope.alert = "alert alert-success";
-          }
-        });
+      if ($scope.product != null) {
+        productService.updateProduct($scope.product.id, $scope.product.name)
+          .then(function (response) {
+            if (response.status == 200) {
+              $scope.responseMessage = "Berhasil merubah produk";
+              $scope.alert = "alert alert-success";
+            }
+          });
+      } else {
+        productService.addProduct($scope.subcategory.id, $scope.unit_type.id, $scope.name, $scope.base_price, $scope.sale_price, $scope.tax)
+          .then(function (response) {
+            if (response.status == 201) {
+              $scope.responseMessage = "Berhasil menambah produk";
+              $scope.alert = "alert alert-success";
+            }
+          });
+      }
     };
   }
 ]);
