@@ -88,7 +88,7 @@ posControllers.controller('ProductUpdateCtrl', ['$scope', '$routeParams', 'produ
     };
 
     $scope.updateProduct = function () {
-      if ($scope.product != null) {
+      if ($routeParams.id != undefined) {
         productService.updateProduct($scope.product.id, $scope.product.name)
           .then(function (response) {
             if (response.status == 200) {
@@ -97,7 +97,7 @@ posControllers.controller('ProductUpdateCtrl', ['$scope', '$routeParams', 'produ
             }
           });
       } else {
-        productService.addProduct($scope.subcategory.id, $scope.unit_type.id, $scope.name, $scope.base_price, $scope.sale_price, $scope.tax)
+        productService.addProduct($scope.product)
           .then(function (response) {
             if (response.status == 201) {
               $scope.responseMessage = "Berhasil menambah produk";
