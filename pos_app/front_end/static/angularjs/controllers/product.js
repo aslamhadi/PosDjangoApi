@@ -89,7 +89,7 @@ posControllers.controller('ProductUpdateCtrl', ['$scope', '$routeParams', 'produ
 
     $scope.updateProduct = function () {
       if ($routeParams.id != undefined) {
-        productService.updateProduct($scope.product.id, $scope.product.name)
+        productService.updateProduct($scope.product)
           .then(function (response) {
             if (response.status == 200) {
               $scope.responseMessage = "Berhasil merubah produk";
