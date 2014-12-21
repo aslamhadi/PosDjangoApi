@@ -12,17 +12,27 @@ class UnitType(models.Model):
         return self.name
 
 
-class Product(models.Model):
-    subcategory = models.ForeignKey(SubCategory)
-    # unit_types = models.ManyToManyField(UnitType)
+class ProductPrice(models.Model):
     unit_type = models.ForeignKey(UnitType)
-    name = models.CharField(max_length=255)
-    # quantity = models.IntegerField(default=0)
     base_price = models.DecimalField(max_digits=10, decimal_places=2)
     sale_price = models.DecimalField(max_digits=10, decimal_places=2)
     tax = models.DecimalField(max_digits=4, decimal_places=2)
     created_at = models.DateTimeField(default=timezone.now)
     modified_at = models.DateTimeField(auto_now=True)
+
+
+class Product(models.Model):
+    subcategory = models.ForeignKey(SubCategory)
+    product_prices = models.ManyToManyField(ProductPrice)
+    name = models.CharField(max_length=255)
+    created_at = models.DateTimeField(default=timezone.now)
+    modified_at = models.DateTimeField(auto_now=True)
+    # unit_types = models.ManyToManyField(UnitType)
+    # unit_type = models.ForeignKey(UnitType)
+    # quantity = models.IntegerField(default=0)
+    # base_price = models.DecimalField(max_digits=10, decimal_places=2)
+    # sale_price = models.DecimalField(max_digits=10, decimal_places=2)
+    # tax = models.DecimalField(max_digits=4, decimal_places=2)
 
     def get_price(self):
         tax_product = self.tax/100 * self.base_price
