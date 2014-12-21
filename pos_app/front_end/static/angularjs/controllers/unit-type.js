@@ -1,5 +1,4 @@
-posControllers.controller('UnitTypeCtrl', ['$scope', '$location', 'unitTypeService',
-  function ($scope, $location, unitTypeService) {
+posControllers.controller('UnitTypeCtrl', function ($scope, $location, unitTypeService) {
     $scope.unitTypes = [];
     $scope.addResponse = "";
 
@@ -42,10 +41,9 @@ posControllers.controller('UnitTypeCtrl', ['$scope', '$location', 'unitTypeServi
       $location.path('/unit-type/update/' + unitTypeId + '/');
     };
   }
-]);
+);
 
-posControllers.controller('UnitTypeUpdateCtrl', ['$scope', '$routeParams', 'unitTypeService',
-  function ($scope, $routeParams, unitTypeService) {
+posControllers.controller('UnitTypeUpdateCtrl', function ($scope, $routeParams, unitTypeService) {
     $scope.responseMessage = "";
     getUnitType();
 
@@ -67,4 +65,4 @@ posControllers.controller('UnitTypeUpdateCtrl', ['$scope', '$routeParams', 'unit
         });
     };
   }
-]);
+);

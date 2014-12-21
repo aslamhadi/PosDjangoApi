@@ -1,5 +1,4 @@
-posServices.factory('productService', ['$http', '$q',
-  function ($http, $q) {
+posServices.factory('productService', function ($http, $q) {
     return({
       addProduct: addProduct,
       getProducts: getProducts,
@@ -59,4 +58,4 @@ posServices.factory('productService', ['$http', '$q',
     }
 
   }
-]);
+);

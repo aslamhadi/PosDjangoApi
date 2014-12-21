@@ -1,5 +1,4 @@
-posControllers.controller('ProductCtrl', ['$scope', '$location', 'productService',
-  function ($scope, $location, productService) {
+posControllers.controller('ProductCtrl', function ($scope, $location, productService) {
     $scope.products = [];
     $scope.addResponse = "";
 
@@ -42,10 +41,9 @@ posControllers.controller('ProductCtrl', ['$scope', '$location', 'productService
       $location.path('/product/update/' + productId + '/');
     };
   }
-]);
+);
 
-posControllers.controller('ProductUpdateCtrl', ['$scope', '$routeParams', 'productService', 'categoryService', 'subCategoryService', 'unitTypeService',
-  function ($scope, $routeParams, productService, categoryService, subCategoryService, unitTypeService) {
+posControllers.controller('ProductUpdateCtrl', function ($scope, $routeParams, productService, categoryService, subCategoryService, unitTypeService) {
     $scope.responseMessage = "";
     getProduct();
     getCategories();
@@ -107,4 +105,4 @@ posControllers.controller('ProductUpdateCtrl', ['$scope', '$routeParams', 'produ
       }
     };
   }
-]);
+);

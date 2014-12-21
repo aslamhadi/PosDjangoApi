@@ -1,5 +1,4 @@
-posControllers.controller('SubCategoryCtrl', ['$scope', '$location', 'categoryService', 'subCategoryService',
-  function ($scope, $location, categoryService, subCategoryService) {
+posControllers.controller('SubCategoryCtrl', function ($scope, $location, categoryService, subCategoryService) {
     $scope.subcategories = [];
     $scope.categories = [];
     $scope.addResponse = "";
@@ -56,10 +55,9 @@ posControllers.controller('SubCategoryCtrl', ['$scope', '$location', 'categorySe
       $location.path('/subcategory/update/' + subcategoryId + '/');
     };
   }
-]);
+);
 
-posControllers.controller('SubCategoryUpdateCtrl', ['$scope', '$routeParams', 'categoryService', 'subCategoryService',
-  function ($scope, $routeParams, categoryService, subCategoryService) {
+posControllers.controller('SubCategoryUpdateCtrl', function ($scope, $routeParams, categoryService, subCategoryService) {
     $scope.responseMessage = "";
 
     getCategories();
@@ -94,4 +92,4 @@ posControllers.controller('SubCategoryUpdateCtrl', ['$scope', '$routeParams', 'c
         });
     };
   }
-]);
+);

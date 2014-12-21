@@ -1,7 +1,6 @@
 var posServices = angular.module('posServices', []);
 
-posServices.factory('categoryService', ['$http', '$q',
-  function ($http, $q) {
+posServices.factory('categoryService', function ($http, $q) {
     return({
       addCategory: addCategory,
       getCategories: getCategories,
@@ -61,4 +60,4 @@ posServices.factory('categoryService', ['$http', '$q',
     }
 
   }
-]);
+);

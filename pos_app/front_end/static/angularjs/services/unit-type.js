@@ -1,5 +1,4 @@
-posServices.factory('unitTypeService', ['$http', '$q',
-  function ($http, $q) {
+posServices.factory('unitTypeService', function ($http, $q) {
     return({
       addUnitType: addUnitType,
       getUnitTypes: getUnitTypes,
@@ -59,4 +58,4 @@ posServices.factory('unitTypeService', ['$http', '$q',
     }
 
   }
-]);
+);

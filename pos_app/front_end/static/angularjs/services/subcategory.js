@@ -1,5 +1,4 @@
-posServices.factory('subCategoryService', ['$http', '$q',
-  function ($http, $q) {
+posServices.factory('subCategoryService', function ($http, $q) {
     return({
       addSubCategory: addSubCategory,
       getSubCategories: getSubCategories,
@@ -70,4 +69,4 @@ posServices.factory('subCategoryService', ['$http', '$q',
     }
 
   }
-]);
+);

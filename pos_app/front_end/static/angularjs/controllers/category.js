@@ -1,5 +1,4 @@
-posControllers.controller('CategoryCtrl', ['$scope', '$location', 'categoryService',
-  function ($scope, $location, categoryService) {
+posControllers.controller('CategoryCtrl', function ($scope, $location, categoryService) {
     $scope.categories = [];
     $scope.addResponse = "";
 
@@ -42,10 +41,9 @@ posControllers.controller('CategoryCtrl', ['$scope', '$location', 'categoryServi
       $location.path('/category/update/' + categoryId + '/');
     };
   }
-]);
+);
 
-posControllers.controller('CategoryUpdateCtrl', ['$scope', '$routeParams', 'categoryService',
-  function ($scope, $routeParams, categoryService) {
+posControllers.controller('CategoryUpdateCtrl', function ($scope, $routeParams, categoryService) {
     $scope.responseMessage = "";
     getCategory();
 
@@ -67,4 +65,4 @@ posControllers.controller('CategoryUpdateCtrl', ['$scope', '$routeParams', 'cate
         });
     };
   }
-]);
+);
