@@ -34,9 +34,14 @@ class Product(models.Model):
     # sale_price = models.DecimalField(max_digits=10, decimal_places=2)
     # tax = models.DecimalField(max_digits=4, decimal_places=2)
 
+    def __unicode__(self):
+        return self.name
+
     def get_price(self):
         tax_product = self.tax/100 * self.base_price
         return self.base_price + tax_product
 
-    def __unicode__(self):
-        return self.name
+    @property
+    def category_name(self):
+        return self.subcategory.category.name
+
