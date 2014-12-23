@@ -7,8 +7,8 @@ posServices.factory('productService', function ($http, $q) {
       updateProduct: updateProduct
     });
 
-    function addProduct(product) {
-      return $http({method: 'POST', url: '/api/products/', data: {subcategory: product.subcategory.id, unit_type: product.unit_type.id, name: product.name, base_price: product.base_price, sale_price: product.sale_price, tax: product.tax }}).
+    function addProduct(product, product_prices) {
+      return $http({method: 'POST', url: '/api/products/', data: { subcategory: product.subcategory.id, name: product.name, product_prices: product_prices }}).
         success(function (data, status, headers, config) {
           return data;
         }).
@@ -47,8 +47,8 @@ posServices.factory('productService', function ($http, $q) {
         });
     }
 
-    function updateProduct(product) {
-      return $http({method: 'PUT', url: '/api/products/' + product.id + '/', data: { subcategory: product.subcategory.id, unit_type: product.unit_type.id, name: product.name, base_price: product.base_price, sale_price: product.sale_price, tax: product.tax }}).
+    function updateProduct(product, product_prices) {
+      return $http({method: 'PUT', url: '/api/products/' + product.id + '/', data: { subcategory: product.subcategory.id, name: product.name, product_prices: product_prices }}).
         success(function (data, status, headers, config) {
           return data;
         }).

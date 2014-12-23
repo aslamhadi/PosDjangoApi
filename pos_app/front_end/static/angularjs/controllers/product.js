@@ -86,8 +86,15 @@ posControllers.controller('ProductUpdateCtrl', function ($scope, $routeParams, p
     };
 
     $scope.updateProduct = function () {
+      var product_prices = [];
+        product_prices.push({
+          unit_type: $scope.product.unit_type.id,
+          base_price: $scope.product.base_price,
+          sale_price: $scope.product.sale_price,
+          tax: $scope.product.tax,
+        });
       if ($routeParams.id != undefined) {
-        productService.updateProduct($scope.product)
+        productService.updateProduct($scope.product, product_prices)
           .then(function (response) {
             if (response.status == 200) {
               $scope.responseMessage = "Berhasil merubah produk";
@@ -95,7 +102,7 @@ posControllers.controller('ProductUpdateCtrl', function ($scope, $routeParams, p
             }
           });
       } else {
-        productService.addProduct($scope.product)
+        productService.addProduct($scope.product, product_prices)
           .then(function (response) {
             if (response.status == 201) {
               $scope.responseMessage = "Berhasil menambah produk";
