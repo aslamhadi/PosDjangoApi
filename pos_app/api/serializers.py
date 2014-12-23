@@ -32,8 +32,12 @@ class UnitTypeSerializer(serializers.ModelSerializer):
 
 
 class ProductPriceSerializer(serializers.ModelSerializer):
+    unit_type_name = serializers.Field('unit_type_name')
+
     class Meta:
         model = ProductPrice
+        fields = (
+            'unit_type_name', 'unit_type', 'base_price', 'sale_price', 'tax')
 
 
 class ProductSerializer(serializers.ModelSerializer):

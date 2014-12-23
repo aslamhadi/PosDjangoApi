@@ -11,10 +11,7 @@
                     <th>Nama Produk</th>
                     <th>Kategori</th>
                     <th>Subkategori</th>
-                    <th>Satuan Unit</th>
-                    <th>Harga Dasar</th>
-                    <th>Harga Jual</th>
-                    <th>Pajak</th>
+                    <th>Keterangan</th>
                     <th>Aksi</th>
                 </tr>
                 </thead>
@@ -24,10 +21,15 @@
                     <td>{{ product.name }}</td>
                     <td>{{ product.category_name }}</td>
                     <td>{{ product.subcategory_name }}</td>
-                    <td>{{ product.unit_type_name }}</td>
-                    <td>{{ product.base_price }}</td>
-                    <td>{{ product.sale_price }}</td>
-                    <td>{{ product.tax }}</td>
+                    <td>
+                        <ul ng-repeat="product_price in product.product_prices">
+                            <li>
+                                Satuan: {{ product_price.unit_type_name }} <br/>
+                                Harga dasar: {{ product_price.base_price }} <br/>
+                                Harga Jual: {{ product_price.sale_price }} <br />
+                            </li>
+                        </ul>
+                    </td>
                     <td>
                         <a ng-click="deleteProduct(product)" class="btn btn-alt m-r-5">Hapus</a>
                         <a ng-click="updateProduct(product.id)" class="btn btn-alt m-r-5">Update</a>
