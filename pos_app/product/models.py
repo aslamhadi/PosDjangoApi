@@ -27,12 +27,6 @@ class Product(models.Model):
     name = models.CharField(max_length=255)
     created_at = models.DateTimeField(default=timezone.now)
     modified_at = models.DateTimeField(auto_now=True)
-    # unit_types = models.ManyToManyField(UnitType)
-    # unit_type = models.ForeignKey(UnitType)
-    # quantity = models.IntegerField(default=0)
-    # base_price = models.DecimalField(max_digits=10, decimal_places=2)
-    # sale_price = models.DecimalField(max_digits=10, decimal_places=2)
-    # tax = models.DecimalField(max_digits=4, decimal_places=2)
 
     def __unicode__(self):
         return self.name
@@ -44,4 +38,8 @@ class Product(models.Model):
     @property
     def category_name(self):
         return self.subcategory.category.name
+
+    @property
+    def subcategory_name(self):
+        return self.subcategory.name
 
