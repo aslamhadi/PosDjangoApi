@@ -40,6 +40,7 @@ class PaymentProduct(models.Model):
     payment = models.ForeignKey(Payment)
     is_prescription = models.BooleanField(default=False)  # So we know if this is prescription or not
     price = models.DecimalField(max_digits=10, decimal_places=2)
+    idx_sale_price = models.DecimalField(max_digits=4, decimal_places=2)
     discount = models.DecimalField(max_digits=4, decimal_places=2)
     item_count = models.IntegerField(default=1)
 
