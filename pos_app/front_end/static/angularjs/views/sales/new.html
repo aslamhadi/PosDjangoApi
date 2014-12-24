@@ -16,18 +16,25 @@
                 <th></th>
                 <th>Nama</th>
                 <th>Id Produk</th>
+                <th>Satuan</th>
                 <th>Harga</th>
                 <th>Kuantitas</th>
                 <th>Total</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
+            <tr ng-repeat=" product in products ">
                 <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.id }}</td>
+                <td>
+                    <select id="category_id" ng-change="getSubcategories(category)" class="form-control input-sm " ng-model="category"
+                        ng-options="category.name for category in categories">
+                        <option value=''>Pilih kategori</option>
+                    </select>
+                </td>
+                <td>{{ product.sale_price }}</td>
+                <td><input type="text" ng-model="product.quantity" class="form-controll"> </td>
                 <td></td>
             </tr>
             </tbody>
