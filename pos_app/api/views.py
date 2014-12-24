@@ -83,3 +83,12 @@ class ProductListCreate(APIView):
 class ProductDetail(RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+
+
+class GetProductsByName(ListAPIView):
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+    serializer_class = ProductSerializer
+
+    def get_queryset(self):
+        name = self.kwargs['name']
+        return Product.objects.filter(name__contains=name)

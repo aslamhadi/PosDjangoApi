@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, url
 from pos_app.api.views import UserListCreate, CategoryListCreate, CategoryDetail, SubCategoryListCreate, \
-    SubCategoryDetail, UnitTypeDetail, UnitTypeListCreate, ProductListCreate, ProductDetail, SubCategoryInCategory
+    SubCategoryDetail, UnitTypeDetail, UnitTypeListCreate, ProductListCreate, ProductDetail, SubCategoryInCategory, GetProductsByName
 
 urlpatterns = patterns('',  # nopep8
     # Category
@@ -22,4 +22,5 @@ urlpatterns = patterns('',  # nopep8
     # Product
     url(r'^products/$', ProductListCreate.as_view(), name='product'),
     url(r'^products/(?P<pk>[0-9]+)/$', ProductDetail.as_view(), name='product-detail'),
+    url(r'^products/name/(?P<name>.+)/$', GetProductsByName.as_view(), name='product-by-name'),
 )
