@@ -17,6 +17,10 @@ posAngular.config(['$routeProvider',
         templateUrl: 'static/angularjs/views/index.html',
         controller: 'HomeCtrl'
       }).
+      when('/logout', {
+        template: ' ',
+        controller: 'AccountCtrl'
+      }).
       when('/category/', {
         templateUrl: 'static/angularjs/views/category/index.html',
         controller: 'CategoryCtrl'

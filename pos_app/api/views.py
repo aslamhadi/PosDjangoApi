@@ -11,6 +11,16 @@ from pos_app.api.serializers import UserSerializer, CategorySerializer, SubCateg
 from pos_app.category.models import Category, SubCategory
 from pos_app.product.models import UnitType, Product, ProductPrice
 
+from django.contrib.auth import logout
+
+
+class Logout(APIView):
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+
+    def post(self, request, *args, **kwargs):
+        logout(request)
+        return Response()
+
 
 class UserListCreate(ListCreateAPIView):
     queryset = User.objects.all()

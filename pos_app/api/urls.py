@@ -1,8 +1,11 @@
 from django.conf.urls import patterns, url
 from pos_app.api.views import UserListCreate, CategoryListCreate, CategoryDetail, SubCategoryListCreate, \
-    SubCategoryDetail, UnitTypeDetail, UnitTypeListCreate, ProductListCreate, ProductDetail, SubCategoryInCategory, GetProductsByName
+    SubCategoryDetail, UnitTypeDetail, UnitTypeListCreate, ProductListCreate, ProductDetail, SubCategoryInCategory, GetProductsByName, Logout
 
 urlpatterns = patterns('',  # nopep8
+    # Account
+    url(r'^logout/$', Logout.as_view(), name='logout'),
+
     # Category
     url(r'^categories/$', CategoryListCreate.as_view(), name='category'),
     url(r'^categories/(?P<pk>[0-9]+)/$', CategoryDetail.as_view(), name='category-detail'),
