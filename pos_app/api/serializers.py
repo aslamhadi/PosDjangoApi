@@ -37,7 +37,7 @@ class ProductPriceSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductPrice
         fields = (
-            'unit_type_name', 'unit_type', 'sale_price')
+            'unit_type_name', 'unit_type', 'price')
 
 
 class ProductSerializer(serializers.ModelSerializer):

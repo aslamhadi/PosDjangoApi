@@ -15,7 +15,7 @@ class UnitType(models.Model):
 class ProductPrice(models.Model):
     unit_type = models.ForeignKey(UnitType)
     # base_price = models.DecimalField(max_digits=10, decimal_places=2)
-    sale_price = models.DecimalField(max_digits=10, decimal_places=2)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
     # tax = models.DecimalField(max_digits=4, decimal_places=2)
     created_at = models.DateTimeField(default=timezone.now)
     modified_at = models.DateTimeField(auto_now=True)

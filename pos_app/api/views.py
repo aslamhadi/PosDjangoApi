@@ -68,7 +68,7 @@ class ProductListCreate(APIView):
         response_data = {}
         data = request.DATA
         for item in data['product_prices']:
-            product_price = ProductPrice(unit_type_id=item['unit_type'], sale_price=item['sale_price'])
+            product_price = ProductPrice(unit_type_id=item['unit_type'], price=item['price'])
             product_price.save()
             product = Product(name=data['name'], subcategory_id=data['subcategory'])
             product.save()
