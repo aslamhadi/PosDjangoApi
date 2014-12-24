@@ -6,7 +6,7 @@
             <h4><i class="fa fa-angle-right"></i> List satuan unit</h4>
 
             <div class="form-inline">
-                <input type="text" ng-model="selected" typeahead="state for state in states | filter:$viewValue | limitTo:8" class="form-control" typeahead-on-select='onSelect($item, $model, $label)'>
+                <input type="text" ng-model="selected" typeahead="item as item.name for item in all_products | filter:$viewValue | limitTo:8" class="form-control" typeahead-on-select='onSelect($item, $model, $label)'>
                 {{ item }}
                 {{ model }}
                 {{ label }}

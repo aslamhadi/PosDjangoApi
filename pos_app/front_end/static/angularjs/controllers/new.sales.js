@@ -1,4 +1,4 @@
-posControllers.controller('NewSalesCtrl', function ($scope, $http) {
+posControllers.controller('NewSalesCtrl', function ($scope, $http, productService) {
   $scope.onSelect = function ($item, $model, $label) {
     $scope.$item = $item;
     $scope.$model = $model;
@@ -9,5 +9,12 @@ posControllers.controller('NewSalesCtrl', function ($scope, $http) {
   };
   $scope.selected = undefined;
 
-  $scope.states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Dakota', 'North Carolina', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
+  $scope.products = [];
+
+  productService.getProducts()
+    .then(
+    function (products) {
+      $scope.all_products = products.data;
+    }
+  );
 });
