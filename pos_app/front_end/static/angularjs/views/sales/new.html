@@ -19,6 +19,7 @@
                 <th>Satuan</th>
                 <th>Harga</th>
                 <th>Kuantitas</th>
+                <th>Diskon</th>
                 <th>Total</th>
             </tr>
             </thead>
@@ -32,7 +33,12 @@
                     </select>
                 </td>
                 <td class="goright">{{ product.unit_type.sale_price | currency:"Rp. " }}</td>
-                <td><input select-all numeric type="text" size="6" maxlength="6" ng-model="product.quantity" ng-change="updateTotal()" class="form-control goright"> </td>
+                <td>
+                    <input select-all numeric type="text" size="6" maxlength="6" ng-model="product.quantity" ng-change="updateTotal()" class="form-control goright">
+                </td>
+                <td>
+                    <input select-all numeric type="text" size="4" maxlength="4" ng-model="product.discount" ng-change="updateTotal()" class="form-control goright">
+                </td>
                 <td class="goright">{{ product.total | currency:"Rp. " }}</td>
             </tr>
             </tbody>
@@ -40,6 +46,7 @@
                 <tr>
                     <td></td>
                     <td>Total</td>
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>

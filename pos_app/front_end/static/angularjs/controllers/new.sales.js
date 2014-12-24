@@ -9,6 +9,7 @@ posControllers.controller('NewSalesCtrl', function ($scope, $http, productServic
     $scope.product = $model;
     $scope.product.total = 0;
     $scope.product.quantity = 0;
+    $scope.product.discount = 0;
     // Set default value in unit type
     $scope.product.unit_type = $scope.product.product_prices[0];
 
@@ -24,7 +25,11 @@ posControllers.controller('NewSalesCtrl', function ($scope, $http, productServic
   $scope.updateTotal = function () {
       $scope.totalPrice = 0;
       angular.forEach($scope.products, function (product) {
+        var disc = product.discount * product.unit_type.sale_price / 100;
+
         product.total = product.quantity * product.unit_type.sale_price;
+        product.total-= disc;
+
         $scope.totalPrice += product.total;
         product.total = product.total.toFixed(2);
       });
