@@ -1,0 +1,28 @@
+<h3><i class="fa fa-angle-right"></i> Penjualan</h3>
+
+<div class="row mt">
+    <div class="col-lg-12">
+        <div class="content-panel">
+            <h4><i class="fa fa-angle-right"></i> List satuan unit</h4>
+            <table class="table table-bordered table-striped table-condensed">
+                <thead>
+            <tr>
+                <th>No.</th>
+                <th>Nama</th>
+                <th>Aksi</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="unitType in unitTypes">
+                <td>{{ unitType.id }}</td>
+                <td>{{ unitType.name }}</td>
+                <td>
+                    <a ng-click="deleteUnitType(unitType)" class="btn btn-alt m-r-5">Hapus</a>
+                    <a ng-click="updateUnitType(unitType.id)" class="btn btn-alt m-r-5">Update</a>
+                </td>
+            </tr>
+            </tbody>
+            </table>
+        </div>
+    </div>
+</div>

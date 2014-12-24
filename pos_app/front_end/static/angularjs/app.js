@@ -52,6 +52,10 @@ posAngular.config(['$routeProvider',
         templateUrl: 'static/angularjs/views/product/update.html',
         controller: 'ProductUpdateCtrl'
       }).
+      when('/sales/new/', {
+        templateUrl: 'static/angularjs/views/sales/new.html',
+        controller: 'NewSalesCtrl'
+      }).
       otherwise({
         redirectTo: '/'
       });
