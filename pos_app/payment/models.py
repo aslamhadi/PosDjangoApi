@@ -52,5 +52,10 @@ class PaymentProduct(models.Model):
         return self.product.name
 
     @property
+    def sale_price(self):
+        profit = self.idx_sale_price * self.price
+        return self.price + profit
+
+    @property
     def total(self):
-        return self.price * self.item_count
+        return self.sale_price * self.item_count

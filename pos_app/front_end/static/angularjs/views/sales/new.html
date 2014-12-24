@@ -1,12 +1,13 @@
 <h3><i class="fa fa-angle-right"></i> Penjualan</h3>
 
 <div class="row mt">
-    <div class="col-lg-12">
+    <div class="col-lg-8">
         <div class="content-panel">
             <h4><i class="fa fa-angle-right"></i> List satuan unit</h4>
 
             <div class="form-inline">
-                <input select-all type="text" ng-model="selected" typeahead="item as item.name for item in getProducts($viewValue) | filter:$viewValue | limitTo:8" class="form-control" typeahead-loading="loadingLocations" typeahead-on-select='onSelect($item, $model, $label)'>
+                <label>Cari produk di sini</label>
+                <input select-all type="text" placeholder="Ketik nama obat" ng-model="selected" typeahead="item as item.name for item in getProducts($viewValue) | filter:$viewValue | limitTo:8" class="form-control" typeahead-loading="loadingLocations" typeahead-on-select='onSelect($item, $model, $label)'>
                 <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
             </div>
 
@@ -56,12 +57,34 @@
             </tfoot>
             </table>
         </div>
-    </div>
+    </div> <!-- col-lg-8 -->
+    <div class="col-lg-4">
+        <div class="content-panel">
+            <h4><i class="fa fa-angle-right"></i> Total Pembayaran</h4>
+            <table class="table table-bordered table-striped table-condensed">
+                <tbody>
+                    <tr>
+                        <td class="goleft">Total</td>
+                        <td class="goright">{{ totalPrice|currency:"Rp. " }}</td>
+                    </tr>
+                    <tr>
+                        <td class="goleft">Jumlah Uang</td>
+                        <td class="goright">
+                            <input select-all numeric type="text" size="4" maxlength="4" ng-model="cash" ng-change="updateChange()" class="form-control goright">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="goleft">Kembalian</td>
+                        <td class="goright">{{ change|currency:"Rp. " }}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <button class="btn btn-sm" ng-click="createPayment()">Bayar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div> <!-- col-lg-4 -->
 </div>
-
-<script type="text/ng-template" id="caribarang.html">
-  <a>
-      <img ng-src="http://upload.wikimedia.org/wikipedia/commons/thumb/{{match.model.flag}}" width="16">
-      <span bind-html-unsafe="match.label | typeaheadHighlight:query"></span>
-  </a>
-</script>

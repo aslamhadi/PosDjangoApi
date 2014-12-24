@@ -2,7 +2,9 @@ posControllers.controller('NewSalesCtrl', function ($scope, $http, productServic
 
   $scope.selected = undefined;
   $scope.products = [];
-  $scope.totalPrice = 0.00;
+  $scope.totalPrice = 0;
+  $scope.cash = 0;
+  $scope.change = 0;
 
   // callback typeahead
   $scope.onSelect = function ($item, $model, $productel) {
@@ -23,17 +25,21 @@ posControllers.controller('NewSalesCtrl', function ($scope, $http, productServic
   };
 
   $scope.updateTotal = function () {
-      $scope.totalPrice = 0;
-      angular.forEach($scope.products, function (product) {
-        var disc = product.discount * product.unit_type.price / 100;
+    $scope.totalPrice = 0;
+    angular.forEach($scope.products, function (product) {
+      var disc = product.discount * product.unit_type.price / 100;
 
-        product.total = product.quantity * product.unit_type.price;
-        product.total-= disc;
+      product.total = product.quantity * product.unit_type.price;
+      product.total-= disc;
 
-        $scope.totalPrice += product.total;
-        product.total = product.total.toFixed(2);
-      });
-    };
+      $scope.totalPrice += product.total;
+      product.total = product.total.toFixed(2);
+    });
+  };
+
+  $scope.updateChange = function () {
+    $scope.change = $scope.cash - $scope.totalPrice;
+  };
 
   $scope.removeProduct = function(index) {
     $scope.products.splice(index, 1);
