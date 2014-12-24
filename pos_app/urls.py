@@ -10,4 +10,5 @@ urlpatterns = patterns('',  # nopep8
     url(r'^api/', include('pos_app.api.urls', namespace='api')),
     url(r'^$', views.home_view, name='home'),
     url(r'^login/$', views.login_view, name='login'),
+    url(r'^register/$', views.register_view, name='register'),
 )
