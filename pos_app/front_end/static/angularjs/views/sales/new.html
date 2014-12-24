@@ -29,7 +29,6 @@
                 <td>{{ product.id }}</td>
                 <td>
                     <select class="form-control input-sm " ng-model="product.unit_type" ng-options="item as item.unit_type_name for item in product.product_prices" >
-                        <option value=''>Pilih Satuan</option>
                     </select>
                 </td>
                 <td>{{ product.unit_type.sale_price | currency:"Rp. " }}</td>

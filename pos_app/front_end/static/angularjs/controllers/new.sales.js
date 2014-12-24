@@ -9,6 +9,7 @@ posControllers.controller('NewSalesCtrl', function ($scope, $http, productServic
   $scope.onSelect = function ($item, $model, $label) {
     $scope.product = $model;
     $scope.products.push($scope.product);
+    $scope.product.unit_type = $scope.product.product_prices[0];
     console.log($model);
   };
 
