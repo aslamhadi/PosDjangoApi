@@ -8,8 +8,12 @@ posControllers.controller('NewSalesCtrl', function ($scope, $http, productServic
   // callback typeahead
   $scope.onSelect = function ($item, $model, $label) {
     $scope.product = $model;
-    $scope.products.push($scope.product);
+    $scope.product.total = 0;
+    // Set default value in unit type
     $scope.product.unit_type = $scope.product.product_prices[0];
+
+    $scope.products.push($scope.product);
+
     console.log($model);
   };
 

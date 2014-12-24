@@ -6,7 +6,7 @@
             <h4><i class="fa fa-angle-right"></i> List satuan unit</h4>
 
             <div class="form-inline">
-                <input type="text" ng-model="selected" typeahead="item as item.name for item in getProducts($viewValue) | filter:$viewValue | limitTo:8" class="form-control" typeahead-loading="loadingLocations" typeahead-on-select='onSelect($item, $model, $label)'>
+                <input select-all type="text" ng-model="selected" typeahead="item as item.name for item in getProducts($viewValue) | filter:$viewValue | limitTo:8" class="form-control" typeahead-loading="loadingLocations" typeahead-on-select='onSelect($item, $model, $label)'>
                 <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
             </div>
 
@@ -32,7 +32,7 @@
                     </select>
                 </td>
                 <td>{{ product.unit_type.sale_price | currency:"Rp. " }}</td>
-                <td><input type="text" numeric ng-model="product.quantity" ng-change="countProductPrice()" class="form-control"> </td>
+                <td><input type="text" numeric size="6" maxlength="6" ng-model="product.quantity" ng-change="countProductPrice()" class="form-control"> </td>
                 <td>{{ product.total | currency:"Rp. " }}</td>
             </tr>
             </tbody>
