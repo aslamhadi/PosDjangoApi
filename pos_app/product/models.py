@@ -35,9 +35,9 @@ class Product(models.Model):
     def __unicode__(self):
         return self.name
 
-    def get_price(self):
-        tax_product = self.tax/100 * self.base_price
-        return self.base_price + tax_product
+    # def get_price(self):
+    #     tax_product = self.tax/100 * self.base_price
+    #     return self.base_price + tax_product
 
     @property
     def category_name(self):

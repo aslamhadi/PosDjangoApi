@@ -89,9 +89,7 @@ posControllers.controller('ProductUpdateCtrl', function ($scope, $routeParams, p
       var product_prices = [];
         product_prices.push({
           unit_type: $scope.product.unit_type.id,
-          base_price: $scope.product.base_price,
           sale_price: $scope.product.sale_price,
-          tax: $scope.product.tax,
         });
       if ($routeParams.id != undefined) {
         productService.updateProduct($scope.product, product_prices)
