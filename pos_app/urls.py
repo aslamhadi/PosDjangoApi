@@ -9,4 +9,5 @@ urlpatterns = patterns('',  # nopep8
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^api/', include('pos_app.api.urls', namespace='api')),
     url(r'^$', views.home_view, name='home'),
+    url(r'^login/$', views.login_view, name='login'),
 )
