@@ -8,7 +8,10 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def home_view(request):
-    return render_to_response("index.html")
+    context = {
+        'user': request.user,
+    }
+    return render_to_response("index.html", context)
 
 def login_view(request):
     context = RequestContext(request)
