@@ -2,17 +2,21 @@ posControllers.controller('NewSalesCtrl', function ($scope, $http, productServic
 
   $scope.selected = undefined;
   $scope.products = [];
+  $scope.totalPrice = 0.00;
+  $scope.subTotalPrice = 0.00;
 
   // callback typeahead
   $scope.onSelect = function ($item, $model, $label) {
     $scope.product = $model;
     $scope.products.push($scope.product);
     console.log($model);
-    // console.log($item);
-    // console.log($label);
   };
 
   $scope.getProducts = function(name)  {
     return productService.searchProductByName(name);
+  };
+
+  $scope.countProductPrice = function() {
+    $scope.product.total = $scope.product.unit_type.sale_price * $scope.product.quantity;
   }
 });

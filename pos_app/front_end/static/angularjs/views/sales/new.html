@@ -28,14 +28,13 @@
                 <td>{{ product.name }}</td>
                 <td>{{ product.id }}</td>
                 <td>
-                    <select id="category_id" ng-change="getSubcategories(category)" class="form-control input-sm " ng-model="category"
-                        ng-options="category.name for category in categories">
-                        <option value=''>Pilih kategori</option>
+                    <select class="form-control input-sm " ng-model="product.unit_type" ng-options="item as item.unit_type_name for item in product.product_prices" >
+                        <option value=''>Pilih Satuan</option>
                     </select>
                 </td>
-                <td>{{ product.sale_price }}</td>
-                <td><input type="text" ng-model="product.quantity" class="form-controll"> </td>
-                <td></td>
+                <td>{{ product.unit_type.sale_price | currency:"Rp. " }}</td>
+                <td><input type="text" ng-model="product.quantity" ng-change="countProductPrice()" class="form-control"> </td>
+                <td>{{ product.total | currency:"Rp. " }}</td>
             </tr>
             </tbody>
             </table>
