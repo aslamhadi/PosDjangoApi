@@ -9,6 +9,9 @@ class Payment(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
     modified_at = models.DateTimeField(auto_now=True)
     total = models.DecimalField(decimal_places=2, max_digits=10)
+    cash = models.DecimalField(decimal_places=2, max_digits=10)
+    # change = kembalian :D
+    change = models.DecimalField(decimal_places=2, max_digits=10)
     paid = models.BooleanField(default=False)
     paid_at = models.DateTimeField(blank=True, null=True)
 
