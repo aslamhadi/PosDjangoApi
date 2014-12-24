@@ -10,3 +10,5 @@ POS app using Django Rest Framework and Angularjs
     +   Install requirements :  `pip install -r requirements.txt`
     +   Install bower dependencies: `cd pos_app/front_end/static/` and `bower install`
 +   Back to the root folder and run the server `./manage.py runserver`
+
+I got the template from here : [http://bootstrapzero.com/bootstrap-template/dashgum](http://bootstrapzero.com/bootstrap-template/dashgum)
