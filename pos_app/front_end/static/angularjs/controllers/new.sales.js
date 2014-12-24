@@ -11,10 +11,7 @@ posControllers.controller('NewSalesCtrl', function ($scope, $http, productServic
 
   $scope.products = [];
 
-  productService.getProducts()
-    .then(
-    function (products) {
-      $scope.all_products = products.data;
-    }
-  );
+  $scope.getProducts = function(name)  {
+    return productService.searchProductByName(name);
+  }
 });
