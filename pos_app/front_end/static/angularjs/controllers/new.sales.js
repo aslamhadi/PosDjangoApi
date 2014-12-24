@@ -3,12 +3,12 @@ posControllers.controller('NewSalesCtrl', function ($scope, $http, productServic
   $scope.selected = undefined;
   $scope.products = [];
   $scope.totalPrice = 0.00;
-  $scope.subTotalPrice = 0.00;
 
   // callback typeahead
-  $scope.onSelect = function ($item, $model, $label) {
+  $scope.onSelect = function ($item, $model, $productel) {
     $scope.product = $model;
     $scope.product.total = 0;
+    $scope.product.quantity = 0;
     // Set default value in unit type
     $scope.product.unit_type = $scope.product.product_prices[0];
 
@@ -21,7 +21,16 @@ posControllers.controller('NewSalesCtrl', function ($scope, $http, productServic
     return productService.searchProductByName(name);
   };
 
-  $scope.countProductPrice = function() {
-    $scope.product.total = $scope.product.unit_type.sale_price * $scope.product.quantity;
-  }
+  $scope.updateTotal = function () {
+      $scope.totalPrice = 0;
+      angular.forEach($scope.products, function (product) {
+        product.total = product.quantity * product.unit_type.sale_price;
+        $scope.totalPrice += product.total;
+        product.total = product.total.toFixed(2);
+      });
+    };
+
+  $scope.removeProduct = function(index) {
+    $scope.products.splice(index, 1);
+  };
 });

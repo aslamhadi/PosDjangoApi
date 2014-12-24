@@ -13,7 +13,7 @@
             <table class="table table-bordered table-striped table-condensed">
                 <thead>
             <tr>
-                <th></th>
+                <th>Hapus</th>
                 <th>Nama</th>
                 <th>Id Produk</th>
                 <th>Satuan</th>
@@ -24,18 +24,29 @@
             </thead>
             <tbody>
             <tr ng-repeat=" product in products ">
-                <td class="centered"><i class="fa fa-trash fa-3"></i></td>
+                <td class="centered"><i class="fa fa-trash fa-3" ng-click="removeProduct($index)"></i></td>
                 <td>{{ product.name }}</td>
                 <td>{{ product.id }}</td>
                 <td>
                     <select class="form-control input-sm " ng-model="product.unit_type" ng-options="item as item.unit_type_name for item in product.product_prices" >
                     </select>
                 </td>
-                <td>{{ product.unit_type.sale_price | currency:"Rp. " }}</td>
-                <td><input type="text" numeric size="6" maxlength="6" ng-model="product.quantity" ng-change="countProductPrice()" class="form-control"> </td>
-                <td>{{ product.total | currency:"Rp. " }}</td>
+                <td class="goright">{{ product.unit_type.sale_price | currency:"Rp. " }}</td>
+                <td><input select-all numeric type="text" size="6" maxlength="6" ng-model="product.quantity" ng-change="updateTotal()" class="form-control goright"> </td>
+                <td class="goright">{{ product.total | currency:"Rp. " }}</td>
             </tr>
             </tbody>
+            <tfoot>
+                <tr>
+                    <td></td>
+                    <td>Total</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="goright">{{ totalPrice|currency:"Rp. " }}</td>
+                </tr>
+            </tfoot>
             </table>
         </div>
     </div>
