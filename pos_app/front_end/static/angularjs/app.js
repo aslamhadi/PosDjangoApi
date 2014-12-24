@@ -5,6 +5,7 @@
 var posAngular = angular.module('posAngular', [
   'ngRoute',
   'ngCookies',
+  'ui.bootstrap',
   'posControllers',
   'posServices',
 ]);
@@ -61,7 +62,6 @@ posAngular.config(['$routeProvider',
       });
   }
 ]);
-
 
 // Generate csrf token
 posAngular.run(function run($http, $cookies) {
