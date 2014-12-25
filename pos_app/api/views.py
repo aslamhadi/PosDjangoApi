@@ -133,19 +133,24 @@ class ImportCategoryCsv(CreateAPIView):
     permission_classes = (IsAuthenticated,)
 
     def post(self, request, format=None):
-        response_data = {}
-        categories = []
-        subcategories = []
         file_obj = request.FILES['file']
         reader = csv.DictReader(file_obj)
 
         for row in reader:
-            categories.append(row['Category'])
-            subcategories.append(row['SubCategory'])
+            # create category
+            category_name = row['Category']
+            try:
+                category = Category.objects.get(name=category_name)
+            except Category.DoesNotExist:
+                category = Category(name=category_name)
+                category.save()
 
-        response_data.update({
-            'categories': categories,
-            'subcategories': subcategories,
-        })
+            # create subcategory
+            subcategory_name = row['SubCategory']
+            try:
+                subcategory = SubCategory.objects.get(name=subcategory_name, category=category)
+            except SubCategory.DoesNotExist:
+                subcategory = SubCategory(name=subcategory_name, category=category)
+                subcategory.save()
 
-        return Response(response_data, status=200)
+        return Response(status=201)
