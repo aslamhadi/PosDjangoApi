@@ -47,3 +47,14 @@ class Product(models.Model):
     @property
     def subcategory_name(self):
         return self.subcategory.name
+
+    @property
+    def get_idx_sale_price(self):
+        # This is the default index sales price, not for prescription
+        if self.category_name == "Kosmetika":
+            return 1.15
+        elif self.category_name == "Obat Bebas" or self.category_name == "Obat Bebas Terbatas":
+            return 1.08
+        elif self.category_name == "Susu":
+            return 1.04
+        return 0

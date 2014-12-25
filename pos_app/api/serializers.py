@@ -47,11 +47,12 @@ class ProductSerializer(serializers.ModelSerializer):
     product_prices = ProductPriceSerializer(many=True)
     category_name = serializers.Field('category_name')
     subcategory_name = serializers.Field('subcategory_name')
+    idx_sale_price = serializers.Field('get_idx_sale_price')
 
     class Meta:
         model = Product
         fields = (
-            'id', 'name', 'barcode', 'category_name', 'subcategory_name', 'product_prices', 'subcategory', 'created_at', 'modified_at')
+            'id', 'name', 'barcode', 'idx_sale_price', 'category_name', 'subcategory_name', 'product_prices', 'subcategory', 'created_at', 'modified_at')
         read_only_fields = ('created_at', 'modified_at')
 
 
