@@ -1,6 +1,5 @@
 from django.conf.urls import patterns, url
-from pos_app.api.views import UserListCreate, CategoryListCreate, CategoryDetail, SubCategoryListCreate, \
-    SubCategoryDetail, UnitTypeDetail, UnitTypeListCreate, ProductListCreate, ProductDetail, SubCategoryInCategory, GetProductsByName, Logout, CreatePayment
+from pos_app.api.views import UserListCreate, CategoryListCreate, CategoryDetail, SubCategoryListCreate, SubCategoryDetail, UnitTypeDetail, UnitTypeListCreate, ProductListCreate, ProductDetail, SubCategoryInCategory, GetProductsByName, Logout, CreatePayment, ImportCategoryCsv
 
 urlpatterns = patterns('',  # nopep8
     # Account
@@ -8,6 +7,7 @@ urlpatterns = patterns('',  # nopep8
 
     # Category
     url(r'^categories/$', CategoryListCreate.as_view(), name='category'),
+    url(r'^categories/import_csv/$', ImportCategoryCsv.as_view(), name='category-import-csv'),
     url(r'^categories/(?P<pk>[0-9]+)/$', CategoryDetail.as_view(), name='category-detail'),
 
     # Subcategory

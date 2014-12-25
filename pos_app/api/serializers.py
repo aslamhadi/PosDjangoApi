@@ -65,4 +65,4 @@ class ProductSerializer(serializers.ModelSerializer):
 class PaymentSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model: Payment
+        model= Payment

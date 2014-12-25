@@ -1,3 +1,5 @@
+import csv
+
 from django.contrib.auth.models import User
 from django.contrib.auth import logout
 
@@ -7,8 +9,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 
-from pos_app.api.serializers import UserSerializer, CategorySerializer, SubCategorySerializer, UnitTypeSerializer, ProductSerializer,
-    PaymentSerializer
+from pos_app.api.serializers import UserSerializer, CategorySerializer, SubCategorySerializer, UnitTypeSerializer, ProductSerializer,     PaymentSerializer
 from pos_app.category.models import Category, SubCategory
 from pos_app.product.models import UnitType, Product, ProductPrice
 
@@ -127,3 +128,24 @@ class CreatePayment(CreateAPIView):
         payment.total = payment.get_total()
         payment.save()
 
+
+class ImportCategoryCsv(CreateAPIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, format=None):
+        response_data = {}
+        categories = []
+        subcategories = []
+        file_obj = request.FILES['file']
+        reader = csv.DictReader(file_obj)
+
+        for row in reader:
+            categories.append(row['Category'])
+            subcategories.append(row['SubCategory'])
+
+        response_data.update({
+            'categories': categories,
+            'subcategories': subcategories,
+        })
+
+        return Response(response_data, status=200)
