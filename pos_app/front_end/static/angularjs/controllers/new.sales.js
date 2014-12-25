@@ -1,10 +1,12 @@
-posControllers.controller('NewSalesCtrl', function ($scope, $http, productService) {
+posControllers.controller('NewSalesCtrl', function ($scope, $http, productService, newSaleService) {
 
   $scope.selected = undefined;
   $scope.products = [];
   $scope.totalPrice = 0;
   $scope.cash = 0;
   $scope.change = 0;
+  $scope.errorMessage = "";
+  $scope.checkoutButton = "Bayar";
 
   // callback typeahead
   $scope.onSelect = function ($item, $model, $productel) {
@@ -12,6 +14,7 @@ posControllers.controller('NewSalesCtrl', function ($scope, $http, productServic
     $scope.product.total = 0;
     $scope.product.quantity = 0;
     $scope.product.discount = 0;
+    $scope.product.is_prescription = false;
     // Set default value in unit type
     $scope.product.unit_type = $scope.product.product_prices[0];
 
@@ -44,4 +47,41 @@ posControllers.controller('NewSalesCtrl', function ($scope, $http, productServic
   $scope.removeProduct = function(index) {
     $scope.products.splice(index, 1);
   };
+
+  $scope.createPayment = function() {
+    if ($scope.totalPrice == 0) {
+      $scope.errorMessage = "Belum ada produk";
+    } else if ($scope.cash == 0) {
+      $scope.errorMessage = "Silakan masukkan jumlah uang";
+    } else {
+      processPayment();
+    }
+  };
+
+  function processPayment() {
+    $scope.errorMessage = "";
+    $scope.checkoutButton = "Memproses...";
+    // process payment here
+    data = {
+      employee: window.requestUser.backoffice.user.id,
+      total : $scope.totalPrice,
+      list_product: []
+    };
+
+    angular.forEach($scope.labs, function (product) {
+      if (product.license > 0) {
+        data.list_product.push({
+          product: product.id,
+          item_count: product.quantity,
+          is_prescription: product.is_prescription,
+          idx_sale_price: product.idx_sale_price,
+          discount: product.discount,
+          price: product.price,
+        });
+      }
+    });
+
+    newSaleService.createPayment(data);
+  };
+
 });

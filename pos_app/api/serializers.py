@@ -6,6 +6,7 @@ from pos_app.category.models import Category, SubCategory
 from pos_app.product.models import UnitType, Product, ProductPrice
 from pos_app.payment.models import Payment, PaymentProduct
 
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -50,7 +51,7 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = (
-            'id', 'name', 'category_name', 'subcategory_name', 'product_prices', 'subcategory', 'created_at', 'modified_at')
+            'id', 'name', 'barcode', 'category_name', 'subcategory_name', 'product_prices', 'subcategory', 'created_at', 'modified_at')
         read_only_fields = ('created_at', 'modified_at')
 
 

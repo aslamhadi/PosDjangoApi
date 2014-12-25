@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, url
 from pos_app.api.views import UserListCreate, CategoryListCreate, CategoryDetail, SubCategoryListCreate, \
-    SubCategoryDetail, UnitTypeDetail, UnitTypeListCreate, ProductListCreate, ProductDetail, SubCategoryInCategory, GetProductsByName, Logout
+    SubCategoryDetail, UnitTypeDetail, UnitTypeListCreate, ProductListCreate, ProductDetail, SubCategoryInCategory, GetProductsByName, Logout, CreatePayment
 
 urlpatterns = patterns('',  # nopep8
     # Account
@@ -21,6 +21,9 @@ urlpatterns = patterns('',  # nopep8
     # Unit Type
     url(r'^unit-types/$', UnitTypeListCreate.as_view(), name='unit-type'),
     url(r'^unit-types/(?P<pk>[0-9]+)/$', UnitTypeDetail.as_view(), name='unit-type-detail'),
+
+    # Payment
+    url(r'^payments/create/$', CreatePayment.as_view(), name='create-payment'),
 
     # Product
     url(r'^products/$', ProductListCreate.as_view(), name='product'),
