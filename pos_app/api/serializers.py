@@ -1,8 +1,10 @@
 from django.contrib.auth.models import User
+
 from rest_framework import serializers
+
 from pos_app.category.models import Category, SubCategory
 from pos_app.product.models import UnitType, Product, ProductPrice
-
+from pos_app.payment.models import Payment, PaymentProduct
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -50,3 +52,15 @@ class ProductSerializer(serializers.ModelSerializer):
         fields = (
             'id', 'name', 'category_name', 'subcategory_name', 'product_prices', 'subcategory', 'created_at', 'modified_at')
         read_only_fields = ('created_at', 'modified_at')
+
+
+# class PaymentProductSerializer(serializers.ModelSerializer):
+
+#     class Meta:
+#         model = PaymentProduct
+
+
+class PaymentSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model: Payment

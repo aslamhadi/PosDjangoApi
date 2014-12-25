@@ -1,17 +1,16 @@
 from django.contrib.auth.models import User
+from django.contrib.auth import logout
 
-from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, ListAPIView
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, ListAPIView, CreateAPIView
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 
-from pos_app.api.serializers import UserSerializer, CategorySerializer, SubCategorySerializer, UnitTypeSerializer, \
-    ProductSerializer
+from pos_app.api.serializers import UserSerializer, CategorySerializer, SubCategorySerializer, UnitTypeSerializer, ProductSerializer,
+    PaymentSerializer
 from pos_app.category.models import Category, SubCategory
 from pos_app.product.models import UnitType, Product, ProductPrice
-
-from django.contrib.auth import logout
 
 
 class Logout(APIView):
@@ -102,3 +101,29 @@ class GetProductsByName(ListAPIView):
     def get_queryset(self):
         name = self.kwargs['name']
         return Product.objects.filter(name__contains=name)
+
+
+class CreatePayment(CreateAPIView):
+    permission_classes = (IsAuthenticated,)
+    serializer_class = PaymentSerializer
+
+    def pre_save(self, obj):
+        # Set total to 0 first because we haven't set the payment product of this payment
+        obj.total = 0
+
+    def post_save(self, obj, created=False):
+        payment = get_object_or_404(Payment, pk=obj.id)
+        list_product = self.request.DATA.get('list_product', [])
+        for item in list_product:
+            product = get_object_or_404(Product, pk=item["product"])
+            payment_product = PaymentProduct(product=product, payment=payment,
+                                             price=price,
+                                             item_count=item["item_count"],
+                                             is_prescription=item["is_prescription"],
+                                             idx_sale_price=item["idx_sale_price"],
+                                             discount=item["discount"] )
+            payment_product.save()
+        # We have the list of payment group of this payment. Time to count total payment
+        payment.total = payment.get_total()
+        payment.save()
+
