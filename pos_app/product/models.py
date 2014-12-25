@@ -29,6 +29,7 @@ class Product(models.Model):
     subcategory = models.ForeignKey(SubCategory)
     product_prices = models.ManyToManyField(ProductPrice)
     name = models.CharField(max_length=255)
+    barcode = models.CharField(max_length=255)
     created_at = models.DateTimeField(default=timezone.now)
     modified_at = models.DateTimeField(auto_now=True)
 
