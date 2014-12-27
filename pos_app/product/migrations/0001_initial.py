@@ -17,12 +17,22 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('name', models.CharField(max_length=255)),
-                ('base_price', models.DecimalField(max_digits=10, decimal_places=2)),
-                ('price', models.DecimalField(max_digits=10, decimal_places=2)),
-                ('tax', models.DecimalField(max_digits=4, decimal_places=2)),
+                ('barcode', models.CharField(max_length=255)),
                 ('created_at', models.DateTimeField(default=django.utils.timezone.now)),
                 ('modified_at', models.DateTimeField(auto_now=True)),
-                ('subcategory', models.ForeignKey(to='category.SubCategory')),
+                ('categories', models.ManyToManyField(to='category.Category')),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='ProductPrice',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('price', models.DecimalField(max_digits=10, decimal_places=2)),
+                ('created_at', models.DateTimeField(default=django.utils.timezone.now)),
+                ('modified_at', models.DateTimeField(auto_now=True)),
             ],
             options={
             },
@@ -39,9 +49,15 @@ class Migration(migrations.Migration):
             bases=(models.Model,),
         ),
         migrations.AddField(
-            model_name='product',
+            model_name='productprice',
             name='unit_type',
             field=models.ForeignKey(to='product.UnitType'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='product',
+            name='product_prices',
+            field=models.ManyToManyField(to='product.ProductPrice'),
             preserve_default=True,
         ),
     ]

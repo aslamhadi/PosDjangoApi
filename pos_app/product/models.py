@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 
-from pos_app.category.models import SubCategory
+from pos_app.category.models import SubCategory, Category
 
 
 class UnitType(models.Model):
@@ -14,9 +14,7 @@ class UnitType(models.Model):
 
 class ProductPrice(models.Model):
     unit_type = models.ForeignKey(UnitType)
-    # base_price = models.DecimalField(max_digits=10, decimal_places=2)
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    # tax = models.DecimalField(max_digits=4, decimal_places=2)
     created_at = models.DateTimeField(default=timezone.now)
     modified_at = models.DateTimeField(auto_now=True)
 
@@ -26,7 +24,7 @@ class ProductPrice(models.Model):
 
 
 class Product(models.Model):
-    subcategory = models.ForeignKey(SubCategory)
+    categories = models.ManyToManyField(Category)
     product_prices = models.ManyToManyField(ProductPrice)
     name = models.CharField(max_length=255)
     barcode = models.CharField(max_length=255)

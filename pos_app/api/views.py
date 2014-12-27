@@ -80,9 +80,20 @@ class ProductListCreate(APIView):
         for item in data['product_prices']:
             product_price = ProductPrice(unit_type_id=item['unit_type'], price=item['price'])
             product_price.save()
-            product = Product(name=data['name'], subcategory_id=data['subcategory'])
+
+            product = Product(name=data['name'])
             product.save()
             product.product_prices.add(product_price)
+
+            categories = data['category'].split()
+            for item in categories:
+                try:
+                    category = Category.objects.get(name=item)
+                except Category.DoesNotExist:
+                    category = Category(name=item)
+                    category.save()
+                product.categories.add(category)
+
             http_status = status.HTTP_201_CREATED
             response_data.update({
                 'product_id': product.id,
@@ -146,12 +157,12 @@ class ImportCategoryCsv(CreateAPIView):
                 category.save()
 
             # create subcategory
-            subcategory_name = row['SubCategory']
-            try:
-                subcategory = SubCategory.objects.get(name=subcategory_name, category=category)
-            except SubCategory.DoesNotExist:
-                subcategory = SubCategory(name=subcategory_name, category=category)
-                subcategory.save()
+            # subcategory_name = row['SubCategory']
+            # try:
+            #     subcategory = SubCategory.objects.get(name=subcategory_name, category=category)
+            # except SubCategory.DoesNotExist:
+            #     subcategory = SubCategory(name=subcategory_name, category=category)
+            #     subcategory.save()
 
         return Response(status=201)
 
