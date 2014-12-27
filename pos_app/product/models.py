@@ -25,10 +25,6 @@ class Embalase(models.Model):
 #     created_at = models.DateTimeField(default=timezone.now)
 #     modified_at = models.DateTimeField(auto_now=True)
 
-#     @property
-#     def unit_type_name(self):
-#         return self.unit_type.name
-
 
 class Product(models.Model):
     category = models.ForeignKey(Category)
@@ -46,6 +42,14 @@ class Product(models.Model):
     @property
     def category_name(self):
         return self.category.name
+
+    @property
+    def unit_type_name(self):
+        return self.unit_type.name
+
+    @property
+    def factory_name(self):
+        return self.factory.name
 
     # def get_price(self):
     #     tax_product = self.tax/100 * self.base_price
