@@ -154,3 +154,40 @@ class ImportCategoryCsv(CreateAPIView):
                 subcategory.save()
 
         return Response(status=201)
+
+
+class ImportProductCsv(CreateAPIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, format=None):
+        file_obj = request.FILES['file']
+        reader = csv.DictReader(file_obj)
+
+        for row in reader:
+            # create unit type first
+            try:
+                unit_type = UnitType.objects.get(name=row['Unit Type'])
+            except UnitType.DoesNotExist:
+                unit_type = UnitType(name=row['Unit Type'])
+                unit_type.save()
+
+            # create product price
+            product_price = ProductPrice(unit_type=unit_type, price=row['price'])
+            product_price.save()
+
+            # create category
+            category_name = row['Category']
+            try:
+                category = Category.objects.get(name=category_name)
+            except Category.DoesNotExist:
+                category = Category(name=category_name)
+                category.save()
+
+            # create product
+            product_name = row['Product Name']
+            try:
+                product = Product.objects.get(name=product_name)
+            except Product.DoesNotExist:
+                product = Product(name=product_name)
+                product.save()
+                product.product_prices.add(product_price)
