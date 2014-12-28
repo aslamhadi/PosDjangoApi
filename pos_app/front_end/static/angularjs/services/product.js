@@ -8,8 +8,8 @@ posServices.factory('productService', function ($http, $q) {
     searchProductByName: searchProductByName,
   });
 
-  function addProduct(product, product_prices) {
-    return $http({method: 'POST', url: '/api/products/', data: { subcategory: product.subcategory.id, name: product.name, product_prices: product_prices }}).
+  function addProduct(product, category, unit_type, factory) {
+    return $http({method: 'POST', url: '/api/products/create/', data: { category: category.id, unit_type: unit_type.id, factory: factory.id, name: product.name, barcode: product.barcode, price: product.price }}).
     success(function (data, status, headers, config) {
       return data;
     }).

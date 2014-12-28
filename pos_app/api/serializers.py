@@ -59,25 +59,22 @@ class UnitTypeSerializer(serializers.ModelSerializer):
         model = UnitType
 
 
-# class ProductPriceSerializer(serializers.ModelSerializer):
-#     unit_type_name = serializers.Field('unit_type_name')
-
-#     class Meta:
-#         model = ProductPrice
-#         fields = (
-#             'unit_type_name', 'unit_type', 'price')
-
-
 class ProductSerializer(serializers.ModelSerializer):
     category = CategorySerializer()
-    unit_type_name = serializers.Field('unit_type_name')
-    factory_name = serializers.Field('factory_name')
+    unit_type = UnitTypeSerializer()
+    factory = FactorySerializer()
 
     class Meta:
         model = Product
         fields = (
-            'id', 'name', 'barcode', 'category', 'unit_type', 'unit_type_name', 'factory', 'factory_name', 'price', 'created_at', 'modified_at')
+            'id', 'name', 'barcode', 'category', 'unit_type', 'factory', 'price', 'created_at', 'modified_at')
         read_only_fields = ('created_at', 'modified_at')
+
+
+class CreateProductSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Product
 
 
 class PaymentSerializer(serializers.ModelSerializer):

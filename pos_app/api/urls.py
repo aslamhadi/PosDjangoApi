@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, url
-from pos_app.api.views import UserListCreate, CategoryListCreate, CategoryDetail, SubCategoryListCreate, SubCategoryDetail, UnitTypeDetail, UnitTypeListCreate, ProductListCreate, ProductDetail, SubCategoryInCategory, GetProductsByName, Logout, CreatePayment, ImportCategoryCsv, FactoryDetail, FactoryListCreate
+from pos_app.api.views import UserListCreate, CategoryListCreate, CategoryDetail, SubCategoryListCreate, SubCategoryDetail, UnitTypeDetail, UnitTypeListCreate, ProductCreate, ProductList, ProductDetail, SubCategoryInCategory, GetProductsByName, Logout, CreatePayment, ImportCategoryCsv, FactoryDetail, FactoryListCreate
 
 urlpatterns = patterns('',  # nopep8
     # Account
@@ -30,7 +30,8 @@ urlpatterns = patterns('',  # nopep8
     url(r'^payments/create/$', CreatePayment.as_view(), name='create-payment'),
 
     # Product
-    url(r'^products/$', ProductListCreate.as_view(), name='product'),
+    url(r'^products/$', ProductList.as_view(), name='product'),
+    url(r'^products/create/$', ProductCreate.as_view(), name='product-create'),
     url(r'^products/(?P<pk>[0-9]+)/$', ProductDetail.as_view(), name='product-detail'),
     url(r'^products/name/(?P<name>.+)/$', GetProductsByName.as_view(), name='product-by-name'),
 )

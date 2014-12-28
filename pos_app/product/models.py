@@ -47,10 +47,6 @@ class Product(models.Model):
     def factory_name(self):
         return self.factory.name
 
-    # def get_price(self):
-    #     tax_product = self.tax/100 * self.base_price
-    #     return self.base_price + tax_product
-
     # @property
     # def subcategory_name(self):
     #     return self.subcategory.name

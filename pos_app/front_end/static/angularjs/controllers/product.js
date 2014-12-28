@@ -2,28 +2,12 @@ posControllers.controller('ProductCtrl', function ($scope, $location, productSer
     $scope.products = [];
     $scope.addResponse = "";
 
-    getProducts();
-
-    function getProducts() {
-      productService.getProducts()
-        .then(
-        function (products) {
-          $scope.products = products.data;
-        }
-      );
-    }
-
-    $scope.addProduct = function () {
-      productService.addProduct($scope.form.name)
-        .then(
-        function (product) {
-          // The api return data so let's just push the data into products array
-          $scope.products.push(product.data);
-        }
-      );
-      // Reset the form once values have been consumed.
-      $scope.form.name = "";
-    };
+    productService.getProducts()
+      .then(
+      function (products) {
+        $scope.products = products.data;
+      }
+    );
 
     $scope.deleteProduct = function (product) {
       productService.deleteProduct(product.id)
@@ -36,63 +20,43 @@ posControllers.controller('ProductCtrl', function ($scope, $location, productSer
         }
       );
     };
-
-    $scope.updateProduct = function (productId) {
-      $location.path('/product/update/' + productId + '/');
-    };
   }
 );
 
-posControllers.controller('ProductUpdateCtrl', function ($scope, $routeParams, productService, categoryService, subCategoryService, unitTypeService) {
+posControllers.controller('ProductUpdateCtrl', function ($scope, $routeParams, productService, categoryService, factoryService, unitTypeService) {
     $scope.responseMessage = "";
-    getProduct();
-    getCategories();
-    getUnitTypes();
-
-    function getUnitTypes() {
-      unitTypeService.getUnitTypes()
-        .then(function (unit_types) {
-          $scope.unit_types = unit_types.data;
+    if ($routeParams.id != undefined) {
+      productService.getProduct($routeParams.id)
+        .then(function (product) {
+          $scope.product = product.data;
         }
       );
     }
 
-    function getProduct() {
-      if ($routeParams.id != undefined) {
-        productService.getProduct($routeParams.id)
-          .then(function (product) {
-            $scope.product = product.data;
-          }
-        );
+    unitTypeService.getUnitTypes()
+      .then(function (unit_types) {
+        $scope.unit_types = unit_types.data;
+        $scope.unit_type = $scope.unit_types[0];
       }
-    }
+    );
 
-    function getCategories() {
-      categoryService.getCategories()
-        .then(function (categories) {
-          $scope.categories = categories.data;
-        }
-      );
-    }
-
-    $scope.getSubcategories = function (category) {
-      if (category != null) {
-        subCategoryService.getSubCategoriesInCategory(category)
-          .then(function (subcategories) {
-            $scope.subcategories = subcategories.data;
-          }
-        )
+    categoryService.getCategories()
+      .then(function (categories) {
+        $scope.categories = categories.data;
+        $scope.category = $scope.categories[0];
       }
-    };
+    );
+
+    factoryService.getFactories()
+      .then(function (factories) {
+        $scope.factories = factories.data;
+        $scope.factory = $scope.factories[0];
+      }
+    );
 
     $scope.updateProduct = function () {
-      var product_prices = [];
-        product_prices.push({
-          unit_type: $scope.product.unit_type.id,
-          price: $scope.product.price,
-        });
       if ($routeParams.id != undefined) {
-        productService.updateProduct($scope.product, product_prices)
+        productService.updateProduct($scope.product, $scope.category, $scope.unit_type, $scope.factory)
           .then(function (response) {
             if (response.status == 200) {
               $scope.responseMessage = "Berhasil merubah produk";
@@ -100,7 +64,7 @@ posControllers.controller('ProductUpdateCtrl', function ($scope, $routeParams, p
             }
           });
       } else {
-        productService.addProduct($scope.product, product_prices)
+        productService.addProduct($scope.product, $scope.category, $scope.unit_type, $scope.factory)
           .then(function (response) {
             if (response.status == 201) {
               $scope.responseMessage = "Berhasil menambah produk";

@@ -9,7 +9,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 
-from pos_app.api.serializers import UserSerializer, CategorySerializer, UnitTypeSerializer, ProductSerializer, SubCategorySerializer, PaymentSerializer, FactorySerializer
+from pos_app.api.serializers import UserSerializer, CategorySerializer, UnitTypeSerializer, ProductSerializer, CreateProductSerializer, SubCategorySerializer, PaymentSerializer, FactorySerializer
 from pos_app.category.models import Category, SubCategory
 from pos_app.product.models import UnitType, Product
 from pos_app.factory.models import Factory
@@ -77,39 +77,46 @@ class UnitTypeDetail(RetrieveUpdateDestroyAPIView):
     serializer_class = UnitTypeSerializer
 
 
-class ProductListCreate(APIView):
+class ProductList(ListAPIView):
     permission_classes = (IsAuthenticatedOrReadOnly,)
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
 
-    def get(self, request, format=None):
-        products = Product.objects.all()
-        serializer = ProductSerializer(products, many=True)
-        return Response(serializer.data)
 
-    def post(self, request, format=None):
-        response_data = {}
-        data = request.DATA
-        for item in data['product_prices']:
-            # product_price = ProductPrice(unit_type_id=item['unit_type'], price=item['price'])
-            # product_price.save()
+class ProductCreate(CreateAPIView):
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+    serializer_class = CreateProductSerializer
 
-            product = Product(name=data['name'])
-            product.save()
-            product.product_prices.add(product_price)
+    # def get(self, request, format=None):
+    #     products = Product.objects.all()
+    #     serializer = ProductSerializer(products, many=True)
+    #     return Response(serializer.data)
 
-            categories = data['category'].split()
-            for item in categories:
-                try:
-                    category = Category.objects.get(name=item)
-                except Category.DoesNotExist:
-                    category = Category(name=item)
-                    category.save()
-                product.categories.add(category)
+    # def post(self, request, format=None):
+    #     response_data = {}
+    #     data = request.DATA
+    #     for item in data['product_prices']:
+    #         # product_price = ProductPrice(unit_type_id=item['unit_type'], price=item['price'])
+    #         # product_price.save()
 
-            http_status = status.HTTP_201_CREATED
-            response_data.update({
-                'product_id': product.id,
-            })
-            return Response(response_data, http_status)
+    #         product = Product(name=data['name'])
+    #         product.save()
+    #         product.product_prices.add(product_price)
+
+    #         categories = data['category'].split()
+    #         for item in categories:
+    #             try:
+    #                 category = Category.objects.get(name=item)
+    #             except Category.DoesNotExist:
+    #                 category = Category(name=item)
+    #                 category.save()
+    #             product.categories.add(category)
+
+    #         http_status = status.HTTP_201_CREATED
+    #         response_data.update({
+    #             'product_id': product.id,
+    #         })
+    #         return Response(response_data, http_status)
 
 
 class ProductDetail(RetrieveUpdateDestroyAPIView):

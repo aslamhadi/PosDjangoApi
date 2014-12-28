@@ -3,36 +3,29 @@
 <div class="row mt">
     <div class="col-lg-12">
         <div class="content-panel">
+            <a class="btn btn-default pull-right" href="#/product/add">Tambah Produk</a>
             <h4><i class="fa fa-angle-right"></i> List produk</h4>
-            <a href="#/product/add">Tambah Produk</a>
             <table class="table table-bordered table-striped table-condensed">
                 <thead>
                 <tr>
                     <th>No.</th>
                     <th>Nama Produk</th>
                     <th>Kategori</th>
-                    <th>Subkategori</th>
-                    <th>Keterangan</th>
+                    <th>Pabrik</th>
+                    <th>Satuan</th>
                     <th>Aksi</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr ng-repeat="product in products">
-                    <td>{{ product.id }}</td>
+                    <td>{{ $index + 1 }}</td>
                     <td>{{ product.name }}</td>
-                    <td>{{ product.category_name }}</td>
-                    <td>{{ product.subcategory_name }}</td>
-                    <td>
-                        <ul ng-repeat="product_price in product.product_prices">
-                            <li>
-                                Satuan: {{ product_price.unit_type_name }} <br/>
-                                Harga Jual: {{ product_price.price }} <br />
-                            </li>
-                        </ul>
-                    </td>
+                    <td>{{ product.category.name }}</td>
+                    <td>{{ product.factory.name }}</td>
+                    <td>{{ product.unit_type.name }}</td>
                     <td>
                         <a ng-click="deleteProduct(product)" class="btn btn-alt m-r-5">Hapus</a>
-                        <a ng-click="updateProduct(product.id)" class="btn btn-alt m-r-5">Update</a>
+                        <a href="#/product/update/{{ product.id }}" class="btn btn-alt m-r-5">Update</a>
                     </td>
                 </tr>
                 </tbody>
