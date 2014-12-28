@@ -30,10 +30,9 @@
                 <td>{{ product.name }}</td>
                 <td>{{ product.id }}</td>
                 <td>
-                    <select class="form-control input-sm " ng-model="product.unit_type" ng-options="item as item.unit_type_name for item in product.product_prices" >
-                    </select>
+                    {{ product.unit_type.name }}
                 </td>
-                <td class="goright">{{ product.unit_type.price | currency:"Rp. " }}</td>
+                <td class="goright">{{ product.price | currency:"Rp. " }}</td>
                 <td>
                     <input select-all numeric type="text" size="6" maxlength="6" ng-model="product.quantity" ng-change="updateTotal()" class="form-control goright">
                 </td>
