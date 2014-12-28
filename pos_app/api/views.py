@@ -87,41 +87,9 @@ class ProductCreate(CreateAPIView):
     permission_classes = (IsAuthenticatedOrReadOnly,)
     serializer_class = CreateProductSerializer
 
-    # def get(self, request, format=None):
-    #     products = Product.objects.all()
-    #     serializer = ProductSerializer(products, many=True)
-    #     return Response(serializer.data)
-
-    # def post(self, request, format=None):
-    #     response_data = {}
-    #     data = request.DATA
-    #     for item in data['product_prices']:
-    #         # product_price = ProductPrice(unit_type_id=item['unit_type'], price=item['price'])
-    #         # product_price.save()
-
-    #         product = Product(name=data['name'])
-    #         product.save()
-    #         product.product_prices.add(product_price)
-
-    #         categories = data['category'].split()
-    #         for item in categories:
-    #             try:
-    #                 category = Category.objects.get(name=item)
-    #             except Category.DoesNotExist:
-    #                 category = Category(name=item)
-    #                 category.save()
-    #             product.categories.add(category)
-
-    #         http_status = status.HTTP_201_CREATED
-    #         response_data.update({
-    #             'product_id': product.id,
-    #         })
-    #         return Response(response_data, http_status)
-
-
 class ProductDetail(RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()
-    serializer_class = ProductSerializer
+    serializer_class = CreateProductSerializer
 
 
 class GetProductsByName(ListAPIView):

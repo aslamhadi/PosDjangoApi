@@ -48,8 +48,8 @@ posServices.factory('productService', function ($http, $q) {
     });
   }
 
-  function updateProduct(product, product_prices) {
-    return $http({method: 'PUT', url: '/api/products/' + product.id + '/', data: { categories: product.categories, name: product.name, product_prices: product_prices }}).
+  function updateProduct(id, product, category, unit_type, factory) {
+    return $http({method: 'PUT', url: '/api/products/' + id + '/', data: { category: category.id, unit_type: unit_type.id, factory: factory.id, name: product.name, barcode: product.barcode, price: product.price }}).
     success(function (data, status, headers, config) {
       return data;
     }).

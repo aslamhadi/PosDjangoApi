@@ -19,11 +19,6 @@ class Embalase(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     created_at = models.DateTimeField(default=timezone.now)
     modified_at = models.DateTimeField(auto_now=True)
-# class ProductPrice(models.Model):
-#     unit_type = models.ForeignKey(UnitType)
-#     price = models.DecimalField(max_digits=10, decimal_places=2)
-#     created_at = models.DateTimeField(default=timezone.now)
-#     modified_at = models.DateTimeField(auto_now=True)
 
 
 class Product(models.Model):
