@@ -1,5 +1,6 @@
 posControllers.controller('CategoryCtrl', function ($scope, $location, categoryService) {
     $scope.categories = [];
+    $scope.title = "Tambah kategori obat"
     $scope.addResponse = "";
 
     getCategories();
@@ -13,19 +14,17 @@ posControllers.controller('CategoryCtrl', function ($scope, $location, categoryS
       );
     }
 
-    $scope.addCategory = function () {
-      categoryService.addCategory($scope.form.name)
+    $scope.updateCategory = function () {
+      categoryService.addCategory($scope.category)
         .then(
         function (category) {
-          // The api return data so let's just push the data into categories array
-          $scope.categories.push(category.data);
+          $scope.responseMessage = "Berhasil menambah kategori";
+          $scope.alert = "alert alert-success";
         }
       );
-      // Reset the form once values have been consumed.
-      $scope.form.name = "";
     };
 
-    $scope.deleteCategory = function (category) {
+    $scope.deleteCategoryLink = function (category) {
       categoryService.deleteCategory(category.id)
         .then(
         function (response) {
@@ -37,13 +36,14 @@ posControllers.controller('CategoryCtrl', function ($scope, $location, categoryS
       );
     };
 
-    $scope.updateCategory = function (categoryId) {
+    $scope.updateCategoryLink = function (categoryId) {
       $location.path('/category/update/' + categoryId + '/');
     };
   }
 );
 
 posControllers.controller('CategoryUpdateCtrl', function ($scope, $routeParams, categoryService) {
+    $scope.title = "Update kategori obat";
     $scope.responseMessage = "";
     getCategory();
 
@@ -56,7 +56,7 @@ posControllers.controller('CategoryUpdateCtrl', function ($scope, $routeParams, 
     }
 
     $scope.updateCategory = function () {
-      categoryService.updateCategory($scope.category.id, $scope.category.name)
+      categoryService.updateCategory($scope.category.id, $scope.category)
         .then(function (response) {
           if (response.status == 200) {
             $scope.responseMessage = "Berhasil merubah kategori";

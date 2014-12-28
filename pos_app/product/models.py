@@ -40,10 +40,6 @@ class Product(models.Model):
         return self.name
 
     @property
-    def category_name(self):
-        return self.category.name
-
-    @property
     def unit_type_name(self):
         return self.unit_type.name
 

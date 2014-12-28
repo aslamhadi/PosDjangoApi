@@ -4,7 +4,7 @@ from rest_framework import serializers
 
 from pos_app.account.models import Doctor, Patient
 from pos_app.category.models import Category, SubCategory
-from pos_app.product.models import UnitType, Product, ProductPrice, Embalase
+from pos_app.product.models import UnitType, Product, Embalase
 from pos_app.payment.models import Payment, PaymentProduct
 from pos_app.factory.models import Factory
 from pos_app.store.models import StoreInformation
@@ -45,15 +45,13 @@ class StoreInformationSerializer(serializers.ModelSerializer):
     class Meta:
         model = StoreInformation
 
-# class SubCategorySerializer(serializers.ModelSerializer):
-#     category_name = serializers.SerializerMethodField('get_category_name')
+class SubCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SubCategory
+        fields = ('id', 'name', 'category')
 
-#     class Meta:
-#         model = SubCategory
-#         fields = ('id', 'name', 'category', 'category_name')
-
-#     def get_category_name(self, obj):
-#         return obj.category.name
+    def get_category_name(self, obj):
+        return obj.category.name
 
 
 class UnitTypeSerializer(serializers.ModelSerializer):
@@ -71,14 +69,14 @@ class UnitTypeSerializer(serializers.ModelSerializer):
 
 
 class ProductSerializer(serializers.ModelSerializer):
-    category_name = serializers.Field('category_name')
+    category = CategorySerializer()
     unit_type_name = serializers.Field('unit_type_name')
     factory_name = serializers.Field('factory_name')
 
     class Meta:
         model = Product
         fields = (
-            'id', 'name', 'barcode', 'category_name', 'category', 'unit_type', 'unit_type_name', 'factory', 'factory_name', 'price', 'created_at', 'modified_at')
+            'id', 'name', 'barcode', 'category', 'unit_type', 'unit_type_name', 'factory', 'factory_name', 'price', 'created_at', 'modified_at')
         read_only_fields = ('created_at', 'modified_at')
 
 

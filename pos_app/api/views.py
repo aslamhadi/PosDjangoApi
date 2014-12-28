@@ -9,9 +9,9 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 
-from pos_app.api.serializers import UserSerializer, CategorySerializer, SubCategorySerializer, UnitTypeSerializer, ProductSerializer,     PaymentSerializer
+from pos_app.api.serializers import UserSerializer, CategorySerializer, UnitTypeSerializer, ProductSerializer, SubCategorySerializer, PaymentSerializer
 from pos_app.category.models import Category, SubCategory
-from pos_app.product.models import UnitType, Product, ProductPrice
+from pos_app.product.models import UnitType, Product
 
 
 class Logout(APIView):
@@ -78,8 +78,8 @@ class ProductListCreate(APIView):
         response_data = {}
         data = request.DATA
         for item in data['product_prices']:
-            product_price = ProductPrice(unit_type_id=item['unit_type'], price=item['price'])
-            product_price.save()
+            # product_price = ProductPrice(unit_type_id=item['unit_type'], price=item['price'])
+            # product_price.save()
 
             product = Product(name=data['name'])
             product.save()
@@ -183,8 +183,8 @@ class ImportProductCsv(CreateAPIView):
                 unit_type.save()
 
             # create product price
-            product_price = ProductPrice(unit_type=unit_type, price=row['price'])
-            product_price.save()
+            # product_price = ProductPrice(unit_type=unit_type, price=row['price'])
+            # product_price.save()
 
             # create category
             category_name = row['Category']

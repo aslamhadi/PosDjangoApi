@@ -25,6 +25,10 @@ posAngular.config(['$routeProvider',
         templateUrl: 'static/angularjs/views/category/index.html',
         controller: 'CategoryCtrl'
       }).
+      when('/category/add/', {
+        templateUrl: 'static/angularjs/views/category/update.html',
+        controller: 'CategoryCtrl'
+      }).
       when('/category/update/:id/', {
         templateUrl: 'static/angularjs/views/category/update.html',
         controller: 'CategoryUpdateCtrl'

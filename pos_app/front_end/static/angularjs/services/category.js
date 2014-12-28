@@ -9,8 +9,8 @@ posServices.factory('categoryService', function ($http, $q) {
       updateCategory: updateCategory
     });
 
-    function addCategory(name) {
-      return $http({method: 'POST', url: '/api/categories/', data: { name: name }}).
+    function addCategory(category) {
+      return $http({method: 'POST', url: '/api/categories/', data: { name: category.name, idx_sale_price: category.idx_sale_price, idx_sale_price_prescription: category.idx_sale_price_prescription  }}).
         success(function (data, status, headers, config) {
           return data;
         }).
@@ -49,8 +49,8 @@ posServices.factory('categoryService', function ($http, $q) {
         });
     }
 
-    function updateCategory(id, name) {
-      return $http({method: 'PUT', url: '/api/categories/' + id + '/', data: {name: name}}).
+    function updateCategory(id, category) {
+      return $http({method: 'PUT', url: '/api/categories/' + id + '/', data: { name: category.name, idx_sale_price: category.idx_sale_price, idx_sale_price_prescription: category.idx_sale_price_prescription  }}).
         success(function (data, status, headers, config) {
           return data;
         }).
