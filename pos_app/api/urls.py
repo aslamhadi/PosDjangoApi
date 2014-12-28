@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, url
-from pos_app.api.views import UserListCreate, CategoryListCreate, CategoryDetail, SubCategoryListCreate, SubCategoryDetail, UnitTypeDetail, UnitTypeListCreate, ProductCreate, ProductList, ProductDetail, SubCategoryInCategory, GetProductsByName, Logout, CreatePayment, ImportCategoryCsv, FactoryDetail, FactoryListCreate
+from pos_app.api.views import UserListCreate, CategoryListCreate, CategoryDetail, SubCategoryListCreate, SubCategoryDetail, UnitTypeDetail, UnitTypeListCreate, ProductCreate, ProductList, ProductDetail, SubCategoryInCategory, GetProductsByName, Logout, CreatePayment, ImportCategoryCsv, FactoryDetail, FactoryListCreate, EmbalaseListCreate, EmbalaseDetail
 
 urlpatterns = patterns('',  # nopep8
     # Account
@@ -10,7 +10,11 @@ urlpatterns = patterns('',  # nopep8
     url(r'^categories/import_csv/$', ImportCategoryCsv.as_view(), name='category-import-csv'),
     url(r'^categories/(?P<pk>[0-9]+)/$', CategoryDetail.as_view(), name='category-detail'),
 
-        # Unit Type
+    # Embalase
+    url(r'^embalases/$', EmbalaseListCreate.as_view(), name='embalase'),
+    url(r'^embalases/(?P<pk>[0-9]+)/$', EmbalaseDetail.as_view(), name='embalase-detail'),
+
+    # Factory
     url(r'^factories/$', FactoryListCreate.as_view(), name='factory'),
     url(r'^factories/(?P<pk>[0-9]+)/$', FactoryDetail.as_view(), name='factory-detail'),
 

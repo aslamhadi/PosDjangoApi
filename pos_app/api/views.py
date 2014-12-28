@@ -9,9 +9,9 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 
-from pos_app.api.serializers import UserSerializer, CategorySerializer, UnitTypeSerializer, ProductSerializer, CreateProductSerializer, SubCategorySerializer, PaymentSerializer, FactorySerializer
+from pos_app.api.serializers import UserSerializer, CategorySerializer, UnitTypeSerializer, ProductSerializer, CreateProductSerializer, SubCategorySerializer, PaymentSerializer, FactorySerializer, EmbalaseSerializer
 from pos_app.category.models import Category, SubCategory
-from pos_app.product.models import UnitType, Product
+from pos_app.product.models import UnitType, Product, Embalase
 from pos_app.factory.models import Factory
 
 
@@ -36,6 +36,16 @@ class CategoryListCreate(ListCreateAPIView):
 class CategoryDetail(RetrieveUpdateDestroyAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+
+
+class EmbalaseListCreate(ListCreateAPIView):
+    queryset = Embalase.objects.all()
+    serializer_class = EmbalaseSerializer
+
+
+class EmbalaseDetail(RetrieveUpdateDestroyAPIView):
+    queryset = Embalase.objects.all()
+    serializer_class = EmbalaseSerializer
 
 
 class SubCategoryListCreate(ListCreateAPIView):
