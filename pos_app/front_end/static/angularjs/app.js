@@ -33,6 +33,14 @@ posAngular.config(['$routeProvider',
         templateUrl: 'static/angularjs/views/category/update.html',
         controller: 'CategoryUpdateCtrl'
       }).
+      when('/factory/', {
+        templateUrl: 'static/angularjs/views/factory/index.html',
+        controller: 'FactoryCtrl'
+      }).
+      when('/factory/update/:id/', {
+        templateUrl: 'static/angularjs/views/factory/update.html',
+        controller: 'FactoryUpdateCtrl'
+      }).
       when('/subcategory/', {
         templateUrl: 'static/angularjs/views/subcategory/index.html',
         controller: 'SubCategoryCtrl'

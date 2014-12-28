@@ -9,9 +9,10 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 
-from pos_app.api.serializers import UserSerializer, CategorySerializer, UnitTypeSerializer, ProductSerializer, SubCategorySerializer, PaymentSerializer
+from pos_app.api.serializers import UserSerializer, CategorySerializer, UnitTypeSerializer, ProductSerializer, SubCategorySerializer, PaymentSerializer, FactorySerializer
 from pos_app.category.models import Category, SubCategory
 from pos_app.product.models import UnitType, Product
+from pos_app.factory.models import Factory
 
 
 class Logout(APIView):
@@ -54,6 +55,16 @@ class SubCategoryInCategory(ListAPIView):
 class SubCategoryDetail(RetrieveUpdateDestroyAPIView):
     queryset = SubCategory.objects.all()
     serializer_class = SubCategorySerializer
+
+
+class FactoryListCreate(ListCreateAPIView):
+    queryset = Factory.objects.all()
+    serializer_class = FactorySerializer
+
+
+class FactoryDetail(RetrieveUpdateDestroyAPIView):
+    queryset = Factory.objects.all()
+    serializer_class = UnitTypeSerializer
 
 
 class UnitTypeListCreate(ListCreateAPIView):

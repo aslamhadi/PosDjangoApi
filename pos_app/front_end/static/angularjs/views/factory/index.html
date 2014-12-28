@@ -1,0 +1,40 @@
+<h3><i class="fa fa-angle-right"></i> Pabrik</h3>
+<div class="row">
+    <div class="form-panel">
+        <h4 class="mb"><i class="fa fa-angle-right"></i> Tambah pabrik</h4>
+
+        <form class="form-inline" role="form" ng-submit="addFactory()">
+            <div class="form-group">
+                <input type="text" class="form-control input-sm" ng-model="form.name" placeholder="Nama pabrik">
+            </div>
+            <button type="submit" class="btn btn-sm">Submit</button>
+        </form>
+    </div>
+</div>
+
+<div class="row mt">
+    <div class="col-lg-12">
+        <div class="content-panel">
+            <h4><i class="fa fa-angle-right"></i> List pabrik</h4>
+            <table class="table table-bordered table-striped table-condensed">
+                <thead>
+            <tr>
+                <th>No.</th>
+                <th>Nama</th>
+                <th>Aksi</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="factory in factories">
+                <td>{{ factory.id }}</td>
+                <td>{{ factory.name }}</td>
+                <td>
+                    <a ng-click="deleteFactory(factory)" class="btn btn-alt m-r-5">Hapus</a>
+                    <a href="#/factory/update/{{factory.id}}" class="btn btn-alt m-r-5">Update</a>
+                </td>
+            </tr>
+            </tbody>
+            </table>
+        </div>
+    </div>
+</div>
