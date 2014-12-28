@@ -17,7 +17,7 @@
                 </thead>
                 <tbody>
                 <tr ng-repeat="category in categories">
-                    <td>{{ category.id }}</td>
+                    <td>{{ $index + 1 }}</td>
                     <td>{{ category.name }}</td>
                     <td>{{ category.idx_sale_price }}</td>
                     <td>{{ category.idx_sale_price_prescription }}</td>

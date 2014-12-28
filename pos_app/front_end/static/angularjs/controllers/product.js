@@ -26,11 +26,14 @@ posControllers.controller('ProductCtrl', function ($scope, $location, productSer
 posControllers.controller('ProductUpdateCtrl', function ($scope, $routeParams, productService, categoryService, factoryService, unitTypeService) {
     $scope.responseMessage = "";
     if ($routeParams.id != undefined) {
+      $scope.title = "Update produk";
       productService.getProduct($routeParams.id)
         .then(function (product) {
           $scope.product = product.data;
         }
       );
+    } else {
+      $scope.title = "Tambah produk";
     }
 
     unitTypeService.getUnitTypes()

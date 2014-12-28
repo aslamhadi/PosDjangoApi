@@ -26,7 +26,7 @@
             </thead>
             <tbody>
             <tr ng-repeat="factory in factories">
-                <td>{{ factory.id }}</td>
+                <td>{{ $index + 1 }}</td>
                 <td>{{ factory.name }}</td>
                 <td>
                     <a ng-click="deleteFactory(factory)" class="btn btn-alt m-r-5">Hapus</a>
