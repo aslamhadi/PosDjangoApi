@@ -152,14 +152,6 @@ class ImportCategoryCsv(CreateAPIView):
                 category = Category(name=category_name)
                 category.save()
 
-            # create subcategory
-            # subcategory_name = row['SubCategory']
-            # try:
-            #     subcategory = SubCategory.objects.get(name=subcategory_name, category=category)
-            # except SubCategory.DoesNotExist:
-            #     subcategory = SubCategory(name=subcategory_name, category=category)
-            #     subcategory.save()
-
         return Response(status=201)
 
 
@@ -178,10 +170,6 @@ class ImportProductCsv(CreateAPIView):
                 unit_type = UnitType(name=row['Unit Type'])
                 unit_type.save()
 
-            # create product price
-            # product_price = ProductPrice(unit_type=unit_type, price=row['price'])
-            # product_price.save()
-
             # create category
             category_name = row['Category']
             try:
@@ -190,11 +178,20 @@ class ImportProductCsv(CreateAPIView):
                 category = Category(name=category_name)
                 category.save()
 
+            # create factory
+            factory_name = row['Factory']
+            try:
+                factory = Factory.objects.get(name=factory_name)
+            except Factory.DoesNotExist:
+                factory = Factory(name=factory_name)
+                factory.save()
+
             # create product
             product_name = row['Product Name']
+            price = row['Price']
+            barcode = row['Barcode']
             try:
-                product = Product.objects.get(name=product_name)
+                product = Product.objects.get(name=product_name, category=category, unit_type=unit_type, factory=factory)
             except Product.DoesNotExist:
-                product = Product(name=product_name)
+                product = Product(name=product_name, category=category, unit_type=unit_type, factory=factory, price=price, barcode=barcode)
                 product.save()
-                product.product_prices.add(product_price)
