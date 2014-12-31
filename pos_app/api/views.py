@@ -3,7 +3,8 @@ import csv
 from django.contrib.auth.models import User
 from django.contrib.auth import logout
 
-from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, ListAPIView, CreateAPIView
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, ListAPIView, CreateAPIView, \
+    get_object_or_404
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -11,7 +12,8 @@ from rest_framework import status
 
 from pos_app.api.serializers import UserSerializer, CategorySerializer, UnitTypeSerializer, ProductSerializer, CreateProductSerializer, SubCategorySerializer, PaymentSerializer, FactorySerializer, EmbalaseSerializer
 from pos_app.category.models import Category, SubCategory
-from pos_app.product.models import UnitType, Product, Embalase
+from pos_app.payment.models import Payment, PaymentProduct
+from pos_app.product.models import UnitType, Product, Embalase, Prescription
 from pos_app.factory.models import Factory
 
 
@@ -97,6 +99,7 @@ class ProductCreate(CreateAPIView):
     permission_classes = (IsAuthenticatedOrReadOnly,)
     serializer_class = CreateProductSerializer
 
+
 class ProductDetail(RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = CreateProductSerializer
@@ -125,7 +128,7 @@ class CreatePayment(CreateAPIView):
         for item in list_product:
             product = get_object_or_404(Product, pk=item["product"])
             payment_product = PaymentProduct(product=product, payment=payment,
-                                             price=price,
+                                             price=item["price"],
                                              item_count=item["item_count"],
                                              is_prescription=item["is_prescription"],
                                              idx_sale_price=item["idx_sale_price"],
