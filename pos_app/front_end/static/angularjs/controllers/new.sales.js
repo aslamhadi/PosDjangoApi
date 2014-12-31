@@ -1,4 +1,4 @@
-posControllers.controller('NewSalesCtrl', function ($scope, $http, productService, newSaleService) {
+posControllers.controller('NewSalesCtrl', function ($scope, $http, $modal, productService, newSaleService) {
 
   $scope.selected = undefined;
   $scope.products = [];
@@ -26,6 +26,44 @@ posControllers.controller('NewSalesCtrl', function ($scope, $http, productServic
     return productService.searchProductByName(name);
   };
 
+  $scope.updateChange = function () {
+    $scope.change = $scope.cash - $scope.totalPrice;
+  };
+
+  $scope.removeProduct = function(index) {
+    $scope.products.splice(index, 1);
+  };
+
+  $scope.openModal = function (size) {
+
+    var modalInstance = $modal.open({
+      templateUrl: 'modalPrescription.html',
+      controller: 'PrescriptionCtrl',
+      size: size
+//      resolve: {
+//        items: function () {
+//          return $scope.items;
+//        }
+//      }
+    });
+
+    modalInstance.result.then(function (selectedItem) {
+      $scope.selected = selectedItem;
+    });
+  };
+
+  $scope.createPayment = function() {
+    if ($scope.totalPrice == 0) {
+      $scope.errorMessage = "Belum ada produk";
+    } else if ($scope.cash == 0) {
+      $scope.errorMessage = "Silakan masukkan jumlah uang";
+    } else {
+      processPayment();
+    }
+  };
+
+
+  // process payment from here
   $scope.updateTotal = function () {
     $scope.totalPrice = 0;
     angular.forEach($scope.products, function (product) {
@@ -37,24 +75,6 @@ posControllers.controller('NewSalesCtrl', function ($scope, $http, productServic
       $scope.totalPrice += product.total;
       product.total = product.total.toFixed(2);
     });
-  };
-
-  $scope.updateChange = function () {
-    $scope.change = $scope.cash - $scope.totalPrice;
-  };
-
-  $scope.removeProduct = function(index) {
-    $scope.products.splice(index, 1);
-  };
-
-  $scope.createPayment = function() {
-    if ($scope.totalPrice == 0) {
-      $scope.errorMessage = "Belum ada produk";
-    } else if ($scope.cash == 0) {
-      $scope.errorMessage = "Silakan masukkan jumlah uang";
-    } else {
-      processPayment();
-    }
   };
 
   function processPayment() {
@@ -75,7 +95,7 @@ posControllers.controller('NewSalesCtrl', function ($scope, $http, productServic
           is_prescription: product.is_prescription,
           idx_sale_price: product.idx_sale_price,
           discount: product.discount,
-          price: product.price,
+          price: product.price
         });
       }
     });
@@ -83,4 +103,15 @@ posControllers.controller('NewSalesCtrl', function ($scope, $http, productServic
     newSaleService.createPayment(data);
   };
 
+});
+
+angular.module('posAngular').controller('PrescriptionCtrl', function ($scope, $modalInstance) {
+
+  $scope.ok = function () {
+    $modalInstance.close();
+  };
+
+  $scope.cancel = function () {
+    $modalInstance.dismiss('cancel');
+  };
 });

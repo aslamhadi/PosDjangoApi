@@ -9,6 +9,8 @@
                 <label>Cari produk di sini</label>
                 <input select-all type="text" placeholder="Ketik nama obat" ng-model="selected" typeahead="item as item.name for item in getProducts($viewValue) | filter:$viewValue | limitTo:8" class="form-control" typeahead-loading="loadingLocations" typeahead-on-select='onSelect($item, $model, $label)'>
                 <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+
+                <button class="btn btn-default" ng-click="openModal('lg')">Tambah Resep</button>
             </div>
 
             <table class="table table-bordered table-striped table-condensed">
@@ -88,3 +90,16 @@
         </div>
     </div> <!-- col-lg-4 -->
 </div>
+
+<script type="text/ng-template" id="modalPrescription.html">
+    <div class="modal-header">
+        <h3 class="modal-title">I'm a modal!</h3>
+    </div>
+    <div class="modal-body">
+        kkakakakakak
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="ok()">OK</button>
+        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+    </div>
+</script>
