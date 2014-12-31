@@ -4,8 +4,8 @@ from rest_framework import serializers
 
 from pos_app.account.models import Doctor, Patient
 from pos_app.category.models import Category, SubCategory
-from pos_app.product.models import UnitType, Product, Embalase
-from pos_app.payment.models import Payment, PaymentProduct
+from pos_app.product.models import UnitType, Product, Embalase, Prescription
+from pos_app.payment.models import Payment
 from pos_app.factory.models import Factory
 from pos_app.store.models import StoreInformation
 
@@ -36,6 +36,11 @@ class PatientSerializer(serializers.ModelSerializer):
         model = Patient
 
 
+class PrescriptionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Prescription
+
+
 class EmbalaseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Embalase
@@ -44,6 +49,7 @@ class EmbalaseSerializer(serializers.ModelSerializer):
 class StoreInformationSerializer(serializers.ModelSerializer):
     class Meta:
         model = StoreInformation
+
 
 class SubCategorySerializer(serializers.ModelSerializer):
     class Meta:
@@ -80,4 +86,4 @@ class CreateProductSerializer(serializers.ModelSerializer):
 class PaymentSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model= Payment
+        model = Payment

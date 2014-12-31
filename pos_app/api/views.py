@@ -10,7 +10,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from pos_app.api.serializers import UserSerializer, CategorySerializer, UnitTypeSerializer, ProductSerializer, \
-    CreateProductSerializer, SubCategorySerializer, PaymentSerializer, FactorySerializer, EmbalaseSerializer
+    CreateProductSerializer, SubCategorySerializer, PaymentSerializer, FactorySerializer, EmbalaseSerializer, \
+    PrescriptionSerializer
 from pos_app.category.models import Category, SubCategory
 from pos_app.payment.models import Payment, PaymentProduct
 from pos_app.product.models import UnitType, Product, Embalase, Prescription
@@ -145,10 +146,23 @@ class CreatePayment(CreateAPIView):
         payment.save()
 
 
+class CreatePrescription(CreateAPIView):
+    permission_classes = (IsAuthenticated,)
+    serializer_class = PrescriptionSerializer
+
+    def post_save(self, obj, created=False):
+        prescription = get_object_or_404(Prescription, pk=obj.id)
+        list_product = self.request.DATA.get('list_product', [])
+        for item in list_product:
+            product = get_object_or_404(Product, pk=item["product"])
+            prescription.products.add(product)
+            prescription.save()
+
+
 class ImportCategoryCsv(CreateAPIView):
     permission_classes = (IsAuthenticated,)
 
-    def post(self, request, format=None):
+    def post(self, request, *args, **kwargs):
         file_obj = request.FILES['file']
         reader = csv.DictReader(file_obj)
 
@@ -167,7 +181,7 @@ class ImportCategoryCsv(CreateAPIView):
 class ImportProductCsv(CreateAPIView):
     permission_classes = (IsAuthenticated,)
 
-    def post(self, request, format=None):
+    def post(self, request, *args, **kwargs):
         file_obj = request.FILES['file']
         reader = csv.DictReader(file_obj)
 
