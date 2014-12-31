@@ -9,6 +9,7 @@
 *.pyc
 *.swp
 *.sqlite3
+*.iml
 .coverage
 .idea/
 .pip_cache

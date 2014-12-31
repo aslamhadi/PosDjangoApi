@@ -8,9 +8,9 @@ from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIV
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework import status
 
-from pos_app.api.serializers import UserSerializer, CategorySerializer, UnitTypeSerializer, ProductSerializer, CreateProductSerializer, SubCategorySerializer, PaymentSerializer, FactorySerializer, EmbalaseSerializer
+from pos_app.api.serializers import UserSerializer, CategorySerializer, UnitTypeSerializer, ProductSerializer, \
+    CreateProductSerializer, SubCategorySerializer, PaymentSerializer, FactorySerializer, EmbalaseSerializer
 from pos_app.category.models import Category, SubCategory
 from pos_app.payment.models import Payment, PaymentProduct
 from pos_app.product.models import UnitType, Product, Embalase, Prescription
@@ -127,14 +127,20 @@ class CreatePayment(CreateAPIView):
         list_product = self.request.DATA.get('list_product', [])
         for item in list_product:
             product = get_object_or_404(Product, pk=item["product"])
-            payment_product = PaymentProduct(product=product, payment=payment,
-                                             price=item["price"],
-                                             item_count=item["item_count"],
-                                             is_prescription=item["is_prescription"],
-                                             idx_sale_price=item["idx_sale_price"],
-                                             discount=item["discount"] )
+
+            payment_product = PaymentProduct(product=product, payment=payment, price=item["price"],
+                                             item_count=item["item_count"], discount=item["discount"])
             payment_product.save()
-        # We have the list of payment group of this payment. Time to count total payment
+            # We have the list of payment group of this payment. Time to count total payment
+
+        list_prescription = self.request.DATA.get('list_prescription', [])
+        for item in list_prescription:
+            prescription = get_object_or_404(Prescription, pk=item["prescription"])
+
+            payment_product = PaymentProduct(prescription=prescription, payment=payment, price=item["price"],
+                                             item_count=item["item_count"], discount=item["discount"])
+            payment_product.save()
+
         payment.total = payment.get_total()
         payment.save()
 
@@ -194,7 +200,9 @@ class ImportProductCsv(CreateAPIView):
             price = row['Price']
             barcode = row['Barcode']
             try:
-                product = Product.objects.get(name=product_name, category=category, unit_type=unit_type, factory=factory)
+                product = Product.objects.get(name=product_name, category=category, unit_type=unit_type,
+                                              factory=factory)
             except Product.DoesNotExist:
-                product = Product(name=product_name, category=category, unit_type=unit_type, factory=factory, price=price, barcode=barcode)
+                product = Product(name=product_name, category=category, unit_type=unit_type, factory=factory,
+                                  price=price, barcode=barcode)
                 product.save()

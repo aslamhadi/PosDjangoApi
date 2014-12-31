@@ -23,7 +23,7 @@ class Payment(models.Model):
         """
         yymmdd
         """
-        return '100{}-{}'.format(self.created_at.strftime('%y%m%d'), payment_id)
+        return '100{}-{}'.format(self.created_at.strftime('%y%m%d'), self.id)
 
     def get_total(self):
         children = PaymentProduct.objects.filter(payment=self)
