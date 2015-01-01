@@ -11,11 +11,12 @@ from rest_framework.views import APIView
 
 from pos_app.api.serializers import UserSerializer, CategorySerializer, UnitTypeSerializer, ProductSerializer, \
     CreateProductSerializer, SubCategorySerializer, PaymentSerializer, FactorySerializer, EmbalaseSerializer, \
-    PrescriptionSerializer
+    PrescriptionSerializer, DoctorSerializer
 from pos_app.category.models import Category, SubCategory
 from pos_app.payment.models import Payment, PaymentProduct
 from pos_app.product.models import UnitType, Product, Embalase, Prescription
 from pos_app.factory.models import Factory
+from pos_app.account.models import Doctor
 
 
 class Logout(APIView):
@@ -39,6 +40,16 @@ class CategoryListCreate(ListCreateAPIView):
 class CategoryDetail(RetrieveUpdateDestroyAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+
+
+class DoctorListCreate(ListCreateAPIView):
+    queryset = Doctor.objects.all()
+    serializer_class = DoctorSerializer
+
+
+class DoctorDetail(RetrieveUpdateDestroyAPIView):
+    queryset = Doctor.objects.all()
+    serializer_class = DoctorSerializer
 
 
 class EmbalaseListCreate(ListCreateAPIView):
