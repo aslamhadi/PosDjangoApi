@@ -51,6 +51,15 @@ class EmbalaseDetail(RetrieveUpdateDestroyAPIView):
     serializer_class = EmbalaseSerializer
 
 
+class GetEmbalaseByName(ListAPIView):
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+    serializer_class = EmbalaseSerializer
+
+    def get_queryset(self):
+        name = self.kwargs['name']
+        return Embalase.objects.filter(name__contains=name)
+
+
 class SubCategoryListCreate(ListCreateAPIView):
     queryset = SubCategory.objects.all()
     serializer_class = SubCategorySerializer
