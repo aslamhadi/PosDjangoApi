@@ -33,6 +33,18 @@ posAngular.config(['$routeProvider',
         templateUrl: 'static/angularjs/views/category/update.html',
         controller: 'CategoryUpdateCtrl'
       }).
+      when('/doctor/', {
+        templateUrl: 'static/angularjs/views/doctor/index.html',
+        controller: 'DoctorCtrl'
+      }).
+      when('/doctor/add/', {
+        templateUrl: 'static/angularjs/views/doctor/update.html',
+        controller: 'DoctorCtrl'
+      }).
+      when('/doctor/update/:id/', {
+        templateUrl: 'static/angularjs/views/doctor/update.html',
+        controller: 'DoctorUpdateCtrl'
+      }).
       when('/embalase/', {
         templateUrl: 'static/angularjs/views/embalase/index.html',
         controller: 'EmbalaseCtrl'

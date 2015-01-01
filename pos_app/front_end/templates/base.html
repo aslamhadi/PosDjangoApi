@@ -3,25 +3,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="Dashboard">
-    <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="Dashboard">
+  <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
-    <title>Apotek Saras</title>
+  <title>Apotek Saras</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="{% static 'assets/css/bootstrap.min.css' %}" rel="stylesheet">
-    <!--external css-->
-    <link href="{% static 'assets/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet"/>
+  <!-- Bootstrap core CSS -->
+  <link href="{% static 'assets/css/bootstrap.min.css' %}" rel="stylesheet">
+  <!--external css-->
+  <link href="{% static 'assets/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet"/>
 
-    <!-- Custom styles for this template -->
-    <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
-    <link href="{% static 'assets/css/style-responsive.css' %}" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/css/style-responsive.css' %}" rel="stylesheet">
 
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
       <script src="{% static 'assets/js/html5shiv.js' %}"></script>
       <script src="{% static 'assets/js/respond.min.js' %}"></script>
     <![endif]-->
@@ -30,97 +30,106 @@
 <body ng-app="posAngular">
 
 <section id="container">
-    <!-- **********************************************************************************************************************************************************
-    TOP BAR CONTENT & NOTIFICATIONS
-    *********************************************************************************************************************************************************** -->
-    <!--header start-->
-    <header class="header black-bg">
-        <div class="sidebar-toggle-box">
-            <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
-        </div>
-        <!--logo start-->
-        <a href="index.html" class="logo"><b>Apotek Saras</b></a>
+  <!-- **********************************************************************************************************************************************************
+  TOP BAR CONTENT & NOTIFICATIONS
+  *********************************************************************************************************************************************************** -->
+  <!--header start-->
+  <header class="header black-bg">
+    <div class="sidebar-toggle-box">
+      <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+    </div>
+    <!--logo start-->
+    <a href="index.html" class="logo"><b>Apotek Saras</b></a>
 
-        <div class="top-menu">
-            <ul class="nav pull-right top-menu">
-                <li><a class="logout" href="#/logout">Logout</a></li>
-            </ul>
-        </div>
-    </header>
-    <!--header end-->
+    <div class="top-menu">
+      <ul class="nav pull-right top-menu">
+        <li><a class="logout" href="#/logout">Logout</a></li>
+      </ul>
+    </div>
+  </header>
+  <!--header end-->
 
-    <!-- **********************************************************************************************************************************************************
-    MAIN SIDEBAR MENU
-    *********************************************************************************************************************************************************** -->
-    <!--sidebar start-->
-    <aside>
-        <div id="sidebar" class="nav-collapse ">
-            <!-- sidebar menu start-->
-            <ul class="sidebar-menu" id="nav-accordion">
+  <!-- **********************************************************************************************************************************************************
+  MAIN SIDEBAR MENU
+  *********************************************************************************************************************************************************** -->
+  <!--sidebar start-->
+  <aside>
+    <div id="sidebar" class="nav-collapse ">
+      <!-- sidebar menu start-->
+      <ul class="sidebar-menu" id="nav-accordion">
 
-                <p class="centered"><a href="profile.html"><img src="{% static 'assets/img/ui-sam.jpg' %}"
-                                                                class="img-circle" width="60"></a></p>
-                <h5 class="centered">Halo {{ user.username }}</h5>
-                <li class="mt">
-                    <a href="#/sales/new">
-                        <i class="fa fa-dashboard"></i>
-                        <span>Penjualan</span>
-                    </a>
-                </li>
-                <li class="st">
-                    <a href="#/factory/">
-                        <i class="fa fa-folder-o"></i>
-                        <span>Pabrik</span>
-                    </a>
-                </li>
-                <li class="st">
-                    <a href="#/category/">
-                        <i class="fa fa-folder-o"></i>
-                        <span>Kategori</span>
-                    </a>
-                </li>
-                <li class="sub-menu">
-                    <a href="javascript:;">
-                        <i class="fa fa-folder-o"></i>
-                        <span>Produk</span>
-                    </a>
-                    <ul class="sub">
-                        <li><a href="#/embalase/">Embalase</a></li>
-                        <li><a href="#/unit-type/">Satuan produk</a></li>
-                        <li><a href="#/product/">Produk</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <!-- sidebar menu end-->
-        </div>
-    </aside>
-    <!--sidebar end-->
+        <p class="centered"><a href="profile.html"><img src="{% static 'assets/img/ui-sam.jpg' %}"
+                                                        class="img-circle" width="60"></a></p>
+        <h5 class="centered">Halo {{ user.username }}</h5>
+        <li class="mt">
+          <a href="#/sales/new">
+            <i class="fa fa-dashboard"></i>
+            <span>Penjualan</span>
+          </a>
+        </li>
+        <li class="st">
+          <a href="#/factory/">
+            <i class="fa fa-folder-o"></i>
+            <span>Pabrik</span>
+          </a>
+        </li>
+        <li class="st">
+          <a href="#/category/">
+            <i class="fa fa-folder-o"></i>
+            <span>Kategori</span>
+          </a>
+        </li>
+        <li class="sub-menu">
+          <a href="javascript:;">
+            <i class="fa fa-folder-o"></i>
+            <span>Produk</span>
+          </a>
+          <ul class="sub">
+            <li><a href="#/embalase/">Embalase</a></li>
+            <li><a href="#/unit-type/">Satuan produk</a></li>
+            <li><a href="#/product/">Produk</a></li>
+          </ul>
+        </li>
+        <li class="sub-menu">
+          <a href="javascript:;">
+            <i class="fa fa-folder-o"></i>
+            <span>User</span>
+          </a>
+          <ul class="sub">
+            <li><a href="#/doctor/">Dokter</a></li>
+          </ul>
+        </li>
+      </ul>
+      <!-- sidebar menu end-->
+    </div>
+  </aside>
+  <!--sidebar end-->
 
-    <!-- **********************************************************************************************************************************************************
-    MAIN CONTENT
-    *********************************************************************************************************************************************************** -->
-    <!--main content start-->
-    <section id="main-content">
-        <section class="wrapper site-min-height">
-            {% block content %}{% endblock %}
-        </section>
-        <! --/wrapper -->
+  <!-- **********************************************************************************************************************************************************
+  MAIN CONTENT
+  *********************************************************************************************************************************************************** -->
+  <!--main content start-->
+  <section id="main-content">
+    <section class="wrapper site-min-height">
+      {% block content %}{% endblock %}
     </section>
-    <!-- /MAIN CONTENT -->
+    <! --/wrapper -->
+  </section>
+  <!-- /MAIN CONTENT -->
 
-    <!--main content end-->
-    <!--footer start-->
-    <!--
-    <footer class="site-footer">
-        <div class="text-center">
-            2014 - Alvarez.is
-            <a href="blank.html#" class="go-top">
-                <i class="fa fa-angle-up"></i>
-            </a>
-        </div>
-    </footer>
-    -->
-    <!--footer end-->
+  <!--main content end-->
+  <!--footer start-->
+  <!--
+  <footer class="site-footer">
+      <div class="text-center">
+          2014 - Alvarez.is
+          <a href="blank.html#" class="go-top">
+              <i class="fa fa-angle-up"></i>
+          </a>
+      </div>
+  </footer>
+  -->
+  <!--footer end-->
 </section>
 
 <!-- Angularjs -->
@@ -135,6 +144,7 @@
 <script src="{% static 'angularjs/controllers/home.js' %}"></script>
 <script src="{% static 'angularjs/controllers/account.js' %}"></script>
 <script src="{% static 'angularjs/controllers/category.js' %}"></script>
+<script src="{% static 'angularjs/controllers/doctor.js' %}"></script>
 <script src="{% static 'angularjs/controllers/embalase.js' %}"></script>
 <script src="{% static 'angularjs/controllers/factory.js' %}"></script>
 <script src="{% static 'angularjs/controllers/subcategory.js' %}"></script>
@@ -144,6 +154,7 @@
 
 <!-- Services -->
 <script src="{% static 'angularjs/services/category.js' %}"></script>
+<script src="{% static 'angularjs/services/doctor.js' %}"></script>
 <script src="{% static 'angularjs/services/embalase.js' %}"></script>
 <script src="{% static 'angularjs/services/factory.js' %}"></script>
 <script src="{% static 'angularjs/services/subcategory.js' %}"></script>
@@ -164,11 +175,11 @@
 <!--common script for all pages-->
 <script src="{% static 'assets/js/common-scripts.js' %}"></script>
 <script type="text/javascript">
-    window.requestUser = {
-      id: "{{user.id}}",
-      email: "{{user.email}}",
-      username: "{{ user.username }}",
-    };
+  window.requestUser = {
+    id: "{{user.id}}",
+    email: "{{user.email}}",
+    username: "{{ user.username }}",
+  };
 </script>
 </body>
 </html>
