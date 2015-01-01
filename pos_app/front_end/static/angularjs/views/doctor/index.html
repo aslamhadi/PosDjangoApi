@@ -1,0 +1,35 @@
+<h3><i class="fa fa-angle-right"></i> Dokter</h3>
+
+<div class="row mt">
+    <div class="col-lg-12">
+        <div class="content-panel">
+            <a class="btn btn-default pull-right" ng-href="#/doctor/add/" href="#/doctor/">Tambah Dokter</a>
+            <h4><i class="fa fa-angle-right"></i> List dokter</h4>
+            <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Nama</th>
+                    <th>Indeks Harga Jual</th>
+                    <th>Indeks Harga Jual untuk Resep</th>
+                    <th>Aksi</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="doctor in doctors">
+                    <td>{{ $index + 1 }}</td>
+                    <td>{{ doctor.name }}</td>
+                    <td>{{ doctor.idx_sale_price }}</td>
+                    <td>{{ doctor.idx_sale_price_prescription }}</td>
+                    <td>
+                        <a ng-click="deleteDoctorLink(doctor)" class="btn btn-alt m-r-5">Hapus</a>
+                        <a href="#/doctor/update/{{ doctor.id }}" class="btn btn-alt m-r-5">Update</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- /content-panel -->
+    </div>
+    <!-- /col-lg-12 -->
+</div><!-- /row -->
