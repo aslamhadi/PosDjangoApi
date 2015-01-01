@@ -22,7 +22,7 @@ posControllers.controller('NewSalesCtrl', function ($scope, $http, $modal, produ
     console.log($model);
   };
 
-  $scope.getProducts = function(name)  {
+  $scope.getProducts = function (name) {
     return productService.searchProductByName(name);
   };
 
@@ -30,7 +30,7 @@ posControllers.controller('NewSalesCtrl', function ($scope, $http, $modal, produ
     $scope.change = $scope.cash - $scope.totalPrice;
   };
 
-  $scope.removeProduct = function(index) {
+  $scope.removeProduct = function (index) {
     $scope.products.splice(index, 1);
   };
 
@@ -52,7 +52,7 @@ posControllers.controller('NewSalesCtrl', function ($scope, $http, $modal, produ
     });
   };
 
-  $scope.createPayment = function() {
+  $scope.createPayment = function () {
     if ($scope.totalPrice == 0) {
       $scope.errorMessage = "Belum ada produk";
     } else if ($scope.cash == 0) {
@@ -70,7 +70,7 @@ posControllers.controller('NewSalesCtrl', function ($scope, $http, $modal, produ
       var disc = product.discount * product.price / 100;
 
       product.total = product.quantity * product.price;
-      product.total-= disc;
+      product.total -= disc;
 
       $scope.totalPrice += product.total;
       product.total = product.total.toFixed(2);
@@ -83,7 +83,7 @@ posControllers.controller('NewSalesCtrl', function ($scope, $http, $modal, produ
     // process payment here
     data = {
       employee: window.requestUser.backoffice.user.id,
-      total : $scope.totalPrice,
+      total: $scope.totalPrice,
       list_product: []
     };
 
@@ -106,47 +106,62 @@ posControllers.controller('NewSalesCtrl', function ($scope, $http, $modal, produ
 });
 
 
-angular.module('posAngular').controller('PrescriptionCtrl', function ($scope, $modalInstance, productService) {
-  $scope.prescriptions = [];
-  $scope.totalPrice = 0;
+angular.module('posAngular').controller('PrescriptionCtrl',
+  function ($scope, $modalInstance, productService, embalaseService) {
 
-  // callback typeahead
-  $scope.onSelect = function ($item, $model, $productel) {
-    $scope.prescription = $model;
-    $scope.prescription.total = 0;
-    $scope.prescription.quantity = 1;
-    $scope.prescription.discount = 0;
-
-    $scope.prescriptions.push($scope.prescription);
-    $scope.updateTotal();
-
-    console.log($model);
-  };
-
-  $scope.getProducts = function(name)  {
-    return productService.searchProductByName(name);
-  };
-
-  // process payment from here
-  $scope.updateTotal = function () {
+    $scope.prescriptions = [];
+    $scope.embalases = [];
     $scope.totalPrice = 0;
-    angular.forEach($scope.products, function (product) {
-      var disc = product.discount * product.price / 100;
 
-      product.total = product.quantity * product.price;
-      product.total-= disc;
+    // callback typeahead
+    $scope.onSelectPrescription = function ($item, $model, $productel) {
+      $scope.prescription = $model;
+      $scope.prescription.total = 0;
+      $scope.prescription.quantity = 1;
+      $scope.prescription.discount = 0;
 
-      $scope.totalPrice += product.total;
-      product.total = product.total.toFixed(2);
-    });
-  };
+      $scope.prescriptions.push($scope.prescription);
+      $scope.updateTotal();
 
-  // process modal
-  $scope.ok = function () {
-    $modalInstance.close();
-  };
+      console.log($model);
+    };
 
-  $scope.cancel = function () {
-    $modalInstance.dismiss('cancel');
-  };
-});
+    $scope.onSelectEmbalase = function ($item, $model, $productel) {
+      $scope.embalase = $model;
+      $scope.embalase.total = 0;
+      $scope.embalase.quantity = 1;
+      $scope.embalase.discount = 0;
+
+      $scope.embalases.push($scope.embalase);
+      $scope.updateTotal();
+
+      console.log($model);
+    };
+
+    $scope.getEmbalases = function (name) {
+      return embalaseService.searchEmbalaseByName(name);
+    };
+
+    // process payment from here
+    $scope.updateTotal = function () {
+      $scope.totalPrice = 0;
+      angular.forEach($scope.products, function (product) {
+        var disc = product.discount * product.price / 100;
+
+        product.total = product.quantity * product.price;
+        product.total -= disc;
+
+        $scope.totalPrice += product.total;
+        product.total = product.total.toFixed(2);
+      });
+    };
+
+    // process modal
+    $scope.ok = function () {
+      $modalInstance.close();
+    };
+
+    $scope.cancel = function () {
+      $modalInstance.dismiss('cancel');
+    };
+  });

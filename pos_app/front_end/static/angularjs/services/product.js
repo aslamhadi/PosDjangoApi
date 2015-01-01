@@ -5,7 +5,7 @@ posServices.factory('productService', function ($http, $q) {
     getProduct: getProduct,
     deleteProduct: deleteProduct,
     updateProduct: updateProduct,
-    searchProductByName: searchProductByName,
+    searchProductByName: searchProductByName
   });
 
   function addProduct(product, category, unit_type, factory) {

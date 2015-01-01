@@ -4,7 +4,8 @@ posServices.factory('embalaseService', function ($http, $q) {
       getEmbalases: getEmbalases,
       getEmbalase: getEmbalase,
       deleteEmbalase: deleteEmbalase,
-      updateEmbalase: updateEmbalase
+      updateEmbalase: updateEmbalase,
+      searchEmbalaseByName: searchEmbalaseByName
     });
 
     function addEmbalase(embalase) {
@@ -54,6 +55,13 @@ posServices.factory('embalaseService', function ($http, $q) {
         }).
         error(function (data, status, headers, config) {
           console.warn(status);
+        });
+    }
+
+    function searchEmbalaseByName(name) {
+      return $http.get('/api/embalases/name/' + name + '/')
+        .then(function (response) {
+          return response.data;
         });
     }
 
