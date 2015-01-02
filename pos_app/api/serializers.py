@@ -27,8 +27,11 @@ class FactorySerializer(serializers.ModelSerializer):
 
 
 class DoctorSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+
     class Meta:
         model = Doctor
+        allow_null = ('user', 'city', 'address', 'phone_number')
 
 
 class PatientSerializer(serializers.ModelSerializer):

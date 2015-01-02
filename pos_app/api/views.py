@@ -44,6 +44,8 @@ class CategoryDetail(RetrieveUpdateDestroyAPIView):
 
 
 class DoctorCreate(CreateAPIView):
+    permission_classes = (IsAuthenticated,)
+
     def post(self, request, *args, **kwargs):
         response_data = {}
         data = request.DATA

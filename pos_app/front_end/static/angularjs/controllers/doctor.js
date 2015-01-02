@@ -1,18 +1,18 @@
 posControllers.controller('DoctorCtrl', function ($scope, $location, doctorService) {
-    $scope.categories = [];
+    $scope.doctors = [];
     $scope.title = "Tambah dokter";
     $scope.addResponse = "";
+    $scope.doctor = {};
+    $scope.doctor.address = "";
+    $scope.doctor.city = "";
+    $scope.doctor.phone_number = "";
 
-    getDoctors();
-
-    function getDoctors() {
-      doctorService.getDoctors()
-        .then(
-        function (categories) {
-          $scope.categories = categories.data;
-        }
-      );
-    }
+    doctorService.getDoctors()
+      .then(
+      function (doctors) {
+        $scope.doctors = doctors.data;
+      }
+    );
 
     $scope.updateDoctor = function () {
       doctorService.addDoctor($scope.doctor)
@@ -29,8 +29,8 @@ posControllers.controller('DoctorCtrl', function ($scope, $location, doctorServi
         .then(
         function (response) {
           if (response.status == 204) {
-            var index = $scope.categories.indexOf(doctor);
-            $scope.categories.splice(index, 1)
+            var index = $scope.doctors.indexOf(doctor);
+            $scope.doctors.splice(index, 1)
           }
         }
       );
@@ -45,11 +45,12 @@ posControllers.controller('DoctorUpdateCtrl', function ($scope, $routeParams, do
     doctorService.getDoctor($routeParams.id)
       .then(function (doctor) {
         $scope.doctor = doctor.data;
+        $scope.doctor.name = doctor.data.user.first_name;
       }
     );
 
     $scope.updateDoctor = function () {
-      doctorService.updateDoctor($scope.doctor.id, $scope.doctor)
+      doctorService.updateDoctor($scope.doctor)
         .then(function (response) {
           if (response.status == 200) {
             $scope.responseMessage = "Berhasil merubah dokter";

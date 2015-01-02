@@ -8,7 +8,8 @@ posServices.factory('doctorService', function ($http, $q) {
     });
 
     function addDoctor(doctor) {
-      return $http({method: 'POST', url: '/api/doctors/', data: {name: doctor.name, price: doctor.price}}).
+      var username = doctor.name.replace(/ /g,'');
+      return $http({method: 'POST', url: '/api/doctors/create/', data: {username: username, first_name: doctor.name, is_staff:false, city: doctor.city, phone_number:doctor.phone_number, address:doctor.address}}).
         success(function (data, status, headers, config) {
           return data;
         }).
@@ -48,7 +49,7 @@ posServices.factory('doctorService', function ($http, $q) {
     }
 
     function updateDoctor(doctor) {
-      return $http({method: 'PUT', url: '/api/doctors/' + doctor.id + '/', data: {name: doctor.name, price: doctor.price}}).
+      return $http({method: 'PUT', url: '/api/doctors/' + doctor.id + '/', data: {first_name: doctor.name, city: doctor.city, phone_number:doctor.phone_number, address:doctor.address}}).
         success(function (data, status, headers, config) {
           return data;
         }).
