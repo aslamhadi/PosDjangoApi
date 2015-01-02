@@ -2,6 +2,7 @@ import csv
 
 from django.contrib.auth.models import User
 from django.contrib.auth import logout
+from rest_framework import status
 
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, ListAPIView, CreateAPIView, \
     get_object_or_404
@@ -42,7 +43,37 @@ class CategoryDetail(RetrieveUpdateDestroyAPIView):
     serializer_class = CategorySerializer
 
 
-class DoctorListCreate(ListCreateAPIView):
+class DoctorCreate(CreateAPIView):
+    def post(self, request, *args, **kwargs):
+        response_data = {}
+        data = request.DATA
+        try:
+            existing_user = User.objects.get(username=data['username'])
+            http_status = status.HTTP_200_OK
+            response_data.update({
+                'id': existing_user.id,
+            })
+        except User.DoesNotExist:
+            serializer = UserSerializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+            else:
+                response_data.update({
+                    'error': serializer.errors,
+                })
+                return Response(response_data)
+            user = get_object_or_404(User, username=data['username'])
+            doctor = Doctor(user=user, address=data['address'], city=data['city'], phone_number=data['phone_number'])
+            doctor.save()
+
+            http_status = status.HTTP_201_CREATED
+            response_data.update({
+                'id': user.id,
+            })
+        return Response(response_data, http_status)
+
+
+class DoctorList(ListAPIView):
     queryset = Doctor.objects.all()
     serializer_class = DoctorSerializer
 

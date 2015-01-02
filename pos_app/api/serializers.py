@@ -13,7 +13,7 @@ from pos_app.store.models import StoreInformation
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('username', 'email', 'is_staff')
+        fields = ('username', 'email', 'first_name', 'is_staff')
 
 
 class CategorySerializer(serializers.ModelSerializer):
