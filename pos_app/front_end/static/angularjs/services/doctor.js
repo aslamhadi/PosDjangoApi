@@ -49,7 +49,7 @@ posServices.factory('doctorService', function ($http, $q) {
     }
 
     function updateDoctor(doctor) {
-      return $http({method: 'PUT', url: '/api/doctors/' + doctor.id + '/', data: {first_name: doctor.name, city: doctor.city, phone_number:doctor.phone_number, address:doctor.address}}).
+      return $http({method: 'PUT', url: '/api/doctors/create/', data: {username: doctor.user.username, first_name: doctor.name, city: doctor.city, phone_number:doctor.phone_number, address:doctor.address}}).
         success(function (data, status, headers, config) {
           return data;
         }).

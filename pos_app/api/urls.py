@@ -3,7 +3,7 @@ from django.conf.urls import patterns, url
 from pos_app.api.views import UserListCreate, CategoryListCreate, CategoryDetail, SubCategoryListCreate, \
     SubCategoryDetail, UnitTypeDetail, UnitTypeListCreate, ProductCreate, ProductList, ProductDetail, \
     SubCategoryInCategory, GetProductsByName, Logout, CreatePayment, ImportCategoryCsv, FactoryDetail, \
-    FactoryListCreate, EmbalaseListCreate, EmbalaseDetail, GetEmbalaseByName, DoctorList, DoctorDetail, DoctorCreate
+    FactoryListCreate, EmbalaseListCreate, EmbalaseDetail, GetEmbalaseByName, DoctorList, DoctorDetail, DoctorCreateUpdate
 
 urlpatterns = patterns('',  # nopep8
     # Account
@@ -17,7 +17,7 @@ urlpatterns = patterns('',  # nopep8
     # Doctor
     url(r'^doctors/$', DoctorList.as_view(), name='doctor'),
     url(r'^doctors/(?P<pk>[0-9]+)/$', DoctorDetail.as_view(), name='doctor-detail'),
-    url(r'^doctors/create/$', DoctorCreate.as_view(), name='doctor-create'),
+    url(r'^doctors/create/$', DoctorCreateUpdate.as_view(), name='doctor-create'),
 
     # Embalase
     url(r'^embalases/$', EmbalaseListCreate.as_view(), name='embalase'),

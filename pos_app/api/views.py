@@ -43,7 +43,7 @@ class CategoryDetail(RetrieveUpdateDestroyAPIView):
     serializer_class = CategorySerializer
 
 
-class DoctorCreate(CreateAPIView):
+class DoctorCreateUpdate(APIView):
     permission_classes = (IsAuthenticated,)
 
     def post(self, request, *args, **kwargs):
@@ -51,27 +51,49 @@ class DoctorCreate(CreateAPIView):
         data = request.DATA
         try:
             existing_user = User.objects.get(username=data['username'])
-            http_status = status.HTTP_200_OK
-            response_data.update({
-                'id': existing_user.id,
-            })
-        except User.DoesNotExist:
-            serializer = UserSerializer(data=data)
-            if serializer.is_valid():
-                serializer.save()
-            else:
-                response_data.update({
-                    'error': serializer.errors,
-                })
-                return Response(response_data)
-            user = get_object_or_404(User, username=data['username'])
-            doctor = Doctor(user=user, address=data['address'], city=data['city'], phone_number=data['phone_number'])
-            doctor.save()
+            # if user exists, create custom username
+            data['username'] = "{0}{1}".format(data['username'], existing_user.id)
 
-            http_status = status.HTTP_201_CREATED
+        except User.DoesNotExist:
+            pass
+
+        serializer = UserSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+        else:
             response_data.update({
-                'id': user.id,
+                'error': serializer.errors,
             })
+            return Response(response_data)
+        user = get_object_or_404(User, username=data['username'])
+        doctor = Doctor(user=user, address=data['address'], city=data['city'], phone_number=data['phone_number'])
+        doctor.save()
+
+        http_status = status.HTTP_201_CREATED
+        response_data.update({
+            'id': user.id,
+        })
+        return Response(response_data, http_status)
+
+    def put(self, request, format=None):
+        # Update
+        response_data = {}
+        data = request.DATA
+
+        existing_user = User.objects.get(username=data['username'])
+        existing_user.first_name = data['first_name']
+        existing_user.save()
+
+        doctor = get_object_or_404(Doctor, user=existing_user)
+        doctor.city = data['city']
+        doctor.phone_number = data['phone_number']
+        doctor.address = data['address']
+        doctor.save()
+
+        http_status = status.HTTP_200_OK
+        response_data.update({
+            'id': existing_user.id,
+        })
         return Response(response_data, http_status)
 
 
