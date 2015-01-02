@@ -107,7 +107,7 @@ posControllers.controller('NewSalesCtrl', function ($scope, $http, $modal, produ
 
 
 angular.module('posAngular').controller('PrescriptionCtrl',
-  function ($scope, $modalInstance, productService, embalaseService) {
+  function ($scope, $modalInstance, productService, embalaseService, doctorService) {
 
     $scope.prescriptions = [];
     $scope.embalases = [];
@@ -155,6 +155,14 @@ angular.module('posAngular').controller('PrescriptionCtrl',
         product.total = product.total.toFixed(2);
       });
     };
+
+    // get list of doctors
+    doctorService.getDoctors()
+      .then(
+        function(doctors) {
+          $scope.doctors = doctors.data;
+        }
+      );
 
     // process modal
     $scope.ok = function () {

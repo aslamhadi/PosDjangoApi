@@ -121,6 +121,8 @@
                    class="form-control" typeahead-loading="loadingLocations"
                    typeahead-on-select='onSelectEmbalase($item, $model, $label)'>
             <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+            <select class="form-control" ng-model="doctor" ng-options="doctor.user.first_name for doctor in doctors">
+            </select>
           </div>
 
           <table class="table table-bordered table-striped table-condensed">
