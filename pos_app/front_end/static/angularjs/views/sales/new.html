@@ -52,6 +52,23 @@
           </td>
           <td class="goright">{{ product.total | currency:"Rp. " }}</td>
         </tr>
+        <tr ng-repeat=" prescription in prescriptions ">
+          <td class="centered"><i class="fa fa-trash fa-3" ng-click="removeProduct($index)"></i></td>
+          <td>Resep {{ $index }}</td>
+          <td>{{ prescription.id }}</td>
+          <td>
+            Resep
+          </td>
+          <td class="goright">{{ prescription.price | currency:"Rp. " }}</td>
+          <td>
+            <input select-all numeric type="text" size="6" maxlength="6" ng-model="prescription.quantity"
+                   ng-change="updateTotal()" class="form-control goright">
+          </td>
+          <td>
+            0
+          </td>
+          <td class="goright">{{ prescription.total | currency:"Rp. " }}</td>
+        </tr>
         </tbody>
         <tfoot>
         <tr>

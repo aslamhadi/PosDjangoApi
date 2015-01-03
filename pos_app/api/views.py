@@ -225,7 +225,7 @@ class CreatePayment(CreateAPIView):
         payment.save()
 
         response_data = {}
-        http_status = status.HTTP_200_OK
+        http_status = status.HTTP_201_CREATED
         response_data.update({
             'payment': payment,
         })
@@ -266,6 +266,13 @@ class CreatePrescription(CreateAPIView):
         sub_total = sub_total + self.request.DATA.get('cost_service')
         prescription.sub_total = sub_total
         prescription.save()
+
+        response_data = {}
+        http_status = status.HTTP_201_CREATED
+        response_data.update({
+            'prescription': prescription,
+        })
+        return Response(response_data, http_status)
 
 
 class ImportCategoryCsv(CreateAPIView):

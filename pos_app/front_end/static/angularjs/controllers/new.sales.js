@@ -47,8 +47,9 @@ posControllers.controller('NewSalesCtrl', function ($scope, $http, $modal, produ
 //      }
     });
 
-    modalInstance.result.then(function (selectedItem) {
-      $scope.selected = selectedItem;
+    modalInstance.result.then(function (prescription) {
+      $scope.prescription.
+      $scope.prescriptions.push(prescription);
     });
   };
 
@@ -123,7 +124,7 @@ posControllers.controller('NewSalesCtrl', function ($scope, $http, $modal, produ
 
 
 angular.module('posAngular').controller('PrescriptionCtrl',
-  function ($scope, $modalInstance, productService, embalaseService, doctorService) {
+  function ($scope, $modalInstance, productService, embalaseService, doctorService, prescriptionService) {
 
     $scope.prescriptions = [];
     $scope.embalases = [];
@@ -227,7 +228,10 @@ angular.module('posAngular').controller('PrescriptionCtrl',
         }
       });
 
-      newSaleService.createPayment(data);
+      prescriptionService.addPrescription(data)
+        .then(function (response) {
+          $modalInstance.close(response.data);
+        });
     }
 
     // process modal

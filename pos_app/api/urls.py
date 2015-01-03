@@ -4,7 +4,7 @@ from pos_app.api.views import UserListCreate, CategoryListCreate, CategoryDetail
     SubCategoryDetail, UnitTypeDetail, UnitTypeListCreate, ProductCreate, ProductList, ProductDetail, \
     SubCategoryInCategory, GetProductsByName, Logout, CreatePayment, ImportCategoryCsv, FactoryDetail, \
     FactoryListCreate, EmbalaseListCreate, EmbalaseDetail, GetEmbalaseByName, DoctorList, DoctorDetail, \
-    DoctorCreateUpdate, PaymentList
+    DoctorCreateUpdate, PaymentList, CreatePrescription
 
 urlpatterns = patterns('',  # nopep8
     # Account
@@ -44,6 +44,9 @@ urlpatterns = patterns('',  # nopep8
     # Payment
     url(r'^payments/create/$', CreatePayment.as_view(), name='create-payment'),
     url(r'^payments/$', PaymentList.as_view(), name='payment'),
+
+    # Prescription
+    url(r'^prescriptions/create/$', CreatePrescription.as_view(), name='create-prescription'),
 
     # Product
     url(r'^products/$', ProductList.as_view(), name='product'),
