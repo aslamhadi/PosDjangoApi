@@ -2,6 +2,7 @@ posControllers.controller('NewSalesCtrl', function ($scope, $http, $modal, produ
 
   $scope.selected = undefined;
   $scope.products = [];
+  $scope.prescriptions = [];
   $scope.totalPrice = 0;
   $scope.cash = 0;
   $scope.change = 0;
@@ -80,27 +81,43 @@ posControllers.controller('NewSalesCtrl', function ($scope, $http, $modal, produ
     $scope.errorMessage = "";
     $scope.checkoutButton = "Memproses...";
     // process payment here
-    data = {
-      employee: window.requestUser.backoffice.user.id,
+    var data = {
+      employee: window.requestUser.id,
       total: $scope.totalPrice,
-      list_product: []
+      cash: $scope.cash,
+      change: $scope.change,
+      list_product: [],
+      list_prescription: []
     };
 
-    angular.forEach($scope.labs, function (product) {
-      if (product.license > 0) {
+    angular.forEach($scope.products, function (product) {
+      if (product.quantity > 0) {
         data.list_product.push({
           product: product.id,
           item_count: product.quantity,
-          is_prescription: product.is_prescription,
-          idx_sale_price: product.idx_sale_price,
           discount: product.discount,
           price: product.price
         });
       }
     });
 
-    newSaleService.createPayment(data);
-  };
+    angular.forEach($scope.prescriptions, function (prescription) {
+      data.list_prescription.push({
+        prescription: prescription.id,
+        item_count: prescription.quantity,
+        discount: 0,
+        price: prescription.price
+      });
+    });
+
+    newSaleService.createPayment(data)
+      .then(
+      function (response) {
+        $scope.responseMessage = "Berhasil melakukan penjualan";
+        $scope.alert = "alert alert-success";
+      }
+    );
+  }
 
 });
 
@@ -191,19 +208,23 @@ angular.module('posAngular').controller('PrescriptionCtrl',
       };
 
       angular.forEach($scope.prescriptions, function (prescription) {
-        data.list_product.push({
-          product: prescription.id,
-          item_count: prescription.quantity,
-          price: prescription.price
-        });
+        if (prescription.quantity > 0) {
+          data.list_product.push({
+            product: prescription.id,
+            item_count: prescription.quantity,
+            price: prescription.price
+          });
+        }
       });
 
       angular.forEach($scope.embalases, function (embalase) {
-        data.list_embalase.push({
-          embalase: embalase.id,
-          item_count: embalase.quantity,
-          price: embalase.price
-        });
+        if (embalase.quantity > 0) {
+          data.list_embalase.push({
+            embalase: embalase.id,
+            item_count: embalase.quantity,
+            price: embalase.price
+          });
+        }
       });
 
       newSaleService.createPayment(data);

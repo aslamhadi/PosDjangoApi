@@ -30,6 +30,9 @@ class Payment(models.Model):
         each_total = [each.total for each in children]
         return sum(each_total)
 
+    def get_change(self):
+        return self.cash - self.get_total()
+
 
 class PaymentProduct(models.Model):
     """

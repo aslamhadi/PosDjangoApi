@@ -2,6 +2,7 @@ import csv
 
 from django.contrib.auth.models import User
 from django.contrib.auth import logout
+from django.utils import timezone
 from rest_framework import status
 
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, ListAPIView, CreateAPIView, \
@@ -213,12 +214,28 @@ class CreatePayment(CreateAPIView):
         for item in list_prescription:
             prescription = get_object_or_404(Prescription, pk=item["prescription"])
 
-            payment_product = PaymentProduct(prescription=prescription, payment=payment, price=item["price"],
+            payment_product = PaymentProduct(prescription=prescription, payment=payment, price=prescription.sub_total,
                                              item_count=item["item_count"], discount=item["discount"])
             payment_product.save()
 
         payment.total = payment.get_total()
+        payment.change = payment.get_change()
+        payment.paid = True
+        payment.paid_at = timezone.now()
         payment.save()
+
+        response_data = {}
+        http_status = status.HTTP_200_OK
+        response_data.update({
+            'payment': payment,
+        })
+        return Response(response_data, http_status)
+
+
+class PaymentList(ListAPIView):
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+    queryset = Payment.objects.all()
+    serializer_class = PaymentSerializer
 
 
 class CreatePrescription(CreateAPIView):

@@ -3,7 +3,8 @@ from django.conf.urls import patterns, url
 from pos_app.api.views import UserListCreate, CategoryListCreate, CategoryDetail, SubCategoryListCreate, \
     SubCategoryDetail, UnitTypeDetail, UnitTypeListCreate, ProductCreate, ProductList, ProductDetail, \
     SubCategoryInCategory, GetProductsByName, Logout, CreatePayment, ImportCategoryCsv, FactoryDetail, \
-    FactoryListCreate, EmbalaseListCreate, EmbalaseDetail, GetEmbalaseByName, DoctorList, DoctorDetail, DoctorCreateUpdate
+    FactoryListCreate, EmbalaseListCreate, EmbalaseDetail, GetEmbalaseByName, DoctorList, DoctorDetail, \
+    DoctorCreateUpdate, PaymentList
 
 urlpatterns = patterns('',  # nopep8
     # Account
@@ -42,6 +43,7 @@ urlpatterns = patterns('',  # nopep8
 
     # Payment
     url(r'^payments/create/$', CreatePayment.as_view(), name='create-payment'),
+    url(r'^payments/$', PaymentList.as_view(), name='payment'),
 
     # Product
     url(r'^products/$', ProductList.as_view(), name='product'),
