@@ -122,7 +122,9 @@
                    typeahead-on-select='onSelectEmbalase($item, $model, $label)'>
             <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
             <select class="form-control" ng-model="doctor" ng-options="doctor.user.first_name for doctor in doctors">
+              <option value="">-- Pilih dokter --</option>
             </select>
+            <input select-all type="text" placeholder="Uang service" ng-model="cost_service">
           </div>
 
           <table class="table table-bordered table-striped table-condensed">
@@ -134,7 +136,6 @@
               <th>Satuan</th>
               <th>Harga</th>
               <th>Kuantitas</th>
-              <th>Diskon</th>
               <th>Total</th>
             </tr>
             </thead>
@@ -151,10 +152,6 @@
                 <input select-all numeric type="text" size="6" maxlength="6" ng-model="prescription.quantity"
                        ng-change="updateTotal()" class="form-control goright">
               </td>
-              <td>
-                <input select-all numeric type="text" size="4" maxlength="4" ng-model="prescription.discount"
-                       ng-change="updateTotal()" class="form-control goright">
-              </td>
               <td class="goright">{{ prescription.total | currency:"Rp. " }}</td>
             </tr>
             <tr ng-repeat=" embalase in embalases ">
@@ -162,15 +159,11 @@
               <td>{{ embalase.name }}</td>
               <td>{{ embalase.id }}</td>
               <td>
-                {{ embalase.unit_type.name }}
+                Embalase
               </td>
               <td class="goright">{{ embalase.price | currency:"Rp. " }}</td>
               <td>
                 <input select-all numeric type="text" size="6" maxlength="6" ng-model="embalase.quantity"
-                       ng-change="updateTotal()" class="form-control goright">
-              </td>
-              <td>
-                <input select-all numeric type="text" size="4" maxlength="4" ng-model="embalase.discount"
                        ng-change="updateTotal()" class="form-control goright">
               </td>
               <td class="goright">{{ embalase.total | currency:"Rp. " }}</td>
@@ -180,7 +173,6 @@
             <tr>
               <td></td>
               <td>Total</td>
-              <td></td>
               <td></td>
               <td></td>
               <td></td>

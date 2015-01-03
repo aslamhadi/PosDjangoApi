@@ -14,7 +14,6 @@ posControllers.controller('NewSalesCtrl', function ($scope, $http, $modal, produ
     $scope.product.total = 0;
     $scope.product.quantity = 1;
     $scope.product.discount = 0;
-    $scope.product.is_prescription = false;
 
     $scope.products.push($scope.product);
     $scope.updateTotal();
@@ -112,6 +111,7 @@ angular.module('posAngular').controller('PrescriptionCtrl',
     $scope.prescriptions = [];
     $scope.embalases = [];
     $scope.totalPrice = 0;
+    $scope.cost_service = 0;
 
     // callback typeahead
     $scope.onSelectPrescription = function ($item, $model, $productel) {
@@ -138,21 +138,33 @@ angular.module('posAngular').controller('PrescriptionCtrl',
       console.log($model);
     };
 
+    $scope.getProducts = function (name) {
+      return productService.searchProductByName(name);
+    };
+
     $scope.getEmbalases = function (name) {
       return embalaseService.searchEmbalaseByName(name);
     };
 
     // process payment from here
     $scope.updateTotal = function () {
+      // set initial total price to 0
       $scope.totalPrice = 0;
-      angular.forEach($scope.products, function (product) {
-        var disc = product.discount * product.price / 100;
 
-        product.total = product.quantity * product.price;
-        product.total -= disc;
+      // calculate embalase
+      angular.forEach($scope.embalases, function (embalase) {
+        embalase.total = embalase.quantity * embalase.price;
 
-        $scope.totalPrice += product.total;
-        product.total = product.total.toFixed(2);
+        $scope.totalPrice += embalase.total;
+        embalase.total = embalase.total.toFixed(2);
+      });
+
+      //calculate prescriptions
+      angular.forEach($scope.prescriptions, function (prescription) {
+        prescription.total = prescription.quantity * prescription.price;
+
+        $scope.totalPrice += prescription.total;
+        prescription.total = prescription.total.toFixed(2);
       });
     };
 
@@ -164,9 +176,43 @@ angular.module('posAngular').controller('PrescriptionCtrl',
         }
       );
 
+    function processPayment() {
+      console.log($scope.doctor);
+      console.log($scope.prescriptions);
+      console.log($scope.embalases);
+
+      var data = {
+        //employee: window.requestUser.backoffice.user.id,
+        sub_total: $scope.totalPrice,
+        doctor: $scope.doctor.id,
+        cost_service: $scope.cost_service,
+        list_product: [],
+        list_embalase: []
+      };
+
+      angular.forEach($scope.prescriptions, function (prescription) {
+        data.list_product.push({
+          product: prescription.id,
+          item_count: prescription.quantity,
+          price: prescription.price
+        });
+      });
+
+      angular.forEach($scope.embalases, function (embalase) {
+        data.list_embalase.push({
+          embalase: embalase.id,
+          item_count: embalase.quantity,
+          price: embalase.price
+        });
+      });
+
+      newSaleService.createPayment(data);
+    }
+
     // process modal
     $scope.ok = function () {
-      $modalInstance.close();
+      processPayment();
+      //$modalInstance.close();
     };
 
     $scope.cancel = function () {
