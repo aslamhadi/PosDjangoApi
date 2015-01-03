@@ -244,11 +244,28 @@ class CreatePrescription(CreateAPIView):
 
     def post_save(self, obj, created=False):
         prescription = get_object_or_404(Prescription, pk=obj.id)
+
+        sub_total = 0
         list_product = self.request.DATA.get('list_product', [])
         for item in list_product:
             product = get_object_or_404(Product, pk=item["product"])
+
+            # count sub_total
+            price_product = product.price * item["item_count"]
+            sub_total = sub_total + price_product
             prescription.products.add(product)
-            prescription.save()
+
+        list_embalase = self.request.DATA.get('list_embalase', [])
+        for item in list_embalase:
+            embalase = get_object_or_404(Embalase, pk=item["embalase"])
+
+            price_embalase = embalase.price * item["item_count"]
+            sub_total = sub_total + price_embalase
+            prescription.embalases.add(embalase)
+
+        sub_total = sub_total + self.request.DATA.get('cost_service')
+        prescription.sub_total = sub_total
+        prescription.save()
 
 
 class ImportCategoryCsv(CreateAPIView):
