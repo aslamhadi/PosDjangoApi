@@ -54,7 +54,7 @@
         </tr>
         <tr ng-repeat=" prescription in prescriptions ">
           <td class="centered"><i class="fa fa-trash fa-3" ng-click="removeProduct($index)"></i></td>
-          <td>Resep {{ $index }}</td>
+          <td>Resep {{ $index +1 }}</td>
           <td>{{ prescription.id }}</td>
           <td>
             Resep

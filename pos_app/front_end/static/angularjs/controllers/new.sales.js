@@ -50,11 +50,16 @@ posControllers.controller('NewSalesCtrl', function ($scope, $http, $modal, produ
     modalInstance.result.then(function (prescription) {
       // create object prescription and push it to list
       $scope.prescription = {};
+      $scope.prescription.id = prescription.id;
       $scope.prescription.quantity = 1;
       $scope.prescription.total = prescription.sub_total;
       $scope.prescription.name = "Resep";
       $scope.prescription.discount = 0;
+
       $scope.prescriptions.push($scope.prescription);
+
+      // update total price
+      $scope.updateTotal();
     });
   };
 
@@ -72,6 +77,8 @@ posControllers.controller('NewSalesCtrl', function ($scope, $http, $modal, produ
   // process payment from here
   $scope.updateTotal = function () {
     $scope.totalPrice = 0;
+
+    // calculate products
     angular.forEach($scope.products, function (product) {
       var disc = product.discount * product.price / 100;
 
@@ -81,6 +88,14 @@ posControllers.controller('NewSalesCtrl', function ($scope, $http, $modal, produ
       $scope.totalPrice += product.total;
       product.total = product.total.toFixed(2);
     });
+
+    // calculate prescriptions
+    angular.forEach($scope.prescriptions, function (prescription) {
+      prescription.total = parseFloat(prescription.total)
+      $scope.totalPrice += prescription.total;
+      prescription.total = prescription.total.toFixed(2);
+    });
+
   };
 
   function processPayment() {
@@ -102,7 +117,7 @@ posControllers.controller('NewSalesCtrl', function ($scope, $http, $modal, produ
           product: product.id,
           item_count: product.quantity,
           discount: product.discount,
-          price: product.price
+          price: product.total
         });
       }
     });
@@ -112,7 +127,7 @@ posControllers.controller('NewSalesCtrl', function ($scope, $http, $modal, produ
         prescription: prescription.id,
         item_count: prescription.quantity,
         discount: 0,
-        price: prescription.price
+        price: prescription.total
       });
     });
 
