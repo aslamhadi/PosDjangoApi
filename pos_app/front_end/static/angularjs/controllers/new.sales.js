@@ -48,8 +48,13 @@ posControllers.controller('NewSalesCtrl', function ($scope, $http, $modal, produ
     });
 
     modalInstance.result.then(function (prescription) {
-      $scope.prescription.
-      $scope.prescriptions.push(prescription);
+      // create object prescription and push it to list
+      $scope.prescription = {};
+      $scope.prescription.quantity = 1;
+      $scope.prescription.total = prescription.sub_total;
+      $scope.prescription.name = "Resep";
+      $scope.prescription.discount = 0;
+      $scope.prescriptions.push($scope.prescription);
     });
   };
 
@@ -169,6 +174,9 @@ angular.module('posAngular').controller('PrescriptionCtrl',
       // set initial total price to 0
       $scope.totalPrice = 0;
 
+      // add cost service
+      $scope.totalPrice = $scope.totalPrice + parseFloat($scope.cost_service);
+
       // calculate embalase
       angular.forEach($scope.embalases, function (embalase) {
         embalase.total = embalase.quantity * embalase.price;
@@ -184,6 +192,7 @@ angular.module('posAngular').controller('PrescriptionCtrl',
         $scope.totalPrice += prescription.total;
         prescription.total = prescription.total.toFixed(2);
       });
+
     };
 
     // get list of doctors
@@ -195,15 +204,19 @@ angular.module('posAngular').controller('PrescriptionCtrl',
       );
 
     function processPayment() {
-      console.log($scope.doctor);
-      console.log($scope.prescriptions);
-      console.log($scope.embalases);
+//      console.log($scope.doctor);
+//      console.log($scope.prescriptions);
+//      console.log($scope.embalases);
+      var doctor_id = null;
+      if ($scope.doctor != undefined) {
+        doctor_id = $scope.doctor.id;
+      }
 
       var data = {
         //employee: window.requestUser.backoffice.user.id,
         sub_total: $scope.totalPrice,
-        doctor: $scope.doctor.id,
-        cost_service: $scope.cost_service,
+        doctor: doctor_id,
+        cost_service: parseFloat($scope.cost_service),
         list_product: [],
         list_embalase: []
       };

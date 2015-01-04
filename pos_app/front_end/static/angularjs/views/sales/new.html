@@ -61,8 +61,7 @@
           </td>
           <td class="goright">{{ prescription.price | currency:"Rp. " }}</td>
           <td>
-            <input select-all numeric type="text" size="6" maxlength="6" ng-model="prescription.quantity"
-                   ng-change="updateTotal()" class="form-control goright">
+            {{ prescription.quantity }}
           </td>
           <td>
             0
@@ -145,7 +144,7 @@
             <select class="form-control" ng-model="doctor" ng-options="doctor.user.first_name for doctor in doctors">
               <option value="">-- Pilih dokter --</option>
             </select>
-            <input select-all type="text" placeholder="Uang service" ng-model="cost_service">
+            <input select-all type="text" placeholder="Uang service" ng-model="cost_service" ng-change="updateTotal()">
           </div>
 
           <table class="table table-bordered table-striped table-condensed">
