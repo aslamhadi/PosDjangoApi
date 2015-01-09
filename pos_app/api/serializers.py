@@ -87,9 +87,9 @@ class CreateProductSerializer(serializers.ModelSerializer):
 
 
 class PaymentSerializer(serializers.ModelSerializer):
-    invoice_number = serializers.Field('invoice_number')
+    employee = UserSerializer()
 
     class Meta:
         model = Payment
-        fields = ('id', 'total', 'cash', 'change', 'created_at', 'modified_at', 'invoice_number')
+        fields = ('id', 'total', 'cash', 'change', 'created_at', 'modified_at', 'invoice_number', 'employee')
         read_only_fields = ('created_at', 'modified_at')
