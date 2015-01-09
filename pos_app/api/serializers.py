@@ -87,6 +87,9 @@ class CreateProductSerializer(serializers.ModelSerializer):
 
 
 class PaymentSerializer(serializers.ModelSerializer):
+    employee = UserSerializer()
+    patient = UserSerializer()
 
     class Meta:
         model = Payment
+

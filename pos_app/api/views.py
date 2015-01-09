@@ -237,6 +237,9 @@ class PaymentList(ListAPIView):
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
 
+class PaymentDetail(RetrieveUpdateDestroyAPIView):
+    queryset = Payment.objects.all()
+    serializer_class = PaymentSerializer
 
 class CreatePrescription(CreateAPIView):
     permission_classes = (IsAuthenticated,)

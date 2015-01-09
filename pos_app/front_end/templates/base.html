@@ -67,6 +67,16 @@
             <span>Penjualan</span>
           </a>
         </li>
+        <li class="sub-menu">
+          <a href="javascript:;">
+              <i class="fa fa-folder-o"></i>
+              <span>Penjualan</span>
+          </a>
+          <ul class="sub">
+              <li><a href="#/sales/new">Tambah Penjualan</a></li>
+              <li><a href="#/sales/">Penjualan</a></li>
+          </ul>
+        </li>
         <li class="st">
           <a href="#/factory/">
             <i class="fa fa-folder-o"></i>
@@ -151,6 +161,7 @@
 <script src="{% static 'angularjs/controllers/unit-type.js' %}"></script>
 <script src="{% static 'angularjs/controllers/product.js' %}"></script>
 <script src="{% static 'angularjs/controllers/new.sales.js' %}"></script>
+<script src="{% static 'angularjs/controllers/sales.js' %}"></script>
 
 <!-- Services -->
 <script src="{% static 'angularjs/services/category.js' %}"></script>
@@ -162,6 +173,7 @@
 <script src="{% static 'angularjs/services/product.js' %}"></script>
 <script src="{% static 'angularjs/services/prescription.js' %}"></script>
 <script src="{% static 'angularjs/services/new.sales.js' %}"></script>
+<script src="{% static 'angularjs/services/sales.js' %}"></script>
 
 <!-- js placed at the end of the document so the pages load faster -->
 <script src="{% static 'assets/js/jquery.js' %}"></script>

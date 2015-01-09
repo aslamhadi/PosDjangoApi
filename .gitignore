@@ -15,3 +15,4 @@
 .treerc
 local_settings.py
 pos_app/front_end/static/bower_components/*
+.sqlite3

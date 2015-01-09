@@ -1,0 +1,36 @@
+<h3><i class="fa fa-angle-right"></i> Penjualan</h3>
+
+<div class="row mt">
+    <div class="col-lg-12">
+        <div class="content-panel">
+            <a class="btn btn-default pull-right" ng-href="#/sales/new/" href="#/sales/">Tambah Penjualan</a>
+            <h4><i class="fa fa-angle-right"></i> List Penjualan</h4>
+            <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Nomor Bon</th>
+                    <th>Pasien</th>
+                    <th>Total</th>
+                    <th>Kasir</th>
+                    <th>Aksi</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="sale in sales">
+                    <td>{{ $index + 1 }}</td>
+                    <td>{{ sale.invoice_number }}</td>
+                    <td>{{ sale.patient.username }}</td>
+                    <td>{{ sale.total }}</td>
+                    <td>{{ sale.employee.username }}</td>
+                    <td>
+                        <a class="btn btn-alt m-r-5">Detail</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- /content-panel -->
+    </div>
+    <!-- /col-lg-12 -->
+</div><!-- /row -->
