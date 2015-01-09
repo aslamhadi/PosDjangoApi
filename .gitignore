@@ -9,10 +9,11 @@
 *.pyc
 *.swp
 *.iml
+*.sqlite3
 .coverage
 .idea/
 .pip_cache
 .treerc
 local_settings.py
 pos_app/front_end/static/bower_components/*
-.sqlite3
+
