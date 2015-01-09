@@ -10,7 +10,7 @@ class Doctor(models.Model):
 
 
 class Patient(models.Model):
-    user = models.OneToOneField(User)
+    name = models.CharField(max_length=200, default="")
     address = models.CharField(max_length=255, default="")
     city = models.CharField(max_length=200, default="")
     phone_number = models.CharField(max_length=20, default=0)
