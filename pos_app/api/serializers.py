@@ -88,6 +88,7 @@ class CreateProductSerializer(serializers.ModelSerializer):
 
 class PaymentSerializer(serializers.ModelSerializer):
     employee = UserSerializer()
+    invoice_number = serializers.Field('invoice_number')
 
     class Meta:
         model = Payment
