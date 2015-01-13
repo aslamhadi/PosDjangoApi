@@ -24,7 +24,7 @@
                     <td>{{ sale.total }}</td>
                     <td>{{ sale.employee.username }}</td>
                     <td>
-                        <a class="btn btn-alt m-r-5">Detail</a>
+                        <a ng-click="detailSaleLink(sale.id)" class="btn btn-alt m-r-5">Detail</a>
                     </td>
                 </tr>
                 </tbody>

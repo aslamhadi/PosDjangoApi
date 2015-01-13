@@ -101,6 +101,10 @@ posAngular.config(['$routeProvider',
         templateUrl: 'static/angularjs/views/sales/index.html',
         controller: 'SalesCtrl'
       }).
+      when('/sales/detail/:id', {
+        templateUrl: 'static/angularjs/views/sales/details.html',
+        controller: 'SalesDetailCtrl'
+      }).
       otherwise({
         redirectTo: '/'
       });

@@ -51,7 +51,7 @@ class PaymentProduct(models.Model):
 
     @property
     def product_name(self):
-        if self.is_prescription:
+        if self.prescription:
             # Because prescription has a lot of mix medicine, let's return "Resep" for now
             return "Resep"
         return self.product.name

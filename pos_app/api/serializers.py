@@ -97,6 +97,10 @@ class PaymentSerializer(serializers.ModelSerializer):
 
 
 class PaymentProductSerializer(serializers.ModelSerializer):
+    product_name = serializers.Field('product_name')
+    total = serializers.Field('total')
 
     class Meta:
         model = PaymentProduct
+        fields = ('id', 'price', 'discount', 'item_count', 'product_name', 'total')
+        read_only_fields = ('product_name', 'total')

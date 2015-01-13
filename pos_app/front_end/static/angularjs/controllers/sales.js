@@ -1,6 +1,6 @@
 posControllers.controller('SalesCtrl', function ($scope, $location, salesService) {
     $scope.sales = [];
-    $scope.title = "Tambah Pembayaran"
+    $scope.title = "Tambah Pembayaran";
     $scope.addResponse = "";
 
     getSales()
@@ -12,18 +12,29 @@ posControllers.controller('SalesCtrl', function ($scope, $location, salesService
             }
         );
     }
+
+    $scope.detailSaleLink = function (saleId) {
+        $location.path('/sales/detail/' + saleId + '/');
+    };
  }
 );
 
-posControllers.controller('SalesUpdateCtrl', function ($scope, $routeParams, salesService) {
-    $scope.title = "Update Pembayaran";
+posControllers.controller('SalesDetailCtrl', function ($scope, $routeParams, salesService) {
+    $scope.title = "Detail Pembayaran";
     $scope.responseMessage = "";
+    $scope.saleProducts = [];
+
     getSale();
 
     function getSale() {
         salesService.getSale($routeParams.id)
             .then(function (sale) {
                 $scope.sale = sale.data;
+                salesService.getSaleProducts(sale.data.id)
+                    .then(function (saleProducts) {
+                        $scope.saleProducts = saleProducts.data;
+
+                    });
             }
         );
     }
