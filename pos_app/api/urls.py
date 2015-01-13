@@ -48,7 +48,7 @@ urlpatterns = patterns('',  # nopep8
 
     # Payment Product
     url(r'^payment-products/(?P<pk>[0-9]+)/$', PaymentProductDetail.as_view(), name='payment-product-detail'),
-    url(r'^payment-products/payment/(?P<pk>[0-9]+)/$', GetPaymentProductsById.as_view(), name='payment-product-by-payment-id'),
+    url(r'^payment-products/payment/(?P<payment>[0-9]+)/$', GetPaymentProductsById.as_view(), name='payment-product-by-payment-id'),
 
     # Prescription
     url(r'^prescriptions/create/$', CreatePrescription.as_view(), name='create-prescription'),

@@ -255,8 +255,8 @@ class GetPaymentProductsById(ListAPIView):
     serializer_class = PaymentProductSerializer
 
     def get_queryset(self):
-        id = self.kwargs['id']
-        return PaymentProduct.objects.filter(id=id)
+        id = self.kwargs['payment']
+        return PaymentProduct.objects.filter(payment=id)
 
 
 class CreatePrescription(CreateAPIView):
