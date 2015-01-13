@@ -250,6 +250,15 @@ class PaymentProductDetail(RetrieveUpdateDestroyAPIView):
     serializer_class = PaymentProductSerializer
 
 
+class GetPaymentProductsById(ListAPIView):
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+    serializer_class = PaymentProductSerializer
+
+    def get_queryset(self):
+        id = self.kwargs['id']
+        return PaymentProduct.objects.filter(id=id)
+
+
 class CreatePrescription(CreateAPIView):
     permission_classes = (IsAuthenticated,)
     serializer_class = PrescriptionSerializer

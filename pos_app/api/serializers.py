@@ -5,7 +5,7 @@ from rest_framework import serializers
 from pos_app.account.models import Doctor, Patient
 from pos_app.category.models import Category, SubCategory
 from pos_app.product.models import UnitType, Product, Embalase, Prescription
-from pos_app.payment.models import Payment
+from pos_app.payment.models import Payment, PaymentProduct
 from pos_app.factory.models import Factory
 from pos_app.store.models import StoreInformation
 
@@ -93,4 +93,10 @@ class PaymentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Payment
         fields = ('id', 'total', 'cash', 'change', 'created_at', 'modified_at', 'invoice_number', 'employee')
-        read_only_fields = ('created_at', 'modified_at')
+        read_only_fields = ('created_at', 'modified_at', 'invoice_number')
+
+
+class PaymentProductSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = PaymentProduct
