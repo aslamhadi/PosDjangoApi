@@ -13,7 +13,7 @@ from rest_framework.views import APIView
 
 from pos_app.api.serializers import UserSerializer, CategorySerializer, UnitTypeSerializer, ProductSerializer, \
     CreateProductSerializer, SubCategorySerializer, PaymentSerializer, FactorySerializer, EmbalaseSerializer, \
-    PrescriptionSerializer, DoctorSerializer
+    PrescriptionSerializer, DoctorSerializer, PaymentProductSerializer
 from pos_app.category.models import Category, SubCategory
 from pos_app.payment.models import Payment, PaymentProduct
 from pos_app.product.models import UnitType, Product, Embalase, Prescription
@@ -237,9 +237,18 @@ class PaymentList(ListAPIView):
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
 
+
 class PaymentDetail(RetrieveUpdateDestroyAPIView):
+    permission_classes = (IsAuthenticatedOrReadOnly,)
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
+
+
+class PaymentProductDetail(RetrieveUpdateDestroyAPIView):
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+    queryset = PaymentProduct.objects.all()
+    serializer_class = PaymentProductSerializer
+
 
 class CreatePrescription(CreateAPIView):
     permission_classes = (IsAuthenticated,)
