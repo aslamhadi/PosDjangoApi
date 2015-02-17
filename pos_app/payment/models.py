@@ -1,5 +1,14 @@
+try:
+    from cStringIO import StringIO
+except ImportError:
+    from StringIO import StringIO
+
+from weasyprint import HTML, CSS
+
 from django.contrib.auth.models import User
+from django.core.files import File
 from django.db import models
+from django.template.loader import render_to_string
 from django.utils import timezone
 
 from pos_app.product.models import Product, Prescription
@@ -25,6 +34,20 @@ class Payment(models.Model):
         """
         return '100{}-{}'.format(self.created_at.strftime('%y%m%d'), self.id)
 
+    @property
+    def pdf_file_name(self):
+        return "Invoice #{}.pdf".format(self.invoice_number)
+
+    @property
+    def invoice_html(self):
+        payment_products = self.payment_product_set.all()
+        context = {
+            'payment': self,
+            'payment_products': payment_products,
+            'date_format': "%B %d, %Y",
+        }
+        return render_to_string('payment/detail_pdf.html', context)
+
     def get_total(self):
         children = PaymentProduct.objects.filter(payment=self)
         each_total = [each.total for each in children]
@@ -32,6 +55,15 @@ class Payment(models.Model):
 
     def get_change(self):
         return self.cash - self.get_total()
+
+    def generate_invoice_pdf(self):
+        pdf_file = StringIO()
+        css = CSS(string='@page { size: A6; margin: 1cm }')
+        html = HTML(string=self.invoice_html)
+        html.write_pdf(pdf_file)
+
+        self.invoice_pdf.save(self.pdf_file_name, File(pdf_file))
+
 
 
 class PaymentProduct(models.Model):

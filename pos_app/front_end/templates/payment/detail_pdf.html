@@ -1,0 +1,233 @@
+{% load strftime %}
+{% load email_extras %}
+<html>
+<head>
+  <title>invoice detail</title>
+  <style>
+@page {
+  size: A4;
+}
+body {
+  font-family: 'Helvetica', sans-serif;
+  font-size: 12px;
+  line-height: 18px;
+  width: 100%;
+}
+.align-left { text-align: left; }
+.align-right { text-align: right; }
+table {
+  font-size: 12px;
+  border-collapse: collapse;
+}
+table.header {
+  border-bottom: 1px solid #ccc;
+  font-size: 24px;
+  text-transform: uppercase;
+  width: 100%;
+}
+table.header td {
+  margin: 0;
+  padding: 0;
+}
+table.header h1.logo {
+  padding: 5px 10px;
+  margin: 0;
+  background-color: #000;
+  float: left;
+}
+div.date-header {
+  margin: 5px 0 0 0;
+  text-align: right;
+}
+table.parties {
+  margin: 30px 0 0 0;
+  width: 100%;
+}
+table.parties h4 {
+  margin: 0 0 10px 0;
+}
+table.parties td {
+  width: 30%;
+}
+table.parties p {
+  margin: 0;
+}
+table.items {
+  margin: 50px 0 0 0;
+  width: 100%;
+}
+table.items td,
+table.items th {
+  border-bottom: 1px solid #ddd;
+  padding: 5px;
+  text-align: center;
+}
+table.items thead th {
+  border-bottom: 1px solid #999;
+}
+table.items tbody tr:last-child td {
+  border-bottom: 1px solid #999;
+}
+table.items tfoot td {
+  border-bottom: 1px solid #666;
+}
+table.items th:first-child,
+table.items td:first-child {
+  text-align: left;
+}
+table.items th:nth-child(2),
+table.items td:nth-child(2),
+table.items th:nth-child(3),
+table.items td:nth-child(3),
+table.items th:nth-child(5),
+table.items td:nth-child(5) {
+  text-align: right;
+}
+div.wire-info {
+  margin: 30px 0 0 0;
+}
+div.wire-info dl {
+  margin: 0;
+  padding: 0;
+}
+div.wire-info dt,
+div.wire-info dd {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
+div.wire-info dt {
+  margin: 0 10px 0 0;
+  font-weight: bold;
+}
+  </style>
+</head>
+<body style="  font-family: 'Helvetica', sans-serif;
+  font-size: 12px;
+  line-height: 18px;
+  width: 100%;">
+
+  <div style="width: auto; padding: 0;">
+    <table style="border-bottom: 1px solid #ccc;
+  font-size: 24px;
+  text-transform: uppercase;
+  width: 100%; border-collapse: collapse;">
+      <tr>
+        <td>
+          <h1 class="logo" style="padding: 5px 10px; margin: 0; background-color: #000; float: left;">
+            <img src="https://labsterim.s3.amazonaws.com/media/uploads/labster/labster_logo_30.png">
+          </h1>
+        </td>
+        <td style="text-align: right">
+          Invoice #{{ payment.invoice_number }}
+        </td>
+      </tr>
+    </table>
+    <div style="margin: 5px 0 0 0; text-align: right;">
+      {{ payment.created_at|date_str }}
+    </div>
+    <table style="margin: 30px 0 0 0; width: 100%; font-size: 12px; border-collapse: collapse;">
+      <tr>
+        <td style="width: 30%">
+          <h4 style="margin: 0 0 10px 0;">Bill To</h4>
+          <p style="margin: 0">{{ payment.user.first_name }}</p>
+          <p style="margin: 0">{{ payment.user.email }}</p>
+          {% if payment.country %}<p style="margin: 0">{{ payment.country }}</p>{% endif %}
+          {% if payment.institution_name %}<p style="margin: 0">{{ payment.institution_name }}</p>{% endif %}
+          {% if payment.vat_number %} %}<p style="margin: 0">{{ payment.vat_number }}</p>{% endif %}
+        </td>
+        <td style="width: 30%">&nbsp;</td>
+        <td style="width: 30%">
+          <h4 style="margin: 0 0 10px 0;">Company Info</h4>
+          <p style="margin: 0">Labster</p>
+          <p style="margin: 0">Njalsgade 19D, 1st floor</p>
+          <p style="margin: 0">2300 Copenhagen</p>
+          <p style="margin: 0">Denmark</p>
+        </td>
+      </tr>
+    </table>
+  {% if voucher %}
+    <table style="margin: 50px 0 0 0; width: 100%; font-size: 12px; border-collapse: collapse;">
+      <thead>
+        <tr>
+          <th style="border-bottom: 1px solid #999; padding: 5px; text-align: left;">Labs</th>
+          <th style="border-bottom: 1px solid #999; padding: 5px; text-align: right;">Licenses</th>
+          <th style="border-bottom: 1px solid #999; padding: 5px; text-align: center;">Subscription</th>
+          <th style="border-bottom: 1px solid #999; padding: 5px; text-align: right;">Total Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for product  in voucher.products.all %}
+        <tr>
+          <td  style="border-bottom: 1px solid #ddd; padding: 5px; text-align: left;">{{ product.name }}</td>
+          <td  style="border-bottom: 1px solid #ddd; padding: 5px; text-align: right;">1</td>
+          <td  style="border-bottom: 1px solid #ddd; padding: 5px; text-align: center;">{{ voucher.week_subscription }} weeks</td>
+          <td  style="border-bottom: 1px solid #ddd; padding: 5px; text-align: right;"></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3"  style="border-bottom: 1px solid #666; padding: 5px; text-align: left;">Total</td>
+          <td style="border-bottom: 1px solid #666; padding: 5px; text-align: right;">${{ payment.total|total_str }}</td>
+        </tr>
+      </tfoot>
+    </table>
+  {% else %}
+    <table style="margin: 50px 0 0 0; width: 100%; font-size: 12px; border-collapse: collapse;">
+      <thead>
+        <tr>
+          <th style="border-bottom: 1px solid #999; padding: 5px; text-align: left;">Labs</th>
+          <th style="border-bottom: 1px solid #999; padding: 5px; text-align: right;">Price</th>
+          <th style="border-bottom: 1px solid #999; padding: 5px; text-align: right;">Licenses</th>
+          <th style="border-bottom: 1px solid #999; padding: 5px; text-align: center;">Subscription</th>
+          <th style="border-bottom: 1px solid #999; padding: 5px; text-align: right;">Total Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for payment_product  in payment_products %}
+        <tr>
+          <td  style="border-bottom: 1px solid #ddd; padding: 5px; text-align: left;">{{ payment_product.product_name }}</td>
+          <td  style="border-bottom: 1px solid #ddd; padding: 5px; text-align: right;">${{ payment_product.price|total_str }}</td>
+          <td  style="border-bottom: 1px solid #ddd; padding: 5px; text-align: right;">{{ payment_product.item_count }}</td>
+          <td  style="border-bottom: 1px solid #ddd; padding: 5px; text-align: center;">{{ payment_product.month_subscription }} months</td>
+          <td  style="border-bottom: 1px solid #ddd; padding: 5px; text-align: right;">${{ payment_product.total|total_str }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="4"  style="border-bottom: 1px solid #666; padding: 5px; text-align: left;">Total</td>
+          <td style="border-bottom: 1px solid #666; padding: 5px; text-align: right;">${{ payment.total|total_str }}</td>
+        </tr>
+      </tfoot>
+    </table>
+  {% endif %}
+  {% if payment.is_manual and not payment.paid %}
+    <div class="wire-info" style="margin: 30px 0 0 0;">
+      <h4>Due date: {{ payment.invoice_due_date|date_str }}</h4>
+      <p>You may use the wire transfer information below, to transfer the amount to our bank account.
+      We will then daily check for the incoming wire transfer, which usually take 5-7 business day for international transfer.
+      </p>
+      <br/>
+      <p>
+        <dl><dt style="display: inline-block; margin: 0 10px 0 0; font-weight: bold; padding: 0; ">Bank name</dt><dd style="display: inline-block; margin: 0; padding: 0;">Danske Bank</dd></dl>
+        <dl><dt style="display: inline-block; margin: 0 10px 0 0; font-weight: bold; padding: 0; ">IBAN</dt><dd style="display: inline-block; margin: 0; padding: 0;">DK0530000011397980</dd></dl>
+        <dl><dt style="display: inline-block; margin: 0 10px 0 0; font-weight: bold; padding: 0; ">SWIFT/BIC</dt><dd style="display: inline-block; margin: 0; padding: 0;">DABADKKK</dd></dl>
+        <dl><dt style="display: inline-block; margin: 0 10px 0 0; font-weight: bold; padding: 0; ">Account No</dt><dd style="display: inline-block; margin: 0; padding: 0;">0011397980</dd></dl>
+        <dl><dt style="display: inline-block; margin: 0 10px 0 0; font-weight: bold; padding: 0; ">Registration No</dt><dd style="display: inline-block; margin: 0; padding: 0;">4180</dd></dl>
+        <dl><dt style="display: inline-block; margin: 0 10px 0 0; font-weight: bold; padding: 0; ">Beneficiary name</dt><dd style="display: inline-block; margin: 0; padding: 0;">Labster ApS, Njalsgade 19D, 2300 Copenhagen S, Denmark</dd></dl>
+        <dl><dt style="display: inline-block; margin: 0 10px 0 0; font-weight: bold; padding: 0; ">Message Invoice</dt><dd style="display: inline-block; margin: 0; padding: 0;">#{{ payment.invoice_number }} (please include invoice number this for us to identify your transaction)</dd></dl>
+        <dl><dt style="display: inline-block; margin: 0 10px 0 0; font-weight: bold; padding: 0; ">VAT/CVR</dt><dd style="display: inline-block; margin: 0; padding: 0;">DK34457808</dd></dl>
+      </p>
+    </div>
+  {% endif %}
+  {% if payment.is_stripe %}
+    <div class="wire-info" style="margin: 30px 0 0 0;">
+        <p><strong>Paid with credit card on {{ payment.paid_at|date_str }}</strong> (transaction ID: {{ payment_stripe.charge_id }})</p>
+    </div>
+  {% endif %}
+
+  </div>
+</body>
+</html>
