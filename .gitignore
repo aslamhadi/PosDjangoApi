@@ -14,6 +14,7 @@
 .idea/
 .pip_cache
 .treerc
+DEVENV
 local_settings.py
 pos_app/front_end/static/bower_components/*
 
