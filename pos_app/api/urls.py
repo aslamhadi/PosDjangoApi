@@ -1,4 +1,4 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 
 from pos_app.api.views import UserListCreate, CategoryListCreate, CategoryDetail, SubCategoryListCreate, \
     SubCategoryDetail, UnitTypeDetail, UnitTypeListCreate, ProductCreate, ProductList, ProductDetail, \
@@ -6,7 +6,7 @@ from pos_app.api.views import UserListCreate, CategoryListCreate, CategoryDetail
     FactoryListCreate, EmbalaseListCreate, EmbalaseDetail, GetEmbalaseByName, DoctorList, DoctorDetail, \
     DoctorCreateUpdate, PaymentList, PaymentDetail, CreatePrescription, PaymentProductDetail, GetPaymentProductsById
 
-urlpatterns = patterns('',  # nopep8
+urlpatterns = [
     # Account
     url(r'^logout/$', Logout.as_view(), name='logout'),
 
@@ -58,4 +58,4 @@ urlpatterns = patterns('',  # nopep8
     url(r'^products/create/$', ProductCreate.as_view(), name='product-create'),
     url(r'^products/(?P<pk>[0-9]+)/$', ProductDetail.as_view(), name='product-detail'),
     url(r'^products/name/(?P<name>.+)/$', GetProductsByName.as_view(), name='product-by-name'),
-)
+]
