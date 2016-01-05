@@ -1,4 +1,4 @@
 Django==1.9.1
 django-cors-headers==1.1.0
-djangorestframework==2.4.8
+djangorestframework==3.3.2
 WeasyPrint==0.25

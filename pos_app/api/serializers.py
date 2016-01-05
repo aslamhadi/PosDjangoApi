@@ -75,9 +75,7 @@ class ProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = (
-            'id', 'name', 'barcode', 'category', 'unit_type', 'factory', 'price', 'created_at', 'modified_at')
-        read_only_fields = ('created_at', 'modified_at')
+        fields = ('id', 'name', 'barcode', 'category', 'unit_type', 'factory', 'price', 'created_at', 'modified_at')
 
 
 class CreateProductSerializer(serializers.ModelSerializer):
@@ -87,20 +85,18 @@ class CreateProductSerializer(serializers.ModelSerializer):
 
 
 class PaymentSerializer(serializers.ModelSerializer):
-    employee = UserSerializer(read_only=True)
-    invoice_number = serializers.Field('invoice_number')
+    employee = UserSerializer()
+    invoice_number = serializers.CharField()
 
     class Meta:
         model = Payment
         fields = ('id', 'total', 'cash', 'change', 'created_at', 'modified_at', 'invoice_number', 'employee')
-        read_only_fields = ('created_at', 'modified_at')
 
 
 class PaymentProductSerializer(serializers.ModelSerializer):
-    product_name = serializers.Field('product_name')
-    total = serializers.Field('total')
+    product_name = serializers.CharField()
+    total = serializers.DecimalField(max_digits=10, decimal_places=2)
 
     class Meta:
         model = PaymentProduct
         fields = ('id', 'price', 'discount', 'item_count', 'product_name', 'total')
-        read_only_fields = ('product_name', 'total')
