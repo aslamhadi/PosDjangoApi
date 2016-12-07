@@ -1,9 +1,10 @@
-from django.contrib.auth.models import User
 from django.template import RequestContext
 from django.contrib.auth import authenticate, login
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render_to_response
+
+from pos_app.account.models import User
 
 
 def login_view(request):
@@ -19,6 +20,7 @@ def login_view(request):
             return HttpResponse("Username atau password ada yang salah.")
     else:
         return render_to_response('account/login.html', {}, context)
+
 
 def register_view(request):
     context = RequestContext(request)

@@ -1,6 +1,5 @@
 import csv
 
-from django.contrib.auth.models import User
 from django.contrib.auth import logout
 from django.utils import timezone
 from rest_framework import status
@@ -18,7 +17,7 @@ from pos_app.category.models import Category, SubCategory
 from pos_app.payment.models import Payment, PaymentProduct
 from pos_app.product.models import UnitType, Product, Embalase, Prescription
 from pos_app.factory.models import Factory
-from pos_app.account.models import Doctor
+from pos_app.account.models import Doctor, User
 
 
 class Logout(APIView):
@@ -49,7 +48,7 @@ class DoctorCreateUpdate(APIView):
 
     def post(self, request, *args, **kwargs):
         response_data = {}
-        data = request.DATA
+        data = request.data
         try:
             existing_user = User.objects.get(username=data['username'])
             # if user exists, create custom username
@@ -79,7 +78,7 @@ class DoctorCreateUpdate(APIView):
     def put(self, request, format=None):
         # Update
         response_data = {}
-        data = request.DATA
+        data = request.data
 
         existing_user = User.objects.get(username=data['username'])
         existing_user.first_name = data['first_name']
@@ -195,9 +194,9 @@ class CreatePayment(CreateAPIView):
     permission_classes = (IsAuthenticated,)
     serializer_class = PaymentSerializer
 
-    def pre_save(self, obj):
-        # Set total to 0 first because we haven't set the payment product of this payment
-        obj.total = 0
+    def perform_create(self, serializer):
+        del serializer.validated_data['invoice_number']
+        serializer.save(employee=self.request.user)
 
     def post_save(self, obj, created=False):
         payment = get_object_or_404(Payment, pk=obj.id)
@@ -222,6 +221,7 @@ class CreatePayment(CreateAPIView):
         payment.change = payment.get_change()
         payment.paid = True
         payment.paid_at = timezone.now()
+        payment.employee = obj.employee
         payment.save()
 
         response_data = {}
@@ -243,11 +243,22 @@ class PaymentDetail(RetrieveUpdateDestroyAPIView):
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
 
+    def perform_update(self, serializer):
+        # invoice number can't be updated since it's property
+        del serializer.validated_data['invoice_number']
+        serializer.save()
+
 
 class PaymentProductDetail(RetrieveUpdateDestroyAPIView):
     permission_classes = (IsAuthenticatedOrReadOnly,)
     queryset = PaymentProduct.objects.all()
     serializer_class = PaymentProductSerializer
+
+    def perform_update(self, serializer):
+        # product_name and total can't be updated since they are not property
+        del serializer.validated_data['product_name']
+        del serializer.validated_data['total']
+        serializer.save()
 
 
 class GetPaymentProductsById(ListAPIView):

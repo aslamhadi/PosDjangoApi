@@ -1,18 +1,17 @@
 from io import StringIO
+import uuid
 
-from weasyprint import HTML, CSS
-
-from django.contrib.auth.models import User
 from django.core.files import File
 from django.db import models
 from django.template.loader import render_to_string
 from django.utils import timezone
 
 from pos_app.product.models import Product, Prescription
-from pos_app.account.models import Patient
+from pos_app.account.models import Patient, User
 
 
 class Payment(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     employee = models.ForeignKey(User)
     patient = models.ForeignKey(Patient, blank=True, null=True)
     created_at = models.DateTimeField(default=timezone.now)
@@ -54,13 +53,7 @@ class Payment(models.Model):
         return self.cash - self.get_total()
 
     def generate_invoice_pdf(self):
-        pdf_file = StringIO()
-        css = CSS(string='@page { size: A6; margin: 1cm }')
-        html = HTML(string=self.invoice_html)
-        html.write_pdf(pdf_file)
-
-        self.invoice_pdf.save(self.pdf_file_name, File(pdf_file))
-
+        pass
 
 
 class PaymentProduct(models.Model):
@@ -69,6 +62,7 @@ class PaymentProduct(models.Model):
     and the amount of each product.
     This model could link to the product or prescription.
     """
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     product = models.ForeignKey(Product, blank=True, null=True)
     prescription = models.ForeignKey(Prescription, blank=True, null=True)
     payment = models.ForeignKey(Payment)

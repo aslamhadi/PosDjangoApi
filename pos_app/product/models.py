@@ -1,3 +1,5 @@
+import uuid
+
 from django.db import models
 from django.utils import timezone
 
@@ -7,6 +9,7 @@ from pos_app.factory.models import Factory
 
 
 class UnitType(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     # Can be mg, ml, box, etc
     name = models.CharField(max_length=255)
 
@@ -15,6 +18,7 @@ class UnitType(models.Model):
 
 
 class Embalase(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=255)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     created_at = models.DateTimeField(default=timezone.now)
@@ -22,6 +26,7 @@ class Embalase(models.Model):
 
 
 class Product(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     category = models.ForeignKey(Category)
     unit_type = models.ForeignKey(UnitType)
     factory = models.ForeignKey(Factory)
@@ -59,6 +64,7 @@ class Product(models.Model):
 
 
 class Prescription(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     products = models.ManyToManyField(Product)
     embalases = models.ManyToManyField(Embalase, blank=True)
     doctor = models.ForeignKey(Doctor, blank=True, null=True)

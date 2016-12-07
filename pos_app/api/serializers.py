@@ -1,5 +1,3 @@
-from django.contrib.auth.models import User
-
 from rest_framework import serializers
 
 from pos_app.account.models import Doctor, Patient
@@ -8,6 +6,8 @@ from pos_app.product.models import UnitType, Product, Embalase, Prescription
 from pos_app.payment.models import Payment, PaymentProduct
 from pos_app.factory.models import Factory
 from pos_app.store.models import StoreInformation
+
+from pos_app.account.models import User
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -27,7 +27,7 @@ class FactorySerializer(serializers.ModelSerializer):
 
 
 class DoctorSerializer(serializers.ModelSerializer):
-    user = UserSerializer()
+    user = UserSerializer(read_only=True)
 
     class Meta:
         model = Doctor
@@ -85,7 +85,7 @@ class CreateProductSerializer(serializers.ModelSerializer):
 
 
 class PaymentSerializer(serializers.ModelSerializer):
-    employee = UserSerializer()
+    employee = UserSerializer(read_only=True)
     invoice_number = serializers.CharField()
 
     class Meta:
